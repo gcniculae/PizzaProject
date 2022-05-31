@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,11 +14,15 @@ import java.util.List;
 @Setter
 public class Owner extends Staff {
 
+    @OneToOne
+    private Pizzeria pizzeria;
+
     @OneToMany(mappedBy = "owner")
     private List<Employee> employees;
 
-    public Owner(String firstName, String lastName, LocalDate datOfBirth, List<Employee> employees) {
-        super(firstName, lastName, datOfBirth);
+    public Owner(String firstName, String lastName, LocalDate dateOfBirth, Pizzeria pizzeria, List<Employee> employees) {
+        super(firstName, lastName, dateOfBirth);
+        this.pizzeria = pizzeria;
         this.employees = employees;
     }
 

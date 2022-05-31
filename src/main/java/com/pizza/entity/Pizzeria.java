@@ -1,4 +1,24 @@
 package com.pizza.entity;
 
-public class Pizzeria {
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+public class Pizzeria extends BaseEntity {
+
+    @OneToOne
+    private Owner owner;
+
+    @OneToMany(mappedBy = "pizzeria")
+    private List<Menu> menu;
+
+    @OneToMany(mappedBy = "pizzeria")
+    private List<Location> locations;
 }
