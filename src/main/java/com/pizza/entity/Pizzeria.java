@@ -24,9 +24,13 @@ public class Pizzeria extends BaseEntity {
     @OneToMany(mappedBy = "pizzeria")
     private List<Location> locations;
 
-    public Pizzeria(Owner owner, List<Menu> menu, List<Location> locations) {
+    @OneToMany(mappedBy = "pizzeria")
+    private List<IngredientStock> ingredientStockList;
+
+    public Pizzeria(Owner owner, List<Menu> menu, List<Location> locations, List<IngredientStock> ingredientStockList) {
         this.owner = owner;
         this.menu = menu;
         this.locations = locations;
+        this.ingredientStockList = ingredientStockList;
     }
 }

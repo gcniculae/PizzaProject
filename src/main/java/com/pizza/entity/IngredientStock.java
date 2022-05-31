@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -12,4 +14,16 @@ import javax.persistence.Entity;
 @Setter
 public class IngredientStock extends BaseEntity {
 
+    private String name;
+    private int quantity;
+    private LocalDate expirationDate;
+    @ManyToOne
+    private Pizzeria pizzeria;
+
+    public IngredientStock(String name, int quantity, LocalDate expirationDate, Pizzeria pizzeria) {
+        this.name = name;
+        this.quantity = quantity;
+        this.expirationDate = expirationDate;
+        this.pizzeria = pizzeria;
+    }
 }
