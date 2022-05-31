@@ -15,4 +15,8 @@ public class Menu extends BaseEntity {
 
     @ManyToOne
     private Pizzeria pizzeria;
+
+    public Menu(Pizzeria pizzeria) {
+        this.pizzeria = pizzeria;
+    }
 }
