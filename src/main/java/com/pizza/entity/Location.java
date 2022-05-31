@@ -13,10 +13,13 @@ import javax.persistence.ManyToOne;
 @Setter
 public class Location extends BaseEntity {
 
+    private String name;
+
     @ManyToOne
     private Pizzeria pizzeria;
 
-    public Location(Pizzeria pizzeria) {
+    public Location(String name, Pizzeria pizzeria) {
+        this.name = name;
         this.pizzeria = pizzeria;
     }
 }
