@@ -1,7 +1,9 @@
 package com.pizza.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public enum Position {
 
@@ -11,8 +13,4 @@ public enum Position {
     DELIVERY(3000);
 
     private double salary;
-
-    Position(double salary) {
-        this.salary = salary;
-    }
 }

@@ -1,6 +1,7 @@
 package com.pizza.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.OneToOne;
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
 @Getter
 @Setter
 public class Pizzeria extends BaseEntity {
