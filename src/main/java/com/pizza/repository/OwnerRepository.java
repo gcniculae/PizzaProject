@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
 
+    void deleteByFirstNameAndLastName(String firstName, String lastName);
 }

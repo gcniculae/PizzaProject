@@ -16,6 +16,9 @@ public class Reservation extends BaseEntity {
     @ManyToOne
     private Pizzeria pizzeria;
 
+    @ManyToOne
+    private Location location;
+
     public Reservation(Pizzeria pizzeria) {
         this.pizzeria = pizzeria;
     }

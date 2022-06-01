@@ -15,8 +15,9 @@ public class Client extends BaseEntity {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private static int number = 0;
     private String clientCode;
+    private static int number = 0;
+
 
     public Client(String firstName, String lastName, String phoneNumber) {
         this.firstName = firstName;
