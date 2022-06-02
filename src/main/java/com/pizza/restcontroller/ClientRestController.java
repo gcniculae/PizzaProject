@@ -41,7 +41,7 @@ public class ClientRestController {
         return ResponseEntity.ok(allClientsDto);
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "clientId/{id}")
     public ResponseEntity<ClientDto> findClientById(@PathVariable("id") Long id) {
         Client client = clientService.findClientById(id);
         ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);

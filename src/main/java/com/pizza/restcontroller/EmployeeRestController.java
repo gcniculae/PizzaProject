@@ -34,7 +34,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(allEmployeesDto);
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "employeeId/{id}")
     public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable("id") Long id) {
         Employee employee = employeeService.findEmployeeById(id);
         EmployeeDto employeeDto = employeeTransformer.transformFromEmployeeToEmployeeDto(employee);
@@ -42,7 +42,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeeDto);
     }
 
-    @GetMapping(path = "/{firstName}")
+    @GetMapping(path = "employeeFirstName/{firstName}")
     public ResponseEntity<List<EmployeeDto>> findEmployeesByFirstName(@PathVariable("firstName") String firstName) {
         List<Employee> employees = employeeService.findEmployeesByFirstName(firstName);
         List<EmployeeDto> employeesDto = employees.stream()
@@ -51,7 +51,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeesDto);
     }
 
-    @GetMapping(path = "/{lastName}")
+    @GetMapping(path = "employeeLastName/{lastName}")
     public ResponseEntity<List<EmployeeDto>> findEmployeesByLastName(@PathVariable("lastName") String lastName) {
         List<Employee> employees = employeeService.findEmployeesByLastName(lastName);
         List<EmployeeDto> employeesDto = employees.stream()
@@ -60,7 +60,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeesDto);
     }
 
-    @GetMapping(path = "/{dateOfBirth}")
+    @GetMapping(path = "employeeDateOfBirth/{dateOfBirth}")
     public ResponseEntity<List<EmployeeDto>> findEmployeesByDateOfBirth(@PathVariable("dateOfBirth") LocalDate dateOfBirth) {
         List<Employee> employees = employeeService.findEmployeesByDateOfBirth(dateOfBirth);
         List<EmployeeDto> employeesDto = employees.stream()
@@ -69,7 +69,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeesDto);
     }
 
-    @GetMapping(path = "/{position}")
+    @GetMapping(path = "employeePosition/{position}")
     public ResponseEntity<List<EmployeeDto>> findEmployeesByPosition(@PathVariable("position") String position) {
         List<Employee> employees = employeeService.findEmployeesByPosition(position);
         List<EmployeeDto> employeesDto = employees.stream()
@@ -87,10 +87,10 @@ public class EmployeeRestController {
         return ResponseEntity.ok(savedEmployeeDto);
     }
 
-    @PutMapping
-    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto, @PathVariable Long id) {
         Employee employee = employeeTransformer.transformFromEmployeeDtoToEmployee(employeeDto);
-        Employee savedEmployee = employeeService.saveEmployee(employee);
+        Employee savedEmployee = employeeService.updateEmployee(employee, id);
         EmployeeDto savedEmployeeDto = employeeTransformer.transformFromEmployeeToEmployeeDto(savedEmployee);
 
         return ResponseEntity.ok(savedEmployeeDto);

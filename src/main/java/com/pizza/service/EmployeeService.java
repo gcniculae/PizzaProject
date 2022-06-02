@@ -69,6 +69,17 @@ public class EmployeeService {
         return employeeRepository.findByPosition(position);
     }
 
+    public Employee updateEmployee(Employee employee, Long id) {
+        try {
+            findEmployeeById(id);
+            employee.setId(id);
+
+            return saveEmployee(employee);
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException("No such employee.");
+        }
+    }
+
     public void deleteEmployeeById(Long id) {
         employeeRepository.deleteById(id);
     }
