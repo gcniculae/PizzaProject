@@ -79,7 +79,7 @@ public class EmployeeRestController {
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeDto> addEmployee(EmployeeDto employeeDto) {
+    public ResponseEntity<EmployeeDto> addEmployee(@RequestBody EmployeeDto employeeDto) {
         Employee employee = employeeTransformer.transformFromEmployeeDtoToEmployee(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee);
         EmployeeDto savedEmployeeDto = employeeTransformer.transformFromEmployeeToEmployeeDto(savedEmployee);
@@ -88,7 +88,7 @@ public class EmployeeRestController {
     }
 
     @PutMapping
-    public ResponseEntity<EmployeeDto> updateEmployee(EmployeeDto employeeDto) {
+    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
         Employee employee = employeeTransformer.transformFromEmployeeDtoToEmployee(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee);
         EmployeeDto savedEmployeeDto = employeeTransformer.transformFromEmployeeToEmployeeDto(savedEmployee);
@@ -97,7 +97,7 @@ public class EmployeeRestController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<EmployeeDto> deleteEmployeeById(Long id) {
+    public ResponseEntity<EmployeeDto> deleteEmployeeById(@PathVariable("id") Long id) {
         employeeService.deleteEmployeeById(id);
 
         return ResponseEntity.noContent().build();

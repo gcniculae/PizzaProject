@@ -19,9 +19,8 @@ public class Employee extends Staff {
     @ManyToOne
     private Owner owner;
 
-    public Employee(String firstName, String lastName, LocalDate datOfBirth, Position position, Owner owner) {
+    public Employee(String firstName, String lastName, LocalDate datOfBirth, Position position) {
         super(firstName, lastName, datOfBirth);
         this.position = position;
-        this.owner = owner;
     }
 }

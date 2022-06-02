@@ -78,7 +78,7 @@ public class ClientRestController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDto> addClient(ClientDto clientDto) {
+    public ResponseEntity<ClientDto> addClient(@RequestBody ClientDto clientDto) {
         Client client = clientTransformer.transformFromClientDtoToClient(clientDto);
         Client savedClient = clientService.saveClient(client);
         ClientDto savedClientDto = clientTransformer.transformFromClientToClientDto(savedClient);
@@ -87,7 +87,7 @@ public class ClientRestController {
     }
 
     @PutMapping
-    public ResponseEntity<ClientDto> updateClient(ClientDto clientDto) {
+    public ResponseEntity<ClientDto> updateClient(@RequestBody ClientDto clientDto) {
         Client client = clientTransformer.transformFromClientDtoToClient(clientDto);
         Client savedClient = clientService.saveClient(client);
         ClientDto savedClientDto = clientTransformer.transformFromClientToClientDto(savedClient);
