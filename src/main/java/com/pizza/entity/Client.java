@@ -22,6 +22,6 @@ public class Client extends BaseEntity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        clientCode = "C" + UUID.randomUUID().toString().toUpperCase().replaceAll("-", "");
+        this.clientCode = "C" + UUID.randomUUID().toString().toUpperCase().replaceAll("-", "");
     }
 }
