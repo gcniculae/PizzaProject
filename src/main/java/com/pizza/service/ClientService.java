@@ -37,11 +37,11 @@ public class ClientService {
         }
     }
 
-    public List<Client> findClientByFirstName(String firstName) {
+    public List<Client> findClientsByFirstName(String firstName) {
         return clientRepository.findByFirstName(firstName);
     }
 
-    public List<Client> findClientByLastName(String lastName) {
+    public List<Client> findClientsByLastName(String lastName) {
         return clientRepository.findByLastName(lastName);
     }
 

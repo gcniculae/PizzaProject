@@ -38,11 +38,11 @@ public class EmployeeService {
         }
     }
 
-    public List<Employee> findEmployeeByFirstName(String firstName) {
+    public List<Employee> findEmployeesByFirstName(String firstName) {
         return employeeRepository.findByFirstName(firstName);
     }
 
-    public List<Employee> findEmployeeByLastName(String lastName) {
+    public List<Employee> findEmployeesByLastName(String lastName) {
         return employeeRepository.findByLastName(lastName);
     }
 

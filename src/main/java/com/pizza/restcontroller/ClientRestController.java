@@ -50,8 +50,8 @@ public class ClientRestController {
     }
 
     @GetMapping(path = "/{firstName}")
-    public ResponseEntity<List<ClientDto>> findClientByFirstName(@PathVariable("firstName") String firstName) {
-        List<Client> clients = clientService.findClientByFirstName(firstName);
+    public ResponseEntity<List<ClientDto>> findClientsByFirstName(@PathVariable("firstName") String firstName) {
+        List<Client> clients = clientService.findClientsByFirstName(firstName);
 
         List<ClientDto> clientsDto = clients.stream()
                 .map(clientTransformer::transformFromClientToClientDto).toList();
@@ -60,8 +60,8 @@ public class ClientRestController {
     }
 
     @GetMapping(path = "/{lastName}")
-    public ResponseEntity<List<ClientDto>> findClientByLastName(@PathVariable("lastName") String lastName) {
-        List<Client> clients = clientService.findClientByLastName(lastName);
+    public ResponseEntity<List<ClientDto>> findClientsByLastName(@PathVariable("lastName") String lastName) {
+        List<Client> clients = clientService.findClientsByLastName(lastName);
 
         List<ClientDto> clientsDto = clients.stream()
                 .map(clientTransformer::transformFromClientToClientDto).toList();
