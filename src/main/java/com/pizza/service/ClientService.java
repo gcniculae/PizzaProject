@@ -4,6 +4,7 @@ import com.pizza.entity.Client;
 import com.pizza.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -97,6 +98,7 @@ public class ClientService {
         clientRepository.deleteById(id);
     }
 
+    @Transactional
     public void deleteClientByClientCode(String clientCode) {
         clientRepository.deleteByClientCode(clientCode);
     }
