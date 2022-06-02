@@ -104,21 +104,21 @@ public class ClientRestController {
         return ResponseEntity.ok(savedClientDto);
     }
 
-    @DeleteMapping(path = "/{id}")
+    @DeleteMapping(path = "deleteById/{id}")
     public ResponseEntity<ClientDto> deleteClientById(@PathVariable("id") Long id) {
         clientService.deleteClientById(id);
 
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(path = "/{clientCode}")
+    @DeleteMapping(path = "deleteByClientCode/{clientCode}")
     public ResponseEntity<ClientDto> deleteClientByClientCode(@PathVariable("clientCode") String clientCode) {
         clientService.deleteClientByClientCode(clientCode);
 
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(path = "/{phoneNumber}")
+    @DeleteMapping(path = "deleteByPhoneNumber/{phoneNumber}")
     public ResponseEntity<ClientDto> deleteClientByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
         clientService.findClientByPhoneNumber(phoneNumber);
 

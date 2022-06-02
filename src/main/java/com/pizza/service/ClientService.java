@@ -34,6 +34,9 @@ public class ClientService {
     }
 
     public Client saveClient(Client client) {
+        Client newClient = new Client(client.getFirstName(), client.getLastName(), client.getPhoneNumber());
+        client.setClientCode(newClient.getClientCode());
+
         return clientRepository.save(client);
     }
 
