@@ -42,7 +42,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeeDto);
     }
 
-    @GetMapping(path = "employeeFirstName/{firstName}")
+    @GetMapping(path = "employeesByFirstName/{firstName}")
     public ResponseEntity<List<EmployeeDto>> findEmployeesByFirstName(@PathVariable("firstName") String firstName) {
         List<Employee> employees = employeeService.findEmployeesByFirstName(firstName);
         List<EmployeeDto> employeesDto = employees.stream()
@@ -51,7 +51,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeesDto);
     }
 
-    @GetMapping(path = "employeeLastName/{lastName}")
+    @GetMapping(path = "employeesByLastName/{lastName}")
     public ResponseEntity<List<EmployeeDto>> findEmployeesByLastName(@PathVariable("lastName") String lastName) {
         List<Employee> employees = employeeService.findEmployeesByLastName(lastName);
         List<EmployeeDto> employeesDto = employees.stream()
@@ -60,7 +60,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeesDto);
     }
 
-    @GetMapping(path = "employeeDateOfBirth/{dateOfBirth}")
+    @GetMapping(path = "employeesByDateOfBirth/{dateOfBirth}")
     public ResponseEntity<List<EmployeeDto>> findEmployeesByDateOfBirth(@PathVariable("dateOfBirth") LocalDate dateOfBirth) {
         List<Employee> employees = employeeService.findEmployeesByDateOfBirth(dateOfBirth);
         List<EmployeeDto> employeesDto = employees.stream()
@@ -69,7 +69,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeesDto);
     }
 
-    @GetMapping(path = "employeePosition/{position}")
+    @GetMapping(path = "employeesByPosition/{position}")
     public ResponseEntity<List<EmployeeDto>> findEmployeesByPosition(@PathVariable("position") String position) {
         List<Employee> employees = employeeService.findEmployeesByPosition(position);
         List<EmployeeDto> employeesDto = employees.stream()

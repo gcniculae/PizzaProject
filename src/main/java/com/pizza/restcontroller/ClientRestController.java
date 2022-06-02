@@ -26,6 +26,7 @@ public class ClientRestController {
         this.clientTransformer = clientTransformer;
     }
 
+
     @GetMapping(path = "/allClients")
     public ResponseEntity<List<ClientDto>> getAllClients() {
         List<Client> allClients = clientService.findAllClients();
@@ -49,7 +50,7 @@ public class ClientRestController {
         return ResponseEntity.ok(clientDto);
     }
 
-    @GetMapping(path = "clientFirstName/{firstName}")
+    @GetMapping(path = "clientsByFirstName/{firstName}")
     public ResponseEntity<List<ClientDto>> findClientsByFirstName(@PathVariable("firstName") String firstName) {
         List<Client> clients = clientService.findClientsByFirstName(firstName);
 
@@ -59,7 +60,15 @@ public class ClientRestController {
         return ResponseEntity.ok(clientsDto);
     }
 
-    @GetMapping(path = "clientLastName/{lastName}")
+    @GetMapping(path = "clientCode/{clientCode}")
+    public ResponseEntity<ClientDto> findClientByClientCode(@PathVariable String clientCode) {
+        Client client = clientService.findClientByClientCode(clientCode);
+        ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
+
+        return ResponseEntity.ok(clientDto);
+    }
+
+    @GetMapping(path = "clientsByLastName/{lastName}")
     public ResponseEntity<List<ClientDto>> findClientsByLastName(@PathVariable("lastName") String lastName) {
         List<Client> clients = clientService.findClientsByLastName(lastName);
 

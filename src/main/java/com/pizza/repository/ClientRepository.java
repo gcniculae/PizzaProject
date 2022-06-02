@@ -14,7 +14,9 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     List<Client> findByLastName(String lastName);
 
-    void deleteByClientCode(String clientCode);
-
     Optional<Client> findByPhoneNumber(String phoneNumber);
+
+    Optional<Client> findByClientCode(String clientCode);
+
+    void deleteByClientCode(String clientCode);
 }
