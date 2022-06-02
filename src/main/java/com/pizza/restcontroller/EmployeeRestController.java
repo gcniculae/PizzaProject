@@ -88,9 +88,9 @@ public class EmployeeRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto, @PathVariable Long id) {
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto) {
         Employee employee = employeeTransformer.transformFromEmployeeDtoToEmployee(employeeDto);
-        Employee savedEmployee = employeeService.updateEmployee(employee, id);
+        Employee savedEmployee = employeeService.updateEmployee(id, employee);
         EmployeeDto savedEmployeeDto = employeeTransformer.transformFromEmployeeToEmployeeDto(savedEmployee);
 
         return ResponseEntity.ok(savedEmployeeDto);

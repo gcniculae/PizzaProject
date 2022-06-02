@@ -49,7 +49,7 @@ public class ClientRestController {
         return ResponseEntity.ok(clientDto);
     }
 
-    @GetMapping(path = "/{firstName}")
+    @GetMapping(path = "clientFirstName/{firstName}")
     public ResponseEntity<List<ClientDto>> findClientsByFirstName(@PathVariable("firstName") String firstName) {
         List<Client> clients = clientService.findClientsByFirstName(firstName);
 
@@ -59,7 +59,7 @@ public class ClientRestController {
         return ResponseEntity.ok(clientsDto);
     }
 
-    @GetMapping(path = "/{lastName}")
+    @GetMapping(path = "clientLastName/{lastName}")
     public ResponseEntity<List<ClientDto>> findClientsByLastName(@PathVariable("lastName") String lastName) {
         List<Client> clients = clientService.findClientsByLastName(lastName);
 
@@ -69,7 +69,7 @@ public class ClientRestController {
         return ResponseEntity.ok(clientsDto);
     }
 
-    @GetMapping(path = "/{phoneNumber}")
+    @GetMapping(path = "clientPhoneNumber/{phoneNumber}")
     public ResponseEntity<ClientDto> findClientByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
         Client client = clientService.findClientByPhoneNumber(phoneNumber);
         ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
@@ -86,10 +86,10 @@ public class ClientRestController {
         return ResponseEntity.ok(savedClientDto);
     }
 
-    @PutMapping
-    public ResponseEntity<ClientDto> updateClient(@RequestBody ClientDto clientDto) {
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientDto clientDto) {
         Client client = clientTransformer.transformFromClientDtoToClient(clientDto);
-        Client savedClient = clientService.saveClient(client);
+        Client savedClient = clientService.updateClient(id, client);
         ClientDto savedClientDto = clientTransformer.transformFromClientToClientDto(savedClient);
 
         return ResponseEntity.ok(savedClientDto);

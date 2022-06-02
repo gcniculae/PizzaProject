@@ -69,7 +69,7 @@ public class EmployeeService {
         return employeeRepository.findByPosition(position);
     }
 
-    public Employee updateEmployee(Employee employee, Long id) {
+    public Employee updateEmployee(Long id, Employee employee) {
         try {
             findEmployeeById(id);
             employee.setId(id);

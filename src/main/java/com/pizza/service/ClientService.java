@@ -1,6 +1,7 @@
 package com.pizza.service;
 
 import com.pizza.entity.Client;
+import com.pizza.entity.Employee;
 import com.pizza.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,17 @@ public class ClientService {
         if (optionalClient.isPresent()) {
             return optionalClient.get();
         } else {
+            throw new NoSuchElementException("No such client.");
+        }
+    }
+
+    public Client updateClient(Long id, Client client) {
+        try {
+            findClientById(id);
+            client.setId(id);
+
+            return saveClient(client);
+        } catch (NoSuchElementException e) {
             throw new NoSuchElementException("No such client.");
         }
     }
