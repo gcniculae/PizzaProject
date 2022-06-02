@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/api/client")
+@RequestMapping(path = "/client")
 @CrossOrigin(origins = "*")
 public class ClientRestController {
 
@@ -42,7 +42,7 @@ public class ClientRestController {
         return ResponseEntity.ok(allClientsDto);
     }
 
-    @GetMapping(path = "clientId/{id}")
+    @GetMapping(path = "/clientId/{id}")
     public ResponseEntity<ClientDto> findClientById(@PathVariable("id") Long id) {
         Client client = clientService.findClientById(id);
         ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
@@ -50,7 +50,7 @@ public class ClientRestController {
         return ResponseEntity.ok(clientDto);
     }
 
-    @GetMapping(path = "clientsByFirstName/{firstName}")
+    @GetMapping(path = "/clientsByFirstName/{firstName}")
     public ResponseEntity<List<ClientDto>> findClientsByFirstName(@PathVariable("firstName") String firstName) {
         List<Client> clients = clientService.findClientsByFirstName(firstName);
 
@@ -60,7 +60,7 @@ public class ClientRestController {
         return ResponseEntity.ok(clientsDto);
     }
 
-    @GetMapping(path = "clientCode/{clientCode}")
+    @GetMapping(path = "/clientCode/{clientCode}")
     public ResponseEntity<ClientDto> findClientByClientCode(@PathVariable String clientCode) {
         Client client = clientService.findClientByClientCode(clientCode);
         ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
@@ -68,7 +68,7 @@ public class ClientRestController {
         return ResponseEntity.ok(clientDto);
     }
 
-    @GetMapping(path = "clientsByLastName/{lastName}")
+    @GetMapping(path = "/clientsByLastName/{lastName}")
     public ResponseEntity<List<ClientDto>> findClientsByLastName(@PathVariable("lastName") String lastName) {
         List<Client> clients = clientService.findClientsByLastName(lastName);
 
@@ -78,7 +78,7 @@ public class ClientRestController {
         return ResponseEntity.ok(clientsDto);
     }
 
-    @GetMapping(path = "clientPhoneNumber/{phoneNumber}")
+    @GetMapping(path = "/clientPhoneNumber/{phoneNumber}")
     public ResponseEntity<ClientDto> findClientByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
         Client client = clientService.findClientByPhoneNumber(phoneNumber);
         ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
@@ -104,23 +104,23 @@ public class ClientRestController {
         return ResponseEntity.ok(savedClientDto);
     }
 
-    @DeleteMapping(path = "deleteById/{id}")
+    @DeleteMapping(path = "/deleteById/{id}")
     public ResponseEntity<ClientDto> deleteClientById(@PathVariable("id") Long id) {
         clientService.deleteClientById(id);
 
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(path = "deleteByClientCode/{clientCode}")
+    @DeleteMapping(path = "/deleteByClientCode/{clientCode}")
     public ResponseEntity<ClientDto> deleteClientByClientCode(@PathVariable("clientCode") String clientCode) {
         clientService.deleteClientByClientCode(clientCode);
 
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(path = "deleteByPhoneNumber/{phoneNumber}")
+    @DeleteMapping(path = "/deleteByPhoneNumber/{phoneNumber}")
     public ResponseEntity<ClientDto> deleteClientByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
-        clientService.findClientByPhoneNumber(phoneNumber);
+        clientService.deleteClientByPhoneNumber(phoneNumber);
 
         return ResponseEntity.noContent().build();
     }

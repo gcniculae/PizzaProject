@@ -102,4 +102,9 @@ public class ClientService {
     public void deleteClientByClientCode(String clientCode) {
         clientRepository.deleteByClientCode(clientCode);
     }
+
+    @Transactional
+    public void deleteClientByPhoneNumber(String phoneNumber) {
+        clientRepository.deleteByPhoneNumber(phoneNumber);
+    }
 }
