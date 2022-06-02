@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClientTransformer {
 
-    public ClientDto transformFromClientToDto(Client client) {
+    public ClientDto transformFromClientToClientDto(Client client) {
         ClientDto clientDto = new ClientDto();
         BeanUtils.copyProperties(client, clientDto);
 

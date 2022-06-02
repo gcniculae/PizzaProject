@@ -19,8 +19,8 @@ public class PizzaService {
         this.pizzaRepository = pizzaRepository;
     }
 
-    public void savePizza(Pizza pizza) {
-        pizzaRepository.save(pizza);
+    public Pizza savePizza(Pizza pizza) {
+        return pizzaRepository.save(pizza);
     }
 
     public List<Pizza> findAllPizza() {

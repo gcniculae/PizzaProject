@@ -18,8 +18,8 @@ public class OwnerService {
         this.ownerRepository = ownerRepository;
     }
 
-    public void saveOwner(Owner owner) {
-        ownerRepository.save(owner);
+    public Owner saveOwner(Owner owner) {
+        return ownerRepository.save(owner);
     }
 
     public Owner findOwnerById(Long id) {

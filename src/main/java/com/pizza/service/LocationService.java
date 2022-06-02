@@ -19,8 +19,8 @@ public class LocationService {
         this.locationRepository = locationRepository;
     }
 
-    public void saveLocation(Location location) {
-        locationRepository.save(location);
+    public Location saveLocation(Location location) {
+        return locationRepository.save(location);
     }
 
     public List<Location> findAllLocations() {

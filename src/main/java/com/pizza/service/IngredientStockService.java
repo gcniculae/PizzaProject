@@ -20,8 +20,8 @@ public class IngredientStockService {
         this.ingredientStockRepository = ingredientStockRepository;
     }
 
-    public void saveIngredientStock(IngredientStock ingredientStock) {
-        ingredientStockRepository.save(ingredientStock);
+    public IngredientStock saveIngredientStock(IngredientStock ingredientStock) {
+        return ingredientStockRepository.save(ingredientStock);
     }
 
     public List<IngredientStock> findAllIngredientStocks() {

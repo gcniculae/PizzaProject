@@ -18,8 +18,8 @@ public class ProductOrderService {
         this.productOrderRepository = productOrderRepository;
     }
 
-    public void saveProductOwner(ProductOrder productOrder) {
-        productOrderRepository.save(productOrder);
+    public ProductOrder saveProductOwner(ProductOrder productOrder) {
+        return productOrderRepository.save(productOrder);
     }
 
     public ProductOrder findProductOrderById(Long id) {
