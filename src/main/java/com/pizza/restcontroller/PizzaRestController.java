@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/pizza")
+@RequestMapping(path = "/pizza")
 @CrossOrigin(origins = "*")
 public class PizzaRestController {
 

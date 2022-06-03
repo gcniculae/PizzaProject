@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/reservation")
+@RequestMapping(path = "/reservation")
 @CrossOrigin(origins = "*")
 public class ReservationRestController {
 

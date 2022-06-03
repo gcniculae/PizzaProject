@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/productOrder")
+@RequestMapping(path = "/productOrder")
 @CrossOrigin(origins = "*")
 public class ProductOrderRestController {
 

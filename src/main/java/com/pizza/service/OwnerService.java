@@ -32,6 +32,17 @@ public class OwnerService {
         }
     }
 
+    public Owner updateOwner(Long id, Owner owner) {
+        try {
+            Owner ownerById = findOwnerById(id);
+            owner.setId(ownerById.getId());
+
+            return saveOwner(owner);
+        } catch (NoSuchElementException e) {
+            throw new RuntimeException("No such owner.");
+        }
+    }
+
     public void deleteOwner(Owner owner) {
         ownerRepository.delete(owner);
     }
