@@ -47,11 +47,11 @@ public class OwnerService {
         ownerRepository.delete(owner);
     }
 
-    public void deleteOwnerByFirstNameAndLastName(String firstName, String lastName) {
-        ownerRepository.deleteByFirstNameAndLastName(firstName, lastName);
-    }
-
     public void deleteOwnerById(Long id) {
         ownerRepository.deleteById(id);
+    }
+
+    public void deleteOwnerByFirstNameAndLastName(String firstName, String lastName) {
+        ownerRepository.deleteByFirstNameAndLastName(firstName, lastName);
     }
 }

@@ -98,10 +98,10 @@ public class ClientRestController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientDto clientDto) {
         Client client = clientTransformer.transformFromClientDtoToClient(clientDto);
-        Client savedClient = clientService.updateClient(id, client);
-        ClientDto savedClientDto = clientTransformer.transformFromClientToClientDto(savedClient);
+        Client updatedClient = clientService.updateClient(id, client);
+        ClientDto updatedClientDto = clientTransformer.transformFromClientToClientDto(updatedClient);
 
-        return ResponseEntity.ok(savedClientDto);
+        return ResponseEntity.ok(updatedClientDto);
     }
 
     @DeleteMapping(path = "/deleteById/{id}")

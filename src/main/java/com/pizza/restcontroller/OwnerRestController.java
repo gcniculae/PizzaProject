@@ -28,5 +28,30 @@ public class OwnerRestController {
         return ResponseEntity.ok(ownerDto);
     }
 
+    @PostMapping
+    public ResponseEntity<OwnerDto> addOwner(OwnerDto ownerDto) {
+        Owner owner = ownerTransformer.transformFromOwnerDtoToOwner(ownerDto);
+        Owner savedOwner = ownerService.saveOwner(owner);
+        OwnerDto savedOwnerDto = ownerTransformer.transformFromOwnerToOwnerDto(savedOwner);
+
+        return ResponseEntity.ok(savedOwnerDto);
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<OwnerDto> updateOwner(Long id, OwnerDto ownerDto) {
+        Owner owner = ownerService.findOwnerById(id);
+        Owner updatedOwner = ownerService.updateOwner(id, owner);
+        OwnerDto updatedOwnerDto = ownerTransformer.transformFromOwnerToOwnerDto(updatedOwner);
+
+        return ResponseEntity.ok(updatedOwnerDto);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<OwnerDto> deleteOwnerById(@PathVariable("id") Long id) {
+        ownerService.deleteOwnerById(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
