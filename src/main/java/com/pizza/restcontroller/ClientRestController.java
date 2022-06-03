@@ -125,23 +125,38 @@ public class ClientRestController {
         return ResponseEntity.ok(updatedClientDto);
     }
 
-    @DeleteMapping(path = "/id/{id}")
-    public ResponseEntity<ClientDto> deleteClientById(@PathVariable("id") Long id) {
-        clientService.deleteClientById(id);
+//    @DeleteMapping(path = "/id/{id}")
+//    public ResponseEntity<ClientDto> deleteClientById(@PathVariable("id") Long id) {
+//        clientService.deleteClientById(id);
+//
+//        return ResponseEntity.noContent().build();
+//    }
+//
+//    @DeleteMapping(path = "/client-code/{clientCode}")
+//    public ResponseEntity<ClientDto> deleteClientByClientCode(@PathVariable("clientCode") String clientCode) {
+//        clientService.deleteClientByClientCode(clientCode);
+//
+//        return ResponseEntity.noContent().build();
+//    }
+//
+//    @DeleteMapping(path = "/phone-number/{phoneNumber}")
+//    public ResponseEntity<ClientDto> deleteClientByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
+//        clientService.deleteClientByPhoneNumber(phoneNumber);
+//
+//        return ResponseEntity.noContent().build();
+//    }
 
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping(path = "/client-code/{clientCode}")
-    public ResponseEntity<ClientDto> deleteClientByClientCode(@PathVariable("clientCode") String clientCode) {
-        clientService.deleteClientByClientCode(clientCode);
-
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping(path = "/phone-number/{phoneNumber}")
-    public ResponseEntity<ClientDto> deleteClientByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
-        clientService.deleteClientByPhoneNumber(phoneNumber);
+    @DeleteMapping
+    public ResponseEntity<ClientDto> deleteClient(@RequestParam(name = "id", required = false) Long id,
+                                                  @RequestParam(name = "clientCode", required = false) String clientCode,
+                                                  @RequestParam(name = "phoneNumber", required = false) String phoneNumber) {
+        if (id != null) {
+            clientService.deleteClientById(id);
+        } else if (clientCode != null) {
+            clientService.deleteClientByClientCode(clientCode);
+        } else if (phoneNumber != null) {
+            clientService.deleteClientByPhoneNumber(phoneNumber);
+        }
 
         return ResponseEntity.noContent().build();
     }

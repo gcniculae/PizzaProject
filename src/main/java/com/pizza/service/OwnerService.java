@@ -39,10 +39,6 @@ public class OwnerService {
         return saveOwner(owner);
     }
 
-    public void deleteOwner(Owner owner) {
-        ownerRepository.delete(owner);
-    }
-
     public void deleteOwnerById(Long id) {
         ownerRepository.deleteById(id);
     }

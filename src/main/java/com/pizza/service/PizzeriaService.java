@@ -37,6 +37,13 @@ public class PizzeriaService {
         }
     }
 
+    public Pizzeria updatePizzeria(Long id, Pizzeria pizzeria) {
+        Pizzeria pizzeriaById = findPizzeriaById(id);
+        pizzeria.setId(pizzeriaById.getId());
+
+        return savePizzeria(pizzeria);
+    }
+
     public void deletePizzeria(Pizzeria pizzeria) {
         pizzeriaRepository.delete(pizzeria);
     }

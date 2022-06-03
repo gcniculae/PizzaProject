@@ -32,6 +32,13 @@ public class ProductOrderService {
         }
     }
 
+    public ProductOrder updateProductOrder(Long id, ProductOrder productOrder) {
+        ProductOrder productOrderById = findProductOrderById(id);
+        productOrder.setId(productOrderById.getId());
+
+        return saveProductOwner(productOrder);
+    }
+
     public void deleteProductOrderServiceById(Long id) {
         productOrderRepository.deleteById(id);
     }

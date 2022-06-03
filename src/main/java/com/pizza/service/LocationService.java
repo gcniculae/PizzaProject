@@ -47,6 +47,13 @@ public class LocationService {
         }
     }
 
+    public Location updateLocation(Long id, Location location) {
+        Location locationById = findLocationById(id);
+        locationById.setId(id);
+
+        return saveLocation(location);
+    }
+
     public void deleteLocationById(Long id) {
         locationRepository.deleteById(id);
     }

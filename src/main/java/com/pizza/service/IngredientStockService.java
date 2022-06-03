@@ -56,6 +56,13 @@ public class IngredientStockService {
         return ingredientStockRepository.findByExpirationDate(expirationDate);
     }
 
+    public IngredientStock updateIngredientStock(Long id, IngredientStock ingredientStock) {
+        IngredientStock ingredientStockById = findIngredientStockById(id);
+        ingredientStock.setId(id);
+
+        return saveIngredientStock(ingredientStock);
+    }
+
     public void deleteIngredientStockById(Long id) {
         ingredientStockRepository.deleteById(id);
     }

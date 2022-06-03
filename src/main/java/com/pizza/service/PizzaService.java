@@ -47,6 +47,13 @@ public class PizzaService {
         }
     }
 
+    public Pizza updatePizza(Long id, Pizza pizza) {
+        Pizza pizzaById = findPizzaById(id);
+        pizza.setId(pizzaById.getId());
+
+        return savePizza(pizza);
+    }
+
     public void deletePizzaById(Long id) {
         pizzaRepository.deleteById(id);
     }

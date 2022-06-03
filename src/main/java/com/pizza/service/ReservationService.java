@@ -47,6 +47,13 @@ public class ReservationService {
         }
     }
 
+    public Reservation updateReservation(Long id, Reservation reservation) {
+        Reservation reservationById = findReservationById(id);
+        reservation.setId(reservationById.getId());
+
+        return saveReservation(reservation);
+    }
+
     public void deleteReservationById(Long id) {
         reservationRepository.deleteById(id);
     }
