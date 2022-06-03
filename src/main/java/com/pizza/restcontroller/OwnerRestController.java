@@ -29,7 +29,7 @@ public class OwnerRestController {
     }
 
     @PostMapping
-    public ResponseEntity<OwnerDto> addOwner(OwnerDto ownerDto) {
+    public ResponseEntity<OwnerDto> addOwner(@RequestBody OwnerDto ownerDto) {
         Owner owner = ownerTransformer.transformFromOwnerDtoToOwner(ownerDto);
         Owner savedOwner = ownerService.saveOwner(owner);
         OwnerDto savedOwnerDto = ownerTransformer.transformFromOwnerToOwnerDto(savedOwner);
