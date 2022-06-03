@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class IngredientStock extends BaseEntity {
 
     private String name;
-    private int quantity;
+    private Long quantity;
     private LocalDate expirationDate;
 
     @ManyToOne

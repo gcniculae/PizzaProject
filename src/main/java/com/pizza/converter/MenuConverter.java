@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class MenuConverter extends BaseConverter<MenuDto, Menu> {
 
     @Override
-    public MenuDto transformFromEntityToDto(Menu menu) {
+    public MenuDto convertFromEntityToDto(Menu menu) {
         MenuDto menuDto = new MenuDto();
         BeanUtils.copyProperties(menu, menuDto);
 
@@ -17,7 +17,7 @@ public class MenuConverter extends BaseConverter<MenuDto, Menu> {
     }
 
     @Override
-    public Menu transformFromDtoToEntity(MenuDto menuDto) {
+    public Menu convertFromDtoToEntity(MenuDto menuDto) {
         Menu menu = new Menu();
         BeanUtils.copyProperties(menuDto, menu);
 

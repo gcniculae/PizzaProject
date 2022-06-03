@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class LocationConverter extends BaseConverter<LocationDto, Location> {
 
     @Override
-    public LocationDto transformFromEntityToDto(Location location) {
+    public LocationDto convertFromEntityToDto(Location location) {
         LocationDto locationDto = new LocationDto();
         BeanUtils.copyProperties(location, locationDto);
 
@@ -17,7 +17,7 @@ public class LocationConverter extends BaseConverter<LocationDto, Location> {
     }
 
     @Override
-    public Location transformFromDtoToEntity(LocationDto locationDto) {
+    public Location convertFromDtoToEntity(LocationDto locationDto) {
         Location location = new Location();
         BeanUtils.copyProperties(locationDto, location);
 

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ClientConverter extends BaseConverter<ClientDto, Client> {
 
     @Override
-    public ClientDto transformFromEntityToDto(Client client) {
+    public ClientDto convertFromEntityToDto(Client client) {
         ClientDto clientDto = new ClientDto();
         BeanUtils.copyProperties(client, clientDto);
 
@@ -17,7 +17,7 @@ public class ClientConverter extends BaseConverter<ClientDto, Client> {
     }
 
     @Override
-    public Client transformFromDtoToEntity(ClientDto clientDto) {
+    public Client convertFromDtoToEntity(ClientDto clientDto) {
         Client client = new Client();
         BeanUtils.copyProperties(clientDto, client);
 

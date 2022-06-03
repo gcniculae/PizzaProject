@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class EmployeeConverter extends BaseConverter<EmployeeDto, Employee> {
 
     @Override
-    public EmployeeDto transformFromEntityToDto(Employee employee) {
+    public EmployeeDto convertFromEntityToDto(Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
         BeanUtils.copyProperties(employee, employeeDto);
 
@@ -17,7 +17,7 @@ public class EmployeeConverter extends BaseConverter<EmployeeDto, Employee> {
     }
 
     @Override
-    public Employee transformFromDtoToEntity(EmployeeDto employeeDto) {
+    public Employee convertFromDtoToEntity(EmployeeDto employeeDto) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
 

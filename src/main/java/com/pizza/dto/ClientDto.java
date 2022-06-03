@@ -19,6 +19,5 @@ public class ClientDto extends BaseEntityDto {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        clientCode = "C" + number++ + firstName.charAt(0) + lastName.charAt(0);
     }
 }

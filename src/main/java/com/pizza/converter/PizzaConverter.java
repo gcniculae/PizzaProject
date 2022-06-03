@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class PizzaConverter extends BaseConverter<PizzaDto, Pizza> {
 
     @Override
-    public PizzaDto transformFromEntityToDto(Pizza pizza) {
+    public PizzaDto convertFromEntityToDto(Pizza pizza) {
         PizzaDto pizzaDto = new PizzaDto();
         BeanUtils.copyProperties(pizza, pizzaDto);
 
@@ -17,7 +17,7 @@ public class PizzaConverter extends BaseConverter<PizzaDto, Pizza> {
     }
 
     @Override
-    public Pizza transformFromDtoToEntity(PizzaDto pizzaDto) {
+    public Pizza convertFromDtoToEntity(PizzaDto pizzaDto) {
         Pizza pizza = new Pizza();
         BeanUtils.copyProperties(pizzaDto, pizza);
 

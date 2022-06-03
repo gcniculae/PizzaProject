@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class OwnerConverter extends BaseConverter<OwnerDto, Owner> {
 
     @Override
-    public OwnerDto transformFromEntityToDto(Owner owner) {
+    public OwnerDto convertFromEntityToDto(Owner owner) {
         OwnerDto ownerDto = new OwnerDto();
         BeanUtils.copyProperties(owner, ownerDto);
 
@@ -17,7 +17,7 @@ public class OwnerConverter extends BaseConverter<OwnerDto, Owner> {
     }
 
     @Override
-    public Owner transformFromDtoToEntity(OwnerDto ownerDto) {
+    public Owner convertFromDtoToEntity(OwnerDto ownerDto) {
         Owner owner = new Owner();
         BeanUtils.copyProperties(ownerDto, owner);
 

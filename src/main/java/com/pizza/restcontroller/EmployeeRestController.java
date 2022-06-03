@@ -49,7 +49,7 @@ public class EmployeeRestController {
             allEmployeesList = employeeService.findEmployeesByPosition(position);
         }
 
-        return ResponseEntity.ok(employeeTransformer.transformFromEntityListToDtoList(allEmployeesList));
+        return ResponseEntity.ok(employeeTransformer.convertFromEntityListToDtoList(allEmployeesList));
     }
 
 //    @GetMapping(path = "/all-employees")
@@ -64,7 +64,7 @@ public class EmployeeRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable("id") Long id) {
         Employee employee = employeeService.findEmployeeById(id);
-        EmployeeDto employeeDto = employeeTransformer.transformFromEntityToDto(employee);
+        EmployeeDto employeeDto = employeeTransformer.convertFromEntityToDto(employee);
 
         return ResponseEntity.ok(employeeDto);
     }
@@ -107,18 +107,18 @@ public class EmployeeRestController {
 
     @PostMapping
     public ResponseEntity<EmployeeDto> addEmployee(@RequestBody EmployeeDto employeeDto) {
-        Employee employee = employeeTransformer.transformFromDtoToEntity(employeeDto);
+        Employee employee = employeeTransformer.convertFromDtoToEntity(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee);
-        EmployeeDto savedEmployeeDto = employeeTransformer.transformFromEntityToDto(savedEmployee);
+        EmployeeDto savedEmployeeDto = employeeTransformer.convertFromEntityToDto(savedEmployee);
 
         return ResponseEntity.ok(savedEmployeeDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto) {
-        Employee employee = employeeTransformer.transformFromDtoToEntity(employeeDto);
+        Employee employee = employeeTransformer.convertFromDtoToEntity(employeeDto);
         Employee updatedEmployee = employeeService.updateEmployee(id, employee);
-        EmployeeDto updatedEmployeeDto = employeeTransformer.transformFromEntityToDto(updatedEmployee);
+        EmployeeDto updatedEmployeeDto = employeeTransformer.convertFromEntityToDto(updatedEmployee);
 
         return ResponseEntity.ok(updatedEmployeeDto);
     }

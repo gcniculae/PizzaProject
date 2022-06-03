@@ -18,6 +18,7 @@ import java.util.List;
 public class Location extends BaseEntity {
 
     private String name;
+    private String address;
 
     @ManyToOne
     private Pizzeria pizzeria;

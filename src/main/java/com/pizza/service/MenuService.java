@@ -35,9 +35,19 @@ public class MenuService {
         }
     }
 
+    public Menu findMenuByName(String name) {
+        Optional<Menu> optionalMenu = menuRepository.findByName(name);
+
+        if (optionalMenu.isPresent()) {
+            return optionalMenu.get();
+        } else {
+            throw new NoSuchElementException("No such menu.");
+        }
+    }
+
     public Menu updateMenu(Long id, Menu menu) {
         Menu menuById = findMenuById(id);
-        menuById.setId(id);
+        menu.setId(menuById.getId());
 
         return saveMenu(menu);
     }

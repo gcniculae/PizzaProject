@@ -48,7 +48,7 @@ public class IngredientStockService {
         }
     }
 
-    public List<IngredientStock> findIngredientStockByQuantity(int quantity) {
+    public List<IngredientStock> findIngredientStockByQuantity(Long quantity) {
         return ingredientStockRepository.findByQuantity(quantity);
     }
 

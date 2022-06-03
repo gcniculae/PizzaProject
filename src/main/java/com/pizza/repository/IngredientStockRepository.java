@@ -13,7 +13,7 @@ public interface IngredientStockRepository extends JpaRepository<IngredientStock
 
     Optional<IngredientStock> findByName(String name);
 
-    List<IngredientStock> findByQuantity(int quantity);
+    List<IngredientStock> findByQuantity(Long quantity);
 
     List<IngredientStock> findByExpirationDate(LocalDate expirationDate);
 }

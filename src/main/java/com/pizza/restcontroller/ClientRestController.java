@@ -39,7 +39,7 @@ public class ClientRestController {
             allClientsList = clientService.findClientsByLastName(lastName);
         }
 
-        List<ClientDto> allClientsDto = clientTransformer.transformFromEntityListToDtoList(allClientsList);
+        List<ClientDto> allClientsDto = clientTransformer.convertFromEntityListToDtoList(allClientsList);
 
         return ResponseEntity.ok(allClientsDto);
     }
@@ -102,25 +102,25 @@ public class ClientRestController {
             client = clientService.findClientByPhoneNumber(phoneNumber);
         }
 
-        ClientDto clientDto = clientTransformer.transformFromEntityToDto(client);
+        ClientDto clientDto = clientTransformer.convertFromEntityToDto(client);
 
         return ResponseEntity.ok(clientDto);
     }
 
     @PostMapping
     public ResponseEntity<ClientDto> addClient(@RequestBody ClientDto clientDto) {
-        Client client = clientTransformer.transformFromDtoToEntity(clientDto);
+        Client client = clientTransformer.convertFromDtoToEntity(clientDto);
         Client savedClient = clientService.saveClient(client);
-        ClientDto savedClientDto = clientTransformer.transformFromEntityToDto(savedClient);
+        ClientDto savedClientDto = clientTransformer.convertFromEntityToDto(savedClient);
 
         return ResponseEntity.ok(savedClientDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientDto clientDto) {
-        Client client = clientTransformer.transformFromDtoToEntity(clientDto);
+        Client client = clientTransformer.convertFromDtoToEntity(clientDto);
         Client updatedClient = clientService.updateClient(id, client);
-        ClientDto updatedClientDto = clientTransformer.transformFromEntityToDto(updatedClient);
+        ClientDto updatedClientDto = clientTransformer.convertFromEntityToDto(updatedClient);
 
         return ResponseEntity.ok(updatedClientDto);
     }

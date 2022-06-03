@@ -23,25 +23,25 @@ public class OwnerRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<OwnerDto> findOwnerById(@PathVariable("id") Long id) {
         Owner owner = ownerService.findOwnerById(id);
-        OwnerDto ownerDto = ownerTransformer.transformFromEntityToDto(owner);
+        OwnerDto ownerDto = ownerTransformer.convertFromEntityToDto(owner);
 
         return ResponseEntity.ok(ownerDto);
     }
 
     @PostMapping
     public ResponseEntity<OwnerDto> addOwner(@RequestBody OwnerDto ownerDto) {
-        Owner owner = ownerTransformer.transformFromDtoToEntity(ownerDto);
+        Owner owner = ownerTransformer.convertFromDtoToEntity(ownerDto);
         Owner savedOwner = ownerService.saveOwner(owner);
-        OwnerDto savedOwnerDto = ownerTransformer.transformFromEntityToDto(savedOwner);
+        OwnerDto savedOwnerDto = ownerTransformer.convertFromEntityToDto(savedOwner);
 
         return ResponseEntity.ok(savedOwnerDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<OwnerDto> updateOwner(@PathVariable("id") Long id, @RequestBody OwnerDto ownerDto) {
-        Owner owner = ownerTransformer.transformFromDtoToEntity(ownerDto);
+        Owner owner = ownerTransformer.convertFromDtoToEntity(ownerDto);
         Owner updatedOwner = ownerService.updateOwner(id, owner);
-        OwnerDto updatedOwnerDto = ownerTransformer.transformFromEntityToDto(updatedOwner);
+        OwnerDto updatedOwnerDto = ownerTransformer.convertFromEntityToDto(updatedOwner);
 
         return ResponseEntity.ok(updatedOwnerDto);
     }

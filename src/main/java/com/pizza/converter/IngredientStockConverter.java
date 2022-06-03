@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class IngredientStockConverter extends BaseConverter<IngredientStockDto, IngredientStock> {
 
     @Override
-    public IngredientStockDto transformFromEntityToDto(IngredientStock ingredientStock) {
+    public IngredientStockDto convertFromEntityToDto(IngredientStock ingredientStock) {
         IngredientStockDto ingredientStockDto = new IngredientStockDto();
         BeanUtils.copyProperties(ingredientStock, ingredientStockDto);
 
@@ -17,7 +17,7 @@ public class IngredientStockConverter extends BaseConverter<IngredientStockDto, 
     }
 
     @Override
-    public IngredientStock transformFromDtoToEntity(IngredientStockDto ingredientStockDto) {
+    public IngredientStock convertFromDtoToEntity(IngredientStockDto ingredientStockDto) {
         IngredientStock ingredientStock = new IngredientStock();
         BeanUtils.copyProperties(ingredientStockDto, ingredientStock);
 

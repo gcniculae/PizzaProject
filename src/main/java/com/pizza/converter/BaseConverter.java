@@ -10,27 +10,27 @@ import java.util.stream.Collectors;
 
 public abstract class BaseConverter<D extends BaseEntityDto, E extends BaseEntity> {
 
-    public abstract D transformFromEntityToDto(E entity);
+    public abstract D convertFromEntityToDto(E entity);
 
-    public abstract E transformFromDtoToEntity(D dto);
+    public abstract E convertFromDtoToEntity(D dto);
 
-    public List<D> transformFromEntityListToDtoList(List<E> entities) {
+    public List<D> convertFromEntityListToDtoList(List<E> entities) {
         if (CollectionUtils.isEmpty(entities)) {
             return Collections.emptyList();
         }
 
         return entities.stream()
-                .map(this::transformFromEntityToDto)
+                .map(this::convertFromEntityToDto)
                 .collect(Collectors.toList());
     }
 
-    public List<E> transformFromDtoListToEntityList(List<D> dtoList) {
+    public List<E> convertFromDtoListToEntityList(List<D> dtoList) {
         if (CollectionUtils.isEmpty(dtoList)) {
             return Collections.emptyList();
         }
 
         return dtoList.stream()
-                .map(this::transformFromDtoToEntity)
+                .map(this::convertFromDtoToEntity)
                 .collect(Collectors.toList());
     }
 }

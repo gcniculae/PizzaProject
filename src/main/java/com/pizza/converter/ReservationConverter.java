@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ReservationConverter extends BaseConverter<ReservationDto, Reservation> {
 
     @Override
-    public ReservationDto transformFromEntityToDto(Reservation reservation) {
+    public ReservationDto convertFromEntityToDto(Reservation reservation) {
         ReservationDto reservationDto = new ReservationDto();
         BeanUtils.copyProperties(reservation, reservationDto);
 
@@ -17,7 +17,7 @@ public class ReservationConverter extends BaseConverter<ReservationDto, Reservat
     }
 
     @Override
-    public Reservation transformFromDtoToEntity(ReservationDto reservationDto) {
+    public Reservation convertFromDtoToEntity(ReservationDto reservationDto) {
         Reservation reservation = new Reservation();
         BeanUtils.copyProperties(reservationDto, reservation);
 

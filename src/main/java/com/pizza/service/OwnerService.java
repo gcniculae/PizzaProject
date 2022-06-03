@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -17,6 +19,11 @@ public class OwnerService {
     @Autowired
     public OwnerService(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
+    }
+
+    @PostConstruct
+    public void createOwner() {
+//        Owner owner = new Owner("Andrei", "Andreescu", LocalDate.of(1978, 5, 19), );
     }
 
     public Owner saveOwner(Owner owner) {

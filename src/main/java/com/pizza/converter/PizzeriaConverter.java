@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class PizzeriaConverter extends BaseConverter<PizzeriaDto, Pizzeria> {
 
     @Override
-    public PizzeriaDto transformFromEntityToDto(Pizzeria pizzeria) {
+    public PizzeriaDto convertFromEntityToDto(Pizzeria pizzeria) {
         PizzeriaDto pizzeriaDto = new PizzeriaDto();
         BeanUtils.copyProperties(pizzeria, pizzeriaDto);
 
@@ -17,7 +17,7 @@ public class PizzeriaConverter extends BaseConverter<PizzeriaDto, Pizzeria> {
     }
 
     @Override
-    public Pizzeria transformFromDtoToEntity(PizzeriaDto pizzeriaDto) {
+    public Pizzeria convertFromDtoToEntity(PizzeriaDto pizzeriaDto) {
         Pizzeria pizzeria = new Pizzeria();
         BeanUtils.copyProperties(pizzeria, pizzeriaDto);
 

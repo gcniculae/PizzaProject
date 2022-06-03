@@ -47,9 +47,13 @@ public class LocationService {
         }
     }
 
+    public List<Location> findLocationsByAddress(String address) {
+        return locationRepository.findByAddressContainingIgnoreCase(address);
+    }
+
     public Location updateLocation(Long id, Location location) {
         Location locationById = findLocationById(id);
-        locationById.setId(id);
+        location.setId(locationById.getId());
 
         return saveLocation(location);
     }

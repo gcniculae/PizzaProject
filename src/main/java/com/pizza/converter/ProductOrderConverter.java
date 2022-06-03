@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class ProductOrderConverter extends BaseConverter<ProductOrderDto, ProductOrder> {
 
     @Override
-    public ProductOrderDto transformFromEntityToDto(ProductOrder productOrder) {
+    public ProductOrderDto convertFromEntityToDto(ProductOrder productOrder) {
         ProductOrderDto productOrderDto = new ProductOrderDto();
         BeanUtils.copyProperties(productOrder, productOrderDto);
 
@@ -17,7 +17,7 @@ public class ProductOrderConverter extends BaseConverter<ProductOrderDto, Produc
     }
 
     @Override
-    public ProductOrder transformFromDtoToEntity(ProductOrderDto productOrderDto) {
+    public ProductOrder convertFromDtoToEntity(ProductOrderDto productOrderDto) {
         ProductOrder productOrder = new ProductOrder();
         BeanUtils.copyProperties(productOrder, productOrderDto);
 
