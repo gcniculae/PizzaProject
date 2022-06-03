@@ -65,7 +65,7 @@ public class EmployeeService {
         return employeeRepository.findByDateOfBirth(dateOfBirth);
     }
 
-    public List<Employee> findEmployeesByPosition(String position) {
+    public List<Employee> findEmployeesByPosition(Position position) {
         return employeeRepository.findByPosition(position);
     }
 
