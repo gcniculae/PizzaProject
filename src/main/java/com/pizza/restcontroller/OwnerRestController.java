@@ -54,7 +54,7 @@ public class OwnerRestController {
     }
 
     @DeleteMapping(path = "/{firstName}/{lastName}")
-    public ResponseEntity deleteOwnerByFirstNameAndLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
+    public ResponseEntity<OwnerDto> deleteOwnerByFirstNameAndLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
         ownerService.deleteOwnerByFirstNameAndLastName(firstName, lastName);
 
         return ResponseEntity.noContent().build();
