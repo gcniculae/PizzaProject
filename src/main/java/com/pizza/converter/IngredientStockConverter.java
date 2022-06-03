@@ -1,4 +1,4 @@
-package com.pizza.transformer;
+package com.pizza.converter;
 
 import com.pizza.dto.IngredientStockDto;
 import com.pizza.entity.IngredientStock;
@@ -6,16 +6,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class IngredientStockTransformer {
+public class IngredientStockConverter extends BaseConverter<IngredientStockDto, IngredientStock> {
 
-    public IngredientStockDto transformFromIngredientStockToIngredientStockDto(IngredientStock ingredientStock) {
+    @Override
+    public IngredientStockDto transformFromEntityToDto(IngredientStock ingredientStock) {
         IngredientStockDto ingredientStockDto = new IngredientStockDto();
         BeanUtils.copyProperties(ingredientStock, ingredientStockDto);
 
         return ingredientStockDto;
     }
 
-    public IngredientStock transformFromIngredientStockDtoToIngredientStock(IngredientStockDto ingredientStockDto) {
+    @Override
+    public IngredientStock transformFromDtoToEntity(IngredientStockDto ingredientStockDto) {
         IngredientStock ingredientStock = new IngredientStock();
         BeanUtils.copyProperties(ingredientStockDto, ingredientStock);
 

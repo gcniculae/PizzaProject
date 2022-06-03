@@ -3,122 +3,143 @@ package com.pizza.restcontroller;
 import com.pizza.dto.ClientDto;
 import com.pizza.entity.Client;
 import com.pizza.service.ClientService;
-import com.pizza.transformer.ClientTransformer;
+import com.pizza.converter.ClientConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/client")
+@RequestMapping(path = "/clients")
 @CrossOrigin(origins = "*")
 public class ClientRestController {
 
     private final ClientService clientService;
-    private final ClientTransformer clientTransformer;
+    private final ClientConverter clientTransformer;
 
     @Autowired
-    public ClientRestController(ClientService clientService, ClientTransformer clientTransformer) {
+    public ClientRestController(ClientService clientService, ClientConverter clientTransformer) {
         this.clientService = clientService;
         this.clientTransformer = clientTransformer;
     }
 
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<ClientDto>> getAllClients(@RequestParam(name = "allClients", required = false) boolean allClients,
+                                                         @RequestParam(name = "firstName", required = false) String firstName,
+                                                         @RequestParam(name = "lastName", required = false) String lastName) {
+        List<Client> allClientsList = new ArrayList<>();
 
-    @GetMapping(path = "/allClients")
-    public ResponseEntity<List<ClientDto>> getAllClients() {
-        List<Client> allClients = clientService.findAllClients();
-        List<ClientDto> allClientsDto = new ArrayList<>();
+        if (allClients) {
+            allClientsList = clientService.findAllClients();
+        } else if (firstName != null) {
+            allClientsList = clientService.findClientsByFirstName(firstName);
+        } else if (lastName != null) {
+            allClientsList = clientService.findClientsByLastName(lastName);
+        }
 
-//        for (Client client : allClients) {
-//            allClientsDto.add(clientTransformer.transformFromClientToDto(client));
-//        }
-
-        allClientsDto = allClients.stream()
-                .map(clientTransformer::transformFromClientToClientDto).collect(Collectors.toList());
+        List<ClientDto> allClientsDto = clientTransformer.transformFromEntityListToDtoList(allClientsList);
 
         return ResponseEntity.ok(allClientsDto);
     }
 
-    @GetMapping(path = "/clientId/{id}")
-    public ResponseEntity<ClientDto> findClientById(@PathVariable("id") Long id) {
-        Client client = clientService.findClientById(id);
-        ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
+//    @GetMapping(path = "/id/{id}")
+//    public ResponseEntity<ClientDto> findClientById(@PathVariable("id") Long id) {
+//        Client client = clientService.findClientById(id);
+//        ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
+//
+//        return ResponseEntity.ok(clientDto);
+//    }
+//
+//    @GetMapping(path = "/first-name/{firstName}")
+//    public ResponseEntity<List<ClientDto>> findClientsByFirstName(@PathVariable("firstName") String firstName) {
+//        List<Client> clients = clientService.findClientsByFirstName(firstName);
+//
+//        List<ClientDto> clientsDto = clients.stream()
+//                .map(clientTransformer::transformFromClientToClientDto).toList();
+//
+//        return ResponseEntity.ok(clientsDto);
+//    }
+//
+//    @GetMapping(path = "/last-name/{lastName}")
+//    public ResponseEntity<List<ClientDto>> findClientsByLastName(@PathVariable("lastName") String lastName) {
+//        List<Client> clients = clientService.findClientsByLastName(lastName);
+//
+//        List<ClientDto> clientsDto = clients.stream()
+//                .map(clientTransformer::transformFromClientToClientDto).toList();
+//
+//        return ResponseEntity.ok(clientsDto);
+//    }
+//
+//    @GetMapping(path = "/client-code/{clientCode}")
+//    public ResponseEntity<ClientDto> findClientByClientCode(@PathVariable String clientCode) {
+//        Client client = clientService.findClientByClientCode(clientCode);
+//        ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
+//
+//        return ResponseEntity.ok(clientDto);
+//    }
+//
+//    @GetMapping(path = "/phone-number/{phoneNumber}")
+//    public ResponseEntity<ClientDto> findClientByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
+//        Client client = clientService.findClientByPhoneNumber(phoneNumber);
+//        ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
+//
+//        return ResponseEntity.ok(clientDto);
+//    }
 
-        return ResponseEntity.ok(clientDto);
-    }
+    @GetMapping()
+    public ResponseEntity<ClientDto> getClient(@RequestParam(name = "id", required = false) Long id,
+                                               @RequestParam(name = "clientCode", required = false) String clientCode,
+                                               @RequestParam(name = "phoneNumber", required = false) String phoneNumber) {
+        Client client = new Client();
 
-    @GetMapping(path = "/clientsByFirstName/{firstName}")
-    public ResponseEntity<List<ClientDto>> findClientsByFirstName(@PathVariable("firstName") String firstName) {
-        List<Client> clients = clientService.findClientsByFirstName(firstName);
+        if (id != null) {
+            client = clientService.findClientById(id);
+        } else if (clientCode != null) {
+            client = clientService.findClientByClientCode(clientCode);
+        } else if (phoneNumber != null) {
+            client = clientService.findClientByPhoneNumber(phoneNumber);
+        }
 
-        List<ClientDto> clientsDto = clients.stream()
-                .map(clientTransformer::transformFromClientToClientDto).toList();
-
-        return ResponseEntity.ok(clientsDto);
-    }
-
-    @GetMapping(path = "/clientCode/{clientCode}")
-    public ResponseEntity<ClientDto> findClientByClientCode(@PathVariable String clientCode) {
-        Client client = clientService.findClientByClientCode(clientCode);
-        ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
-
-        return ResponseEntity.ok(clientDto);
-    }
-
-    @GetMapping(path = "/clientsByLastName/{lastName}")
-    public ResponseEntity<List<ClientDto>> findClientsByLastName(@PathVariable("lastName") String lastName) {
-        List<Client> clients = clientService.findClientsByLastName(lastName);
-
-        List<ClientDto> clientsDto = clients.stream()
-                .map(clientTransformer::transformFromClientToClientDto).toList();
-
-        return ResponseEntity.ok(clientsDto);
-    }
-
-    @GetMapping(path = "/clientPhoneNumber/{phoneNumber}")
-    public ResponseEntity<ClientDto> findClientByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
-        Client client = clientService.findClientByPhoneNumber(phoneNumber);
-        ClientDto clientDto = clientTransformer.transformFromClientToClientDto(client);
+        ClientDto clientDto = clientTransformer.transformFromEntityToDto(client);
 
         return ResponseEntity.ok(clientDto);
     }
 
     @PostMapping
     public ResponseEntity<ClientDto> addClient(@RequestBody ClientDto clientDto) {
-        Client client = clientTransformer.transformFromClientDtoToClient(clientDto);
+        Client client = clientTransformer.transformFromDtoToEntity(clientDto);
         Client savedClient = clientService.saveClient(client);
-        ClientDto savedClientDto = clientTransformer.transformFromClientToClientDto(savedClient);
+        ClientDto savedClientDto = clientTransformer.transformFromEntityToDto(savedClient);
 
         return ResponseEntity.ok(savedClientDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientDto clientDto) {
-        Client client = clientTransformer.transformFromClientDtoToClient(clientDto);
+        Client client = clientTransformer.transformFromDtoToEntity(clientDto);
         Client updatedClient = clientService.updateClient(id, client);
-        ClientDto updatedClientDto = clientTransformer.transformFromClientToClientDto(updatedClient);
+        ClientDto updatedClientDto = clientTransformer.transformFromEntityToDto(updatedClient);
 
         return ResponseEntity.ok(updatedClientDto);
     }
 
-    @DeleteMapping(path = "/deleteById/{id}")
+    @DeleteMapping(path = "/id/{id}")
     public ResponseEntity<ClientDto> deleteClientById(@PathVariable("id") Long id) {
         clientService.deleteClientById(id);
 
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(path = "/deleteByClientCode/{clientCode}")
+    @DeleteMapping(path = "/client-code/{clientCode}")
     public ResponseEntity<ClientDto> deleteClientByClientCode(@PathVariable("clientCode") String clientCode) {
         clientService.deleteClientByClientCode(clientCode);
 
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(path = "/deleteByPhoneNumber/{phoneNumber}")
+    @DeleteMapping(path = "/phone-number/{phoneNumber}")
     public ResponseEntity<ClientDto> deleteClientByPhoneNumber(@PathVariable("phoneNumber") String phoneNumber) {
         clientService.deleteClientByPhoneNumber(phoneNumber);
 

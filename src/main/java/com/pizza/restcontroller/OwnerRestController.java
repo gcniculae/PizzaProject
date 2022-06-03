@@ -3,7 +3,7 @@ package com.pizza.restcontroller;
 import com.pizza.dto.OwnerDto;
 import com.pizza.entity.Owner;
 import com.pizza.service.OwnerService;
-import com.pizza.transformer.OwnerTransformer;
+import com.pizza.converter.OwnerConverter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class OwnerRestController {
 
     private final OwnerService ownerService;
-    private final OwnerTransformer ownerTransformer;
+    private final OwnerConverter ownerTransformer;
 
-    public OwnerRestController(OwnerService ownerService, OwnerTransformer ownerTransformer) {
+    public OwnerRestController(OwnerService ownerService, OwnerConverter ownerTransformer) {
         this.ownerService = ownerService;
         this.ownerTransformer = ownerTransformer;
     }
@@ -23,25 +23,25 @@ public class OwnerRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<OwnerDto> findOwnerById(@PathVariable("id") Long id) {
         Owner owner = ownerService.findOwnerById(id);
-        OwnerDto ownerDto = ownerTransformer.transformFromOwnerToOwnerDto(owner);
+        OwnerDto ownerDto = ownerTransformer.transformFromEntityToDto(owner);
 
         return ResponseEntity.ok(ownerDto);
     }
 
     @PostMapping
     public ResponseEntity<OwnerDto> addOwner(@RequestBody OwnerDto ownerDto) {
-        Owner owner = ownerTransformer.transformFromOwnerDtoToOwner(ownerDto);
+        Owner owner = ownerTransformer.transformFromDtoToEntity(ownerDto);
         Owner savedOwner = ownerService.saveOwner(owner);
-        OwnerDto savedOwnerDto = ownerTransformer.transformFromOwnerToOwnerDto(savedOwner);
+        OwnerDto savedOwnerDto = ownerTransformer.transformFromEntityToDto(savedOwner);
 
         return ResponseEntity.ok(savedOwnerDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<OwnerDto> updateOwner(Long id, @RequestBody OwnerDto ownerDto) {
-        Owner owner = ownerTransformer.transformFromOwnerDtoToOwner(ownerDto);
+        Owner owner = ownerTransformer.transformFromDtoToEntity(ownerDto);
         Owner updatedOwner = ownerService.updateOwner(id, owner);
-        OwnerDto updatedOwnerDto = ownerTransformer.transformFromOwnerToOwnerDto(updatedOwner);
+        OwnerDto updatedOwnerDto = ownerTransformer.transformFromEntityToDto(updatedOwner);
 
         return ResponseEntity.ok(updatedOwnerDto);
     }

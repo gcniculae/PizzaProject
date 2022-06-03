@@ -84,14 +84,10 @@ public class ClientService {
     }
 
     public Client updateClient(Long id, Client client) {
-        try {
-            findClientById(id);
-            client.setId(id);
+        Client clientById = findClientById(id);
+        client.setId(clientById.getId());
 
-            return saveClient(client);
-        } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("No such client.");
-        }
+        return saveClient(client);
     }
 
     public void deleteClientById(Long id) {

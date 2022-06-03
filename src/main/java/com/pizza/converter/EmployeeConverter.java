@@ -1,4 +1,4 @@
-package com.pizza.transformer;
+package com.pizza.converter;
 
 import com.pizza.dto.EmployeeDto;
 import com.pizza.entity.Employee;
@@ -6,16 +6,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmployeeTransformer {
+public class EmployeeConverter extends BaseConverter<EmployeeDto, Employee> {
 
-    public EmployeeDto transformFromEmployeeToEmployeeDto(Employee employee) {
+    @Override
+    public EmployeeDto transformFromEntityToDto(Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
         BeanUtils.copyProperties(employee, employeeDto);
 
         return employeeDto;
     }
 
-    public Employee transformFromEmployeeDtoToEmployee(EmployeeDto employeeDto) {
+    @Override
+    public Employee transformFromDtoToEntity(EmployeeDto employeeDto) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDto, employee);
 

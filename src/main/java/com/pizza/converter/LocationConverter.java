@@ -1,4 +1,4 @@
-package com.pizza.transformer;
+package com.pizza.converter;
 
 import com.pizza.dto.LocationDto;
 import com.pizza.entity.Location;
@@ -6,16 +6,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LocationTransformer {
+public class LocationConverter extends BaseConverter<LocationDto, Location> {
 
-    public LocationDto transformFromLocationToLocationDto(Location location) {
+    @Override
+    public LocationDto transformFromEntityToDto(Location location) {
         LocationDto locationDto = new LocationDto();
         BeanUtils.copyProperties(location, locationDto);
 
         return locationDto;
     }
 
-    public Location transformFromLocationDtoToLocation(LocationDto locationDto) {
+    @Override
+    public Location transformFromDtoToEntity(LocationDto locationDto) {
         Location location = new Location();
         BeanUtils.copyProperties(locationDto, location);
 

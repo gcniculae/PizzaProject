@@ -1,4 +1,4 @@
-package com.pizza.transformer;
+package com.pizza.converter;
 
 import com.pizza.dto.PizzeriaDto;
 import com.pizza.entity.Pizzeria;
@@ -6,16 +6,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PizzeriaTransformer {
+public class PizzeriaConverter extends BaseConverter<PizzeriaDto, Pizzeria> {
 
-    public PizzeriaDto transformFromPizzeriaToPizzeriaDto(Pizzeria pizzeria) {
+    @Override
+    public PizzeriaDto transformFromEntityToDto(Pizzeria pizzeria) {
         PizzeriaDto pizzeriaDto = new PizzeriaDto();
         BeanUtils.copyProperties(pizzeria, pizzeriaDto);
 
         return pizzeriaDto;
     }
 
-    public Pizzeria transformFromPizzeriaDtoToPizzeria(PizzeriaDto pizzeriaDto) {
+    @Override
+    public Pizzeria transformFromDtoToEntity(PizzeriaDto pizzeriaDto) {
         Pizzeria pizzeria = new Pizzeria();
         BeanUtils.copyProperties(pizzeria, pizzeriaDto);
 

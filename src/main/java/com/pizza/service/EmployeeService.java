@@ -70,14 +70,10 @@ public class EmployeeService {
     }
 
     public Employee updateEmployee(Long id, Employee employee) {
-        try {
-            findEmployeeById(id);
-            employee.setId(id);
+        Employee employeeById = findEmployeeById(id);
+        employee.setId(employeeById.getId());
 
-            return saveEmployee(employee);
-        } catch (NoSuchElementException e) {
-            throw new NoSuchElementException("No such employee.");
-        }
+        return saveEmployee(employee);
     }
 
     public void deleteEmployeeById(Long id) {

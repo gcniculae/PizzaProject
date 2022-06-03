@@ -1,4 +1,4 @@
-package com.pizza.transformer;
+package com.pizza.converter;
 
 import com.pizza.dto.ReservationDto;
 import com.pizza.entity.Reservation;
@@ -6,16 +6,18 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ReservationTransformer {
+public class ReservationConverter extends BaseConverter<ReservationDto, Reservation> {
 
-    public ReservationDto transformFromReservationToReservationDto(Reservation reservation) {
+    @Override
+    public ReservationDto transformFromEntityToDto(Reservation reservation) {
         ReservationDto reservationDto = new ReservationDto();
         BeanUtils.copyProperties(reservation, reservationDto);
 
         return reservationDto;
     }
 
-    public Reservation transformFromReservationDtoToReservation(ReservationDto reservationDto) {
+    @Override
+    public Reservation transformFromDtoToEntity(ReservationDto reservationDto) {
         Reservation reservation = new Reservation();
         BeanUtils.copyProperties(reservationDto, reservation);
 
