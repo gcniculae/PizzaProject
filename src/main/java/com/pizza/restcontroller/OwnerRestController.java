@@ -46,16 +46,29 @@ public class OwnerRestController {
         return ResponseEntity.ok(updatedOwnerDto);
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<OwnerDto> deleteOwnerById(@PathVariable("id") Long id) {
-        ownerService.deleteOwnerById(id);
+//    @DeleteMapping(path = "/{id}")
+//    public ResponseEntity<OwnerDto> deleteOwnerById(@PathVariable("id") Long id) {
+//        ownerService.deleteOwnerById(id);
+//
+//        return ResponseEntity.noContent().build();
+//    }
+//
+//    @DeleteMapping(path = "/{firstName}/{lastName}")
+//    public ResponseEntity<OwnerDto> deleteOwnerByFirstNameAndLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
+//        ownerService.deleteOwnerByFirstNameAndLastName(firstName, lastName);
+//
+//        return ResponseEntity.noContent().build();
+//    }
 
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping(path = "/{firstName}/{lastName}")
-    public ResponseEntity<OwnerDto> deleteOwnerByFirstNameAndLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
-        ownerService.deleteOwnerByFirstNameAndLastName(firstName, lastName);
+    @DeleteMapping
+    public ResponseEntity<Owner> deleteOwner(@RequestParam(name = "id", required = false) Long id,
+                                             @RequestParam(name = "firstName", required = false) String firstName,
+                                             @RequestParam(name = "lastName", required = false) String lastName) {
+        if (id != null) {
+            ownerService.deleteOwnerById(id);
+        } else if (firstName != null && lastName != null) {
+            ownerService.deleteOwnerByFirstNameAndLastName(firstName, lastName);
+        }
 
         return ResponseEntity.noContent().build();
     }

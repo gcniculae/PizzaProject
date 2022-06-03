@@ -4,6 +4,7 @@ import com.pizza.entity.Owner;
 import com.pizza.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -43,6 +44,7 @@ public class OwnerService {
         ownerRepository.deleteById(id);
     }
 
+    @Transactional
     public void deleteOwnerByFirstNameAndLastName(String firstName, String lastName) {
         ownerRepository.deleteByFirstNameAndLastName(firstName, lastName);
     }
