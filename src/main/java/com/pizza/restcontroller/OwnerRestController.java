@@ -38,7 +38,7 @@ public class OwnerRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<OwnerDto> updateOwner(Long id, @RequestBody OwnerDto ownerDto) {
+    public ResponseEntity<OwnerDto> updateOwner(@PathVariable("id") Long id, @RequestBody OwnerDto ownerDto) {
         Owner owner = ownerTransformer.transformFromDtoToEntity(ownerDto);
         Owner updatedOwner = ownerService.updateOwner(id, owner);
         OwnerDto updatedOwnerDto = ownerTransformer.transformFromEntityToDto(updatedOwner);
