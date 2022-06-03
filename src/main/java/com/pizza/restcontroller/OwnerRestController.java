@@ -38,8 +38,8 @@ public class OwnerRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<OwnerDto> updateOwner(Long id, OwnerDto ownerDto) {
-        Owner owner = ownerService.findOwnerById(id);
+    public ResponseEntity<OwnerDto> updateOwner(Long id, @RequestBody OwnerDto ownerDto) {
+        Owner owner = ownerTransformer.transformFromOwnerDtoToOwner(ownerDto);
         Owner updatedOwner = ownerService.updateOwner(id, owner);
         OwnerDto updatedOwnerDto = ownerTransformer.transformFromOwnerToOwnerDto(updatedOwner);
 
@@ -53,5 +53,10 @@ public class OwnerRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping(path = "/{firstName}/{lastName}")
+    public ResponseEntity deleteOwnerByFirstNameAndLastName(@PathVariable("firstName") String firstName, @PathVariable("lastName") String lastName) {
+        ownerService.deleteOwnerByFirstNameAndLastName(firstName, lastName);
 
+        return ResponseEntity.noContent().build();
+    }
 }
