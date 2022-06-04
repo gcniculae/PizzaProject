@@ -16,6 +16,8 @@ import java.util.List;
 @Setter
 public class Pizzeria extends BaseEntity {
 
+    private String name;
+
     @OneToOne
     private Owner owner;
 
@@ -25,50 +27,42 @@ public class Pizzeria extends BaseEntity {
     @OneToMany(mappedBy = "pizzeria")
     private List<Location> locations;
 
-    @OneToMany(mappedBy = "pizzeria")
-    private List<IngredientStock> ingredientStockList;
-
-    @OneToMany(mappedBy = "pizzeria")
-    private List<Reservation> reservations;
-
     @Builder
     public static class PizzeriaBuilder {
 
+        private String name;
         private Owner owner;
         private List<Menu> menus;
         private List<Location> locations;
-        private List<IngredientStock> ingredientStocks;
 
-//    public Pizzeria build() {
-//        Pizzeria pizzeria = new Pizzeria();
-//        pizzeria.setOwner(owner);
-//        pizzeria.setMenu(menus);
-//        pizzeria.setLocations(locations);
-//        pizzeria.setReservations(reservations);
+//        public Pizzeria build() {
+//            Pizzeria pizzeria = new Pizzeria();
+//            pizzeria.setName(name);
+//            pizzeria.setOwner(owner);
+//            pizzeria.setMenu(menus);
+//            pizzeria.setLocations(locations);
 //
-//        return pizzeria;
-//    }
+//            return pizzeria;
+//        }
 //
-//    private List<Reservation> reservations;
+//        public PizzeriaBuilder setName(String name) {
+//            this.name = name;
+//            return this;
+//        }
 //
-//    public PizzeriaBuilder setOwner(Owner owner) {
-//        this.owner = owner;
-//        return this;
-//    }
+//        public PizzeriaBuilder setOwner(Owner owner) {
+//            this.owner = owner;
+//            return this;
+//        }
 //
-//    public PizzeriaBuilder setMenu(List<Menu> menus) {
-//        this.menus = menus;
-//        return this;
-//    }
+//        public PizzeriaBuilder setMenu(List<Menu> menus) {
+//            this.menus = menus;
+//            return this;
+//        }
 //
-//    public PizzeriaBuilder setIngredientStock(List<IngredientStock> ingredientStocks) {
-//        this.ingredientStocks = ingredientStocks;
-//        return this;
-//    }
-//
-//    public PizzeriaBuilder setReservations(List<Reservation> reservations) {
-//        this.reservations = reservations;
-//        return this;
-//    }
+//        public PizzeriaBuilder setLocation(List<Location> locations) {
+//            this.locations = locations;
+//            return this;
+//        }
     }
 }

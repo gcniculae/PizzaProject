@@ -5,7 +5,6 @@ import com.pizza.repository.PizzeriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -23,12 +22,18 @@ public class PizzeriaService {
         return pizzeriaRepository.save(pizzeria);
     }
 
-    public List<Pizzeria> findAllPizzerias() {
-        return pizzeriaRepository.findAll();
-    }
-
     public Pizzeria findPizzeriaById(Long id) {
         Optional<Pizzeria> optionalPizzeria = pizzeriaRepository.findById(id);
+
+        if (optionalPizzeria.isPresent()) {
+            return optionalPizzeria.get();
+        } else {
+            throw new NoSuchElementException("No such pizzeria.");
+        }
+    }
+
+    public Pizzeria findPizzeriaByName(String name) {
+        Optional<Pizzeria> optionalPizzeria = pizzeriaRepository.findByName(name);
 
         if (optionalPizzeria.isPresent()) {
             return optionalPizzeria.get();
@@ -42,10 +47,6 @@ public class PizzeriaService {
         pizzeria.setId(pizzeriaById.getId());
 
         return savePizzeria(pizzeria);
-    }
-
-    public void deletePizzeria(Pizzeria pizzeria) {
-        pizzeriaRepository.delete(pizzeria);
     }
 
     public void deletePizzeriaById(Long id) {

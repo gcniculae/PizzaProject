@@ -21,5 +21,5 @@ public class IngredientStock extends BaseEntity {
     private LocalDate expirationDate;
 
     @ManyToOne
-    private Pizzeria pizzeria;
+    private Location location;
 }
