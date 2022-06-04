@@ -26,11 +26,11 @@ public class EmployeeService {
     @PostConstruct
     public void createEmployees() {
         List<Employee> initialEmployees = new ArrayList<>();
-        initialEmployees.add(new Employee("Andrei", "Ionescu", LocalDate.of(1970, 3, 24), Position.COOK));
-        initialEmployees.add(new Employee("Ion", "Popescu", LocalDate.of(1985, 7, 9), Position.CASHIER));
-        initialEmployees.add(new Employee("Alexandru", "Antonescu", LocalDate.of(1991, 10, 15), Position.DELIVERY));
-        initialEmployees.add(new Employee("Ion", "Constantinescu", LocalDate.of(1979, 1, 30), Position.WAITER));
-        initialEmployees.add(new Employee("Alin", "Ionescu", LocalDate.of(1984, 12, 5), Position.COOK));
+        initialEmployees.add(new Employee("Andrei", "Ionescu", "0723001001", LocalDate.of(1970, 3, 24), "Ploiesti", Position.COOK));
+        initialEmployees.add(new Employee("Ion", "Popescu", "0723001002", LocalDate.of(1985, 7, 9), "Ploiesti", Position.CASHIER));
+        initialEmployees.add(new Employee("Alexandru", "Antonescu", "0723001003", LocalDate.of(1991, 10, 15), "Ploiesti", Position.DELIVERY));
+        initialEmployees.add(new Employee("Ion", "Constantinescu", "0723001004", LocalDate.of(1979, 1, 30), "Ploiesti", Position.WAITER));
+        initialEmployees.add(new Employee("Alin", "Ionescu", "0723001005", LocalDate.of(1984, 12, 5), "Ploiesti", Position.COOK));
 
         employeeRepository.saveAll(initialEmployees);
     }

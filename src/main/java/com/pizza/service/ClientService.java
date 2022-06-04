@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,17 +26,17 @@ public class ClientService {
     @PostConstruct
     public void createClients() {
         List<Client> initialClients = new ArrayList<>();
-        initialClients.add(new Client("Claudiu", "Alexandrescu", "0720000000", "Ploiesti"));
-        initialClients.add(new Client("Marin", "Stefanescu", "0720000050", "Ploiesti"));
-        initialClients.add(new Client("Florin", "Albulescu", "0720002340", "Ploiesti"));
-        initialClients.add(new Client("Dan", "Stoicescu", "0720560010", "Ploiesti"));
-        initialClients.add(new Client("Marius", "Danescu", "0724456097", "Ploiesti"));
+        initialClients.add(new Client("Claudiu", "Alexandrescu", "0720000000", LocalDate.of(1980, 8, 14), "Ploiesti"));
+        initialClients.add(new Client("Marin", "Stefanescu", "0720000050", LocalDate.of(1994, 2, 4), "Ploiesti"));
+        initialClients.add(new Client("Florin", "Albulescu", "0720002340", LocalDate.of(1999, 12, 1), "Ploiesti"));
+        initialClients.add(new Client("Dan", "Stoicescu", "0720560010", LocalDate.of(1990, 9, 22), "Ploiesti"));
+        initialClients.add(new Client("Marius", "Danescu", "0724456097", LocalDate.of(1975, 7, 19), "Ploiesti"));
 
         clientRepository.saveAll(initialClients);
     }
 
     public Client saveClient(Client client) {
-        Client newClient = new Client(client.getFirstName(), client.getLastName(), client.getPhoneNumber(), client.getAddress());
+        Client newClient = new Client(client.getFirstName(), client.getLastName(), client.getPhoneNumber(), client.getDateOfBirth(), client.getAddress());
         client.setClientCode(newClient.getClientCode());
 
         return clientRepository.save(client);

@@ -15,5 +15,7 @@ public class PersonDto extends BaseEntityDto {
 
     private String firstName;
     private String lastName;
+    private String phoneNumber;
     private LocalDate dateOfBirth;
+    private String address;
 }

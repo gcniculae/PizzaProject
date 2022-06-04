@@ -16,8 +16,8 @@ public class OwnerDto extends PersonDto {
     private Pizzeria pizzeria;
     private List<EmployeeDto> employeesDto;
 
-    public OwnerDto(String firstName, String lastName, LocalDate dateOfBirth, Pizzeria pizzeria, List<EmployeeDto> employeesDto) {
-        super(firstName, lastName, dateOfBirth);
+    public OwnerDto(String firstName, String lastName, String phoneNumber, LocalDate dateOfBirth, String address, Pizzeria pizzeria, List<EmployeeDto> employeesDto) {
+        super(firstName, lastName, phoneNumber, dateOfBirth, address);
         this.pizzeria = pizzeria;
         this.employeesDto = employeesDto;
     }

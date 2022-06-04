@@ -15,8 +15,8 @@ public class EmployeeDto extends PersonDto {
     private Position position;
     private OwnerDto ownerDto;
 
-    public EmployeeDto(String firstName, String lastName, LocalDate datOfBirth, Position position, OwnerDto ownerDto) {
-        super(firstName, lastName, datOfBirth);
+    public EmployeeDto(String firstName, String lastName, String phoneNumber, LocalDate dateOfBirth, String address, Position position, OwnerDto ownerDto) {
+        super(firstName, lastName, phoneNumber, dateOfBirth, address);
         this.position = position;
         this.ownerDto = ownerDto;
     }

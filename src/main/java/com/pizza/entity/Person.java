@@ -17,5 +17,7 @@ public class Person extends BaseEntity {
 
     private String firstName;
     private String lastName;
+    private String phoneNumber;
     private LocalDate dateOfBirth;
+    private String address;
 }

@@ -22,8 +22,8 @@ public class Owner extends Person {
     @OneToMany(mappedBy = "owner")
     private List<Employee> employees;
 
-    public Owner(String firstName, String lastName, LocalDate dateOfBirth, Pizzeria pizzeria) {
-        super(firstName, lastName, dateOfBirth);
+    public Owner(String firstName, String lastName, String phoneNumber, LocalDate dateOfBirth, String address, Pizzeria pizzeria) {
+        super(firstName, lastName, phoneNumber, dateOfBirth, address);
         this.pizzeria = pizzeria;
     }
 }
