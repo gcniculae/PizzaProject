@@ -25,17 +25,17 @@ public class ClientService {
     @PostConstruct
     public void createClients() {
         List<Client> initialClients = new ArrayList<>();
-        initialClients.add(new Client("Claudiu", "Alexandrescu", "0720000000"));
-        initialClients.add(new Client("Marin", "Stefanescu", "0720000050"));
-        initialClients.add(new Client("Florin", "Albulescu", "0720002340"));
-        initialClients.add(new Client("Dan", "Stoicescu", "0720560010"));
-        initialClients.add(new Client("Marius", "Danescu", "0724456097"));
+        initialClients.add(new Client("Claudiu", "Alexandrescu", "0720000000", "Ploiesti"));
+        initialClients.add(new Client("Marin", "Stefanescu", "0720000050", "Ploiesti"));
+        initialClients.add(new Client("Florin", "Albulescu", "0720002340", "Ploiesti"));
+        initialClients.add(new Client("Dan", "Stoicescu", "0720560010", "Ploiesti"));
+        initialClients.add(new Client("Marius", "Danescu", "0724456097", "Ploiesti"));
 
         clientRepository.saveAll(initialClients);
     }
 
     public Client saveClient(Client client) {
-        Client newClient = new Client(client.getFirstName(), client.getLastName(), client.getPhoneNumber());
+        Client newClient = new Client(client.getFirstName(), client.getLastName(), client.getPhoneNumber(), client.getAddress());
         client.setClientCode(newClient.getClientCode());
 
         return clientRepository.save(client);
@@ -53,6 +53,10 @@ public class ClientService {
         } else {
             throw new NoSuchElementException("No such client.");
         }
+    }
+
+    public List<Client> findClientsByAddress(String address) {
+        return clientRepository.findByAddressContainingIgnoreCase(address);
     }
 
     public List<Client> findClientsByFirstName(String firstName) {

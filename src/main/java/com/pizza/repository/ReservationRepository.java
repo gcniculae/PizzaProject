@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
     Optional<Reservation> findByLocationId(Long locationId);
+
+    Optional<Reservation> findByName(String name);
 }

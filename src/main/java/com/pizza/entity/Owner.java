@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Owner extends Staff {
+public class Owner extends Person {
 
     @OneToOne
     private Pizzeria pizzeria;

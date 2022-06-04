@@ -24,4 +24,6 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     void deleteByClientCode(String clientCode);
 
     void deleteByPhoneNumber(String phoneNumber);
+
+    List<Client> findByAddressContainingIgnoreCase(String address);
 }

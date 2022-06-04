@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Employee extends Staff {
+public class Employee extends Person {
 
     private Position position;
 

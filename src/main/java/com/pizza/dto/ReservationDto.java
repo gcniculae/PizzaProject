@@ -11,5 +11,6 @@ import lombok.Setter;
 @Setter
 public class ReservationDto extends BaseEntityDto {
 
+    private String name;
     private PizzeriaDto pizzeriaDto;
 }

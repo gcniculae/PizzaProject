@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 @Setter
 public class Reservation extends BaseEntity {
 
+    private String name;
+
     @ManyToOne
     private Pizzeria pizzeria;
 

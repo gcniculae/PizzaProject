@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OwnerDto extends StaffDto {
+public class OwnerDto extends PersonDto {
 
     private Pizzeria pizzeria;
     private List<EmployeeDto> employeesDto;

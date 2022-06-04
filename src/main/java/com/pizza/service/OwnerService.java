@@ -21,11 +21,6 @@ public class OwnerService {
         this.ownerRepository = ownerRepository;
     }
 
-    @PostConstruct
-    public void createOwner() {
-//        Owner owner = new Owner("Andrei", "Andreescu", LocalDate.of(1978, 5, 19), );
-    }
-
     public Owner saveOwner(Owner owner) {
         return ownerRepository.save(owner);
     }

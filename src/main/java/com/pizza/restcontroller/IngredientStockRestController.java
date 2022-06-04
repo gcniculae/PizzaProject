@@ -28,7 +28,7 @@ public class IngredientStockRestController {
     }
 
     @GetMapping(path = "/all")
-    public ResponseEntity<List<IngredientStockDto>> findAllIngredientStocks(@RequestParam(name = "allIngredientStocks", required = false) boolean allIngredientStocks,
+    public ResponseEntity<List<IngredientStockDto>> findAllIngredientStocks(@RequestParam(name = "allIngredientStocks", required = false) Boolean allIngredientStocks,
                                                                             @RequestParam(name = "quantity", required = false) Long quantity,
                                                                             @RequestParam(value = "expirationDate", required = false)
                                                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate expirationDate) {

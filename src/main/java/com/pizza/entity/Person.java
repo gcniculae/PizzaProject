@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Staff extends BaseEntity {
+public class Person extends BaseEntity {
 
     private String firstName;
     private String lastName;

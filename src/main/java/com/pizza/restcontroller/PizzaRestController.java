@@ -26,7 +26,7 @@ public class PizzaRestController {
     }
 
     @GetMapping(path = "/all")
-    public ResponseEntity<List<PizzaDto>> findAllPizzas(@RequestParam(name = "allPizzas", required = false) boolean allPizzas,
+    public ResponseEntity<List<PizzaDto>> findAllPizzas(@RequestParam(name = "allPizzas", required = false) Boolean allPizzas,
                                                         @RequestParam(name = "price", required = false) Double price) {
         List<Pizza> allPizzasList = new ArrayList<>();
 

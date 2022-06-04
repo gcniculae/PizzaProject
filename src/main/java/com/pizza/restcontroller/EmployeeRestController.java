@@ -29,7 +29,7 @@ public class EmployeeRestController {
     }
 
     @GetMapping(path = "/all")
-    public ResponseEntity<List<EmployeeDto>> findAllEmployees(@RequestParam(name = "allEmployees", required = false) boolean allEmployees,
+    public ResponseEntity<List<EmployeeDto>> findAllEmployees(@RequestParam(name = "allEmployees", required = false) Boolean allEmployees,
                                                               @RequestParam(name = "firstName", required = false) String firstName,
                                                               @RequestParam(name = "lastName", required = false) String lastName,
                                                               @RequestParam(name = "dateOfBirth", required = false)

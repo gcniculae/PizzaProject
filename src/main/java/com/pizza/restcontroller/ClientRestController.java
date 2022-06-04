@@ -28,7 +28,8 @@ public class ClientRestController {
     @GetMapping(path = "/all")
     public ResponseEntity<List<ClientDto>> getAllClients(@RequestParam(name = "allClients", required = false) boolean allClients,
                                                          @RequestParam(name = "firstName", required = false) String firstName,
-                                                         @RequestParam(name = "lastName", required = false) String lastName) {
+                                                         @RequestParam(name = "lastName", required = false) String lastName,
+                                                         @RequestParam(name = "address", required = false) String address) {
         List<Client> allClientsList = new ArrayList<>();
 
         if (allClients) {
@@ -37,6 +38,8 @@ public class ClientRestController {
             allClientsList = clientService.findClientsByFirstName(firstName);
         } else if (lastName != null) {
             allClientsList = clientService.findClientsByLastName(lastName);
+        } else if (address != null) {
+            allClientsList = clientService.findClientsByAddress(address);
         }
 
         List<ClientDto> allClientsDto = clientTransformer.convertFromEntityListToDtoList(allClientsList);

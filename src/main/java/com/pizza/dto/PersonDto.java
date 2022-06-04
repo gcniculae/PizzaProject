@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class StaffDto extends BaseEntityDto {
+public class PersonDto extends BaseEntityDto {
 
     private String firstName;
     private String lastName;

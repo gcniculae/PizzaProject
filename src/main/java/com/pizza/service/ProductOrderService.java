@@ -5,6 +5,7 @@ import com.pizza.repository.ProductOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -18,8 +19,16 @@ public class ProductOrderService {
         this.productOrderRepository = productOrderRepository;
     }
 
-    public ProductOrder saveProductOwner(ProductOrder productOrder) {
+    public ProductOrder saveProductOrder(ProductOrder productOrder) {
         return productOrderRepository.save(productOrder);
+    }
+
+    public List<ProductOrder> findAllProductOrders() {
+        return productOrderRepository.findAll();
+    }
+
+    public List<ProductOrder> findProductOrdersByClientId(Long clientId) {
+        return productOrderRepository.findByClientId(clientId);
     }
 
     public ProductOrder findProductOrderById(Long id) {
@@ -36,7 +45,7 @@ public class ProductOrderService {
         ProductOrder productOrderById = findProductOrderById(id);
         productOrder.setId(productOrderById.getId());
 
-        return saveProductOwner(productOrder);
+        return saveProductOrder(productOrder);
     }
 
     public void deleteProductOrderServiceById(Long id) {

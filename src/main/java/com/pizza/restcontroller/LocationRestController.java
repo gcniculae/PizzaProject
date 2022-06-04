@@ -26,7 +26,7 @@ public class LocationRestController {
     }
 
     @GetMapping(path = "/all")
-    public ResponseEntity<List<LocationDto>> findAllLocations(@RequestParam(name = "allLocations", required = false) boolean allLocations,
+    public ResponseEntity<List<LocationDto>> findAllLocations(@RequestParam(name = "allLocations", required = false) Boolean allLocations,
                                                               @RequestParam(name = "address", required = false) String address) {
         List<Location> allLocationsList = new ArrayList<>();
 

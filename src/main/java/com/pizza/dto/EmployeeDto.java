@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
-public class EmployeeDto extends StaffDto {
+public class EmployeeDto extends PersonDto {
 
     private Position position;
     private OwnerDto ownerDto;

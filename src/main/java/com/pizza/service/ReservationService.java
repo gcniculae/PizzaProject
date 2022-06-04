@@ -37,6 +37,16 @@ public class ReservationService {
         }
     }
 
+    public Reservation findReservationByName(String name) {
+        Optional<Reservation> optionalReservation = reservationRepository.findByName(name);
+
+        if (optionalReservation.isPresent()) {
+            return optionalReservation.get();
+        } else {
+            throw new NoSuchElementException("No such reservation.");
+        }
+    }
+
     public Reservation findReservationByLocationId(Long locationId) {
         Optional<Reservation> optionalReservation = reservationRepository.findByLocationId(locationId);
 
