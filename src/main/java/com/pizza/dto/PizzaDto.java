@@ -12,7 +12,6 @@ import lombok.Setter;
 public class PizzaDto extends BaseEntityDto {
 
     private String name;
+    private Double price;
     private ProductOrderDto orderDto;
-
-    private double price;
 }

@@ -17,8 +17,8 @@ public class Pizza extends BaseEntity {
 
     private String name;
 
+    private Double price;
+
     @ManyToOne
     private ProductOrder order;
-
-    private double price;
 }

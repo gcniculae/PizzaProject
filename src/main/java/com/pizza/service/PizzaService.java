@@ -4,6 +4,7 @@ import com.pizza.entity.Pizza;
 import com.pizza.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -47,6 +48,10 @@ public class PizzaService {
         }
     }
 
+    public List<Pizza> findPizzasByPrice(Double price) {
+        return pizzaRepository.findByPrice(price);
+    }
+
     public Pizza updatePizza(Long id, Pizza pizza) {
         Pizza pizzaById = findPizzaById(id);
         pizza.setId(pizzaById.getId());
@@ -58,6 +63,7 @@ public class PizzaService {
         pizzaRepository.deleteById(id);
     }
 
+    @Transactional
     public void deletePizzaByName(String name) {
         pizzaRepository.deleteByName(name);
     }
