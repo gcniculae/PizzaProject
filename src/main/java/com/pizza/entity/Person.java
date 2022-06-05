@@ -30,6 +30,7 @@ public class Person extends BaseEntity {
     }
 
     public abstract static class PersonBuilder<T extends PersonBuilder<T>> {
+
         private String firstName;
         private String lastName;
         private String phoneNumber;
