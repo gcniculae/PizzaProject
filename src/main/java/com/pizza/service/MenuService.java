@@ -1,11 +1,11 @@
 package com.pizza.service;
 
 import com.pizza.entity.Menu;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.MenuRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -31,7 +31,7 @@ public class MenuService {
         if (optionalMenu.isPresent()) {
             return optionalMenu.get();
         } else {
-            throw new NoSuchElementException("No such menu.");
+            throw new NotFoundException("No such menu found.", "menu.not.found");
         }
     }
 
@@ -41,7 +41,7 @@ public class MenuService {
         if (optionalMenu.isPresent()) {
             return optionalMenu.get();
         } else {
-            throw new NoSuchElementException("No such menu.");
+            throw new NotFoundException("No such menu found.", "menu.not.found");
         }
     }
 

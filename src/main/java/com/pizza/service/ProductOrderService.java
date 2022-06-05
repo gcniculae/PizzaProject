@@ -1,12 +1,12 @@
 package com.pizza.service;
 
 import com.pizza.entity.ProductOrder;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ProductOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -37,7 +37,7 @@ public class ProductOrderService {
         if (optionalProductOrder.isPresent()) {
             return optionalProductOrder.get();
         } else {
-            throw new NoSuchElementException("No such product owner.");
+            throw new NotFoundException("No such product order found.", "productOrder.not.found");
         }
     }
 

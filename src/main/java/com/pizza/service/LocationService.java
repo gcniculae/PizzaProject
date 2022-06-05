@@ -1,6 +1,7 @@
 package com.pizza.service;
 
 import com.pizza.entity.Location;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class LocationService {
         if (optionalLocation.isPresent()) {
             return optionalLocation.get();
         } else {
-            throw new NoSuchElementException("No such location.");
+            throw new NotFoundException("No location client found.", "location.not.found");
         }
     }
 
@@ -43,7 +44,7 @@ public class LocationService {
         if (optionalLocation.isPresent()) {
             return optionalLocation.get();
         } else {
-            throw new NoSuchElementException("No such location.");
+            throw new NotFoundException("No location client found.", "location.not.found");
         }
     }
 

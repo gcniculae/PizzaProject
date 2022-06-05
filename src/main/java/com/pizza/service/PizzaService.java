@@ -1,13 +1,13 @@
 package com.pizza.service;
 
 import com.pizza.entity.Pizza;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -34,7 +34,7 @@ public class PizzaService {
         if (optionalPizza.isPresent()) {
             return optionalPizza.get();
         } else {
-            throw new NoSuchElementException("No such pizza.");
+            throw new NotFoundException("No such pizza found.", "pizza.not.found");
         }
     }
 
@@ -44,7 +44,7 @@ public class PizzaService {
         if (optionalPizza.isPresent()) {
             return optionalPizza.get();
         } else {
-            throw new NoSuchElementException("No such pizza.");
+            throw new NotFoundException("No such pizza found.", "pizza.not.found");
         }
     }
 

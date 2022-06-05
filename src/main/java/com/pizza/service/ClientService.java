@@ -1,6 +1,7 @@
 package com.pizza.service;
 
 import com.pizza.entity.Client;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,9 +11,7 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
@@ -57,7 +56,7 @@ public class ClientService {
         if (optionalClient.isPresent()) {
             return optionalClient.get();
         } else {
-            throw new NoSuchElementException("No such client.");
+            throw new NotFoundException("No such client found.", "client.not.found");
         }
     }
 
@@ -79,7 +78,7 @@ public class ClientService {
         if (optionalClient.isPresent()) {
             return optionalClient.get();
         } else {
-            throw new NoSuchElementException("No such client.");
+            throw new NotFoundException("No such client found.", "client.not.found");
         }
     }
 
@@ -89,7 +88,7 @@ public class ClientService {
         if (optionalClient.isPresent()) {
             return optionalClient.get();
         } else {
-            throw new NoSuchElementException("No such client.");
+            throw new NotFoundException("No such client found.", "client.not.found");
         }
     }
 

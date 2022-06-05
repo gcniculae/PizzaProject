@@ -1,6 +1,7 @@
 package com.pizza.service;
 
 import com.pizza.entity.Reservation;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class ReservationService {
         if (optionalReservation.isPresent()) {
             return optionalReservation.get();
         } else {
-            throw new NoSuchElementException("No such reservation.");
+            throw new NotFoundException("No such reservation found.", "reservation.not.found");
         }
     }
 
@@ -43,7 +44,7 @@ public class ReservationService {
         if (optionalReservation.isPresent()) {
             return optionalReservation.get();
         } else {
-            throw new NoSuchElementException("No such reservation.");
+            throw new NotFoundException("No such reservation found.", "reservation.not.found");
         }
     }
 
@@ -53,7 +54,7 @@ public class ReservationService {
         if (optionalReservation.isPresent()) {
             return optionalReservation.get();
         } else {
-            throw new NoSuchElementException("No such reservation.");
+            throw new NotFoundException("No such reservation found.", "reservation.not.found");
         }
     }
 

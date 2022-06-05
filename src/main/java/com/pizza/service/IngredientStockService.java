@@ -1,6 +1,7 @@
 package com.pizza.service;
 
 import com.pizza.entity.IngredientStock;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.IngredientStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class IngredientStockService {
         if (optionalIngredientStock.isPresent()) {
             return optionalIngredientStock.get();
         } else {
-            throw new NoSuchElementException("No such ingredient stock.");
+            throw new NotFoundException("No such ingredient stock found.", "ingredientStock.not.found");
         }
     }
 
@@ -44,7 +45,7 @@ public class IngredientStockService {
         if (optionalIngredientStock.isPresent()) {
             return optionalIngredientStock.get();
         } else {
-            throw new NoSuchElementException("No such ingredient stock.");
+            throw new NotFoundException("No such ingredient stock found.", "ingredientStock.not.found");
         }
     }
 

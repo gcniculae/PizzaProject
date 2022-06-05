@@ -1,14 +1,12 @@
 package com.pizza.service;
 
 import com.pizza.entity.Owner;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDate;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -31,7 +29,7 @@ public class OwnerService {
         if (optionalOwner.isPresent()) {
             return optionalOwner.get();
         } else {
-            throw new NoSuchElementException("No such owner.");
+            throw new NotFoundException("No such owner found.", "owner.not.found");
         }
     }
 

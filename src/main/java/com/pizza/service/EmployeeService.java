@@ -2,6 +2,7 @@ package com.pizza.service;
 
 import com.pizza.entity.Employee;
 import com.pizza.entity.Position;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class EmployeeService {
         if (optionalEmployee.isPresent()) {
             return optionalEmployee.get();
         } else {
-            throw new NoSuchElementException("No such employee.");
+            throw new NotFoundException("No such employee found.", "employee.not.found");
         }
     }
 
