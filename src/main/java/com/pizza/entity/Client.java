@@ -36,6 +36,7 @@ public class Client extends Person {
 
     public static class ClientBuilder extends PersonBuilder<ClientBuilder> {
 
+        private String clientCode;
         private List<ProductOrder> productOrders;
 
         public ClientBuilder() {
@@ -43,6 +44,11 @@ public class Client extends Person {
 
         public ClientBuilder setProductOrderList(List<ProductOrder> productOrders) {
             this.productOrders = productOrders;
+            return this;
+        }
+
+        public ClientBuilder setClientCode(String clientCode) {
+            this.clientCode = clientCode;
             return this;
         }
 
