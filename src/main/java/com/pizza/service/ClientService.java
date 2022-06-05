@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClientService {
@@ -36,8 +37,12 @@ public class ClientService {
     }
 
     public Client saveClient(Client client) {
-        Client newClient = new Client.ClientBuilder().setFirstName(client.getFirstName()).setLastName(client.getLastName()).setPhoneNumber(client.getPhoneNumber()).setDateOfBirth(client.getDateOfBirth()).setAddress(client.getAddress()).build();
-        client.setClientCode(newClient.getClientCode());
+        Client newClient = new Client();
+        if (findAllClients().stream().noneMatch(element -> element.getId().equals(client.getId()))) {
+            client.setClientCode(newClient.getClientCode());
+        } else {
+            client.setClientCode(findClientById(client.getId()).getClientCode());
+        }
 
         return clientRepository.save(client);
     }
