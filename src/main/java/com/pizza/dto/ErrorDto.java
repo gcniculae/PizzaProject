@@ -1,4 +1,4 @@
-package com.pizza.entity;
+package com.pizza.dto;
 
 public class ErrorDto {
 
