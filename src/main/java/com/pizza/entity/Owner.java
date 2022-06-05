@@ -40,6 +40,9 @@ public class Owner extends Person {
         private Pizzeria pizzeria;
         private List<Employee> employees;
 
+        public OwnerBuilder() {
+        }
+
         public OwnerBuilder setPizzeria(Pizzeria pizzeria) {
             this.pizzeria = pizzeria;
             return this;
