@@ -1,9 +1,6 @@
 package com.pizza.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -14,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Pizzeria extends BaseEntity {
 
     private String name;
@@ -27,7 +25,14 @@ public class Pizzeria extends BaseEntity {
     @OneToMany(mappedBy = "pizzeria")
     private List<Location> locations;
 
-    @Builder
+    private Pizzeria(PizzeriaBuilder pizzeriaBuilder) {
+        this.name = pizzeriaBuilder.name;
+        this.owner = pizzeriaBuilder.owner;
+        this.menu = pizzeriaBuilder.menus;
+        this.locations = pizzeriaBuilder.locations;
+    }
+
+    //    @Builder
     public static class PizzeriaBuilder {
 
         private String name;
@@ -35,34 +40,28 @@ public class Pizzeria extends BaseEntity {
         private List<Menu> menus;
         private List<Location> locations;
 
-//        public Pizzeria build() {
-//            Pizzeria pizzeria = new Pizzeria();
-//            pizzeria.setName(name);
-//            pizzeria.setOwner(owner);
-//            pizzeria.setMenu(menus);
-//            pizzeria.setLocations(locations);
-//
-//            return pizzeria;
-//        }
-//
-//        public PizzeriaBuilder setName(String name) {
-//            this.name = name;
-//            return this;
-//        }
-//
-//        public PizzeriaBuilder setOwner(Owner owner) {
-//            this.owner = owner;
-//            return this;
-//        }
-//
-//        public PizzeriaBuilder setMenu(List<Menu> menus) {
-//            this.menus = menus;
-//            return this;
-//        }
-//
-//        public PizzeriaBuilder setLocation(List<Location> locations) {
-//            this.locations = locations;
-//            return this;
-//        }
+        public PizzeriaBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public PizzeriaBuilder setOwner(Owner owner) {
+            this.owner = owner;
+            return this;
+        }
+
+        public PizzeriaBuilder setMenu(List<Menu> menus) {
+            this.menus = menus;
+            return this;
+        }
+
+        public PizzeriaBuilder setLocation(List<Location> locations) {
+            this.locations = locations;
+            return this;
+        }
+
+        public Pizzeria build() {
+            return new Pizzeria(this);
+        }
     }
 }

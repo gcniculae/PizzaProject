@@ -30,7 +30,7 @@ public class LocationRestController {
                                                               @RequestParam(name = "address", required = false) String address) {
         List<Location> allLocationsList = new ArrayList<>();
 
-        if (allLocations) {
+        if (allLocations != null) {
             allLocationsList = locationService.findAllLocations();
         } else if (address != null) {
             allLocationsList = locationService.findLocationsByAddress(address);

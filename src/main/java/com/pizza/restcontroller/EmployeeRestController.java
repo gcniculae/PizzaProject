@@ -37,7 +37,7 @@ public class EmployeeRestController {
                                                               @RequestParam(name = "position", required = false) Position position) {
         List<Employee> allEmployeesList = new ArrayList<>();
 
-        if (allEmployees) {
+        if (allEmployees != null) {
             allEmployeesList = employeeService.findAllEmployees();
         } else if (firstName != null) {
             allEmployeesList = employeeService.findEmployeesByFirstName(firstName);

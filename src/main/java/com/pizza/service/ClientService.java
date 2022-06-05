@@ -26,17 +26,17 @@ public class ClientService {
     @PostConstruct
     public void createClients() {
         List<Client> initialClients = new ArrayList<>();
-        initialClients.add(new Client("Claudiu", "Alexandrescu", "0720000000", LocalDate.of(1980, 8, 14), "Ploiesti"));
-        initialClients.add(new Client("Marin", "Stefanescu", "0720000050", LocalDate.of(1994, 2, 4), "Ploiesti"));
-        initialClients.add(new Client("Florin", "Albulescu", "0720002340", LocalDate.of(1999, 12, 1), "Ploiesti"));
-        initialClients.add(new Client("Dan", "Stoicescu", "0720560010", LocalDate.of(1990, 9, 22), "Ploiesti"));
-        initialClients.add(new Client("Marius", "Danescu", "0724456097", LocalDate.of(1975, 7, 19), "Ploiesti"));
+        initialClients.add(new Client.ClientBuilder().setFirstName("Claudiu").setLastName("Alexandrescu").setPhoneNumber("0720000000").setDateOfBirth(LocalDate.of(1980, 8, 14)).setAddress("Ploiesti").build());
+        initialClients.add(new Client.ClientBuilder().setFirstName("Marin").setLastName("Stefanescu").setPhoneNumber("0720000050").setDateOfBirth(LocalDate.of(1994, 2, 4)).setAddress("Ploiesti").build());
+        initialClients.add(new Client.ClientBuilder().setFirstName("Florin").setLastName("Albulescu").setPhoneNumber("0720002340").setDateOfBirth(LocalDate.of(1999, 12, 1)).setAddress("Ploiesti").build());
+        initialClients.add(new Client.ClientBuilder().setFirstName("Dan").setLastName("Stoicescu").setPhoneNumber("0720560010").setDateOfBirth(LocalDate.of(1990, 9, 22)).setAddress("Ploiesti").build());
+        initialClients.add(new Client.ClientBuilder().setFirstName("Marius").setLastName("Danescu").setPhoneNumber("0724456097").setDateOfBirth(LocalDate.of(1975, 7, 19)).setAddress("Ploiesti").build());
 
         clientRepository.saveAll(initialClients);
     }
 
     public Client saveClient(Client client) {
-        Client newClient = new Client(client.getFirstName(), client.getLastName(), client.getPhoneNumber(), client.getDateOfBirth(), client.getAddress());
+        Client newClient = new Client.ClientBuilder().setFirstName(client.getFirstName()).setLastName(client.getLastName()).setPhoneNumber(client.getPhoneNumber()).setDateOfBirth(client.getDateOfBirth()).setAddress(client.getAddress()).build();
         client.setClientCode(newClient.getClientCode());
 
         return clientRepository.save(client);

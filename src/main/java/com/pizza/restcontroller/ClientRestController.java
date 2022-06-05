@@ -26,13 +26,13 @@ public class ClientRestController {
     }
 
     @GetMapping(path = "/all")
-    public ResponseEntity<List<ClientDto>> getAllClients(@RequestParam(name = "allClients", required = false) boolean allClients,
+    public ResponseEntity<List<ClientDto>> getAllClients(@RequestParam(name = "allClients", required = false) Boolean allClients,
                                                          @RequestParam(name = "firstName", required = false) String firstName,
                                                          @RequestParam(name = "lastName", required = false) String lastName,
                                                          @RequestParam(name = "address", required = false) String address) {
         List<Client> allClientsList = new ArrayList<>();
 
-        if (allClients) {
+        if (allClients != null) {
             allClientsList = clientService.findAllClients();
         } else if (firstName != null) {
             allClientsList = clientService.findClientsByFirstName(firstName);
