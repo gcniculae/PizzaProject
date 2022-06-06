@@ -24,17 +24,17 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    @PostConstruct
-    public void createEmployees() {
-        List<Employee> initialEmployees = new ArrayList<>();
-        initialEmployees.add(new Employee.EmployeeBuilder().setFirstName("Andrei").setLastName("Ionescu").setPhoneNumber("0723001001").setDateOfBirth(LocalDate.of(1970, 3, 24)).setAddress("Ploiesti").setPosition(Position.COOK).build());
-        initialEmployees.add(new Employee.EmployeeBuilder().setFirstName("Ion").setLastName("Popescu").setPhoneNumber("0723001002").setDateOfBirth(LocalDate.of(1985, 7, 9)).setAddress("Ploiesti").setPosition(Position.CASHIER).build());
-        initialEmployees.add(new Employee.EmployeeBuilder().setFirstName("Alexandru").setLastName("Antonescu").setPhoneNumber("0723001003").setDateOfBirth(LocalDate.of(1991, 10, 15)).setAddress("Ploiesti").setPosition(Position.DELIVERY).build());
-        initialEmployees.add(new Employee.EmployeeBuilder().setFirstName("Ion").setLastName("Constantinescu").setPhoneNumber("0723001004").setDateOfBirth(LocalDate.of(1979, 1, 30)).setAddress("Ploiesti").setPosition(Position.WAITER).build());
-        initialEmployees.add(new Employee.EmployeeBuilder().setFirstName("Alin").setLastName("Ionescu").setPhoneNumber("0723001005").setDateOfBirth(LocalDate.of(1984, 12, 5)).setAddress("Ploiesti").setPosition(Position.COOK).build());
-
-        employeeRepository.saveAll(initialEmployees);
-    }
+//    @PostConstruct
+//    public void createEmployees() {
+//        List<Employee> initialEmployees = new ArrayList<>();
+//        initialEmployees.add(new Employee.EmployeeBuilder().setFirstName("Andrei").setLastName("Ionescu").setPhoneNumber("0723001001").setDateOfBirth(LocalDate.of(1970, 3, 24)).setAddress("Ploiesti").setPosition(Position.COOK).build());
+//        initialEmployees.add(new Employee.EmployeeBuilder().setFirstName("Ion").setLastName("Popescu").setPhoneNumber("0723001002").setDateOfBirth(LocalDate.of(1985, 7, 9)).setAddress("Ploiesti").setPosition(Position.CASHIER).build());
+//        initialEmployees.add(new Employee.EmployeeBuilder().setFirstName("Alexandru").setLastName("Antonescu").setPhoneNumber("0723001003").setDateOfBirth(LocalDate.of(1991, 10, 15)).setAddress("Ploiesti").setPosition(Position.DELIVERY).build());
+//        initialEmployees.add(new Employee.EmployeeBuilder().setFirstName("Ion").setLastName("Constantinescu").setPhoneNumber("0723001004").setDateOfBirth(LocalDate.of(1979, 1, 30)).setAddress("Ploiesti").setPosition(Position.WAITER).build());
+//        initialEmployees.add(new Employee.EmployeeBuilder().setFirstName("Alin").setLastName("Ionescu").setPhoneNumber("0723001005").setDateOfBirth(LocalDate.of(1984, 12, 5)).setAddress("Ploiesti").setPosition(Position.COOK).build());
+//
+//        employeeRepository.saveAll(initialEmployees);
+//    }
 
     public Employee saveEmployee(Employee employee) {
         return employeeRepository.save(employee);

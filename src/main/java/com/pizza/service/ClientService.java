@@ -23,17 +23,17 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    @PostConstruct
-    public void createClients() {
-        List<Client> initialClients = new ArrayList<>();
-        initialClients.add(new Client.ClientBuilder().setFirstName("Claudiu").setLastName("Alexandrescu").setPhoneNumber("0720000000").setDateOfBirth(LocalDate.of(1980, 8, 14)).setAddress("Ploiesti").build());
-        initialClients.add(new Client.ClientBuilder().setFirstName("Marin").setLastName("Stefanescu").setPhoneNumber("0720000050").setDateOfBirth(LocalDate.of(1994, 2, 4)).setAddress("Ploiesti").build());
-        initialClients.add(new Client.ClientBuilder().setFirstName("Florin").setLastName("Albulescu").setPhoneNumber("0720002340").setDateOfBirth(LocalDate.of(1999, 12, 1)).setAddress("Ploiesti").build());
-        initialClients.add(new Client.ClientBuilder().setFirstName("Dan").setLastName("Stoicescu").setPhoneNumber("0720560010").setDateOfBirth(LocalDate.of(1990, 9, 22)).setAddress("Ploiesti").build());
-        initialClients.add(new Client.ClientBuilder().setFirstName("Marius").setLastName("Danescu").setPhoneNumber("0724456097").setDateOfBirth(LocalDate.of(1975, 7, 19)).setAddress("Ploiesti").build());
-
-        clientRepository.saveAll(initialClients);
-    }
+//    @PostConstruct
+//    public void createClients() {
+//        List<Client> initialClients = new ArrayList<>();
+//        initialClients.add(new Client.ClientBuilder().setFirstName("Andrei").setLastName("Alexandrescu").setPhoneNumber("0720000000").setDateOfBirth(LocalDate.of(1980, 8, 14)).setAddress("Ploiesti").build());
+//        initialClients.add(new Client.ClientBuilder().setFirstName("Marin").setLastName("Stefanescu").setPhoneNumber("0720000050").setDateOfBirth(LocalDate.of(1994, 2, 4)).setAddress("Ploiesti").build());
+//        initialClients.add(new Client.ClientBuilder().setFirstName("Andrei").setLastName("Albulescu").setPhoneNumber("0720002340").setDateOfBirth(LocalDate.of(1999, 12, 1)).setAddress("Ploiesti").build());
+//        initialClients.add(new Client.ClientBuilder().setFirstName("Dan").setLastName("Stoicescu").setPhoneNumber("0720560010").setDateOfBirth(LocalDate.of(1990, 9, 22)).setAddress("Ploiesti").build());
+//        initialClients.add(new Client.ClientBuilder().setFirstName("Marius").setLastName("Stefanescu").setPhoneNumber("0724456097").setDateOfBirth(LocalDate.of(1975, 7, 19)).setAddress("Ploiesti").build());
+//
+//        clientRepository.saveAll(initialClients);
+//    }
 
     public Client saveClient(Client client) {
         Client newClient = new Client();
