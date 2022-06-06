@@ -12,6 +12,6 @@
             <column name="test_column" type="varchar(250)">
             </column>
         </createTable>
-        <addAutoIncrement tableName="client" columnName="id" columnDataType="int" startWith="1" incrementBy="1"/>
+        <addAutoIncrement tableName="test_table" columnName="id" columnDataType="int" startWith="1" incrementBy="1"/>
     </changeSet>
 </databaseChangeLog>
