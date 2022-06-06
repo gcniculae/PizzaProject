@@ -4,19 +4,19 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
-        <changeSet id="1" author="George Niculae">
-            <preConditions onFail="MARK_RAN">
-                <sqlCheck expectedResult="0">
-                    SELECT COUNT(*)
-                    FROM client;
-                </sqlCheck>
-            </preConditions>
-            <insert tableName="client">
-                <column name="first_name" value="Andrei"/>
+    <!--        <changeSet id="1" author="George Niculae">-->
+    <!--            <preConditions onFail="MARK_RAN">-->
+    <!--                <sqlCheck expectedResult="0">-->
+    <!--                    SELECT COUNT(*)-->
+    <!--                    FROM client;-->
+    <!--                </sqlCheck>-->
+    <!--            </preConditions>-->
+    <!--            <insert tableName="client">-->
+    <!--                <column name="first_name" value="Andrei"/>-->
     <!--            <column name="last_name" value="Alexandrescu"/>-->
     <!--            <column name="phone_number" value="0720000000"/>-->
     <!--            <column name="date_of_birth" value="1980-8-14"/>-->
     <!--            <column name="address" value="Ploiesti"/>-->
-            </insert>
-        </changeSet>
+    <!--            </insert>-->
+    <!--        </changeSet>-->
 </databaseChangeLog>
