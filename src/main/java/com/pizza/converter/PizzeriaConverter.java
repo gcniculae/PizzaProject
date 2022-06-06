@@ -19,7 +19,7 @@ public class PizzeriaConverter extends BaseConverter<PizzeriaDto, Pizzeria> {
     @Override
     public Pizzeria convertFromDtoToEntity(PizzeriaDto pizzeriaDto) {
         Pizzeria pizzeria = new Pizzeria();
-        BeanUtils.copyProperties(pizzeria, pizzeriaDto);
+        BeanUtils.copyProperties(pizzeriaDto, pizzeria);
 
         return pizzeria;
     }
