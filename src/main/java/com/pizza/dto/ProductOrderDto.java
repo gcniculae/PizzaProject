@@ -1,5 +1,6 @@
 package com.pizza.dto;
 
+import com.pizza.entity.Client;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,6 @@ import java.util.List;
 @Setter
 public class ProductOrderDto extends BaseEntityDto {
 
+    private Client client;
     private List<PizzaDto> pizzasDto;
 }
