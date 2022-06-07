@@ -6,6 +6,21 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
     <changeSet id="location-1" author="George Niculae">
         <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="location"/>
+            </not>
+        </preConditions>
+        <createTable tableName="location">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="address" type="varchar(50)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="location-2" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*)
                 FROM location;
@@ -13,6 +28,7 @@
         </preConditions>
         <insert tableName="location">
             <column name="name" value="Location1"/>
+            <column name="address" value="Ploiesti"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

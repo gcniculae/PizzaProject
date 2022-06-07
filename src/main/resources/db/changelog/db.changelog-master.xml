@@ -7,5 +7,6 @@
     <include file="db/changelog/client-changelog.xml"/>
     <include file="db/changelog/employee-changelog.xml"/>
     <include file="db/changelog/location-changelog.xml"/>
-    <include file="db/changelog/test-table-changelog.xml"/>
+    <include file="db/changelog/menu-changelog.xml"/>
+    <include file="db/changelog/pizza-changelog.xml"/>
 </databaseChangeLog>

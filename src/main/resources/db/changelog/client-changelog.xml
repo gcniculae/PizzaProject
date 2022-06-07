@@ -4,19 +4,88 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
-<!--    <changeSet id="client-1" author="George Niculae">-->
-<!--        <preConditions onFail="MARK_RAN">-->
-<!--            <sqlCheck expectedResult="0">-->
-<!--                SELECT COUNT(*)-->
-<!--                FROM client;-->
-<!--            </sqlCheck>-->
-<!--        </preConditions>-->
-<!--        <insert tableName="client">-->
-<!--            <column name="first_name" value="Andrei"/>-->
-<!--            <column name="last_name" value="Alexandrescu"/>-->
-<!--            <column name="phone_number" value="0720000000"/>-->
-<!--            <column name="date_of_birth" value="1980-8-14"/>-->
-<!--            <column name="address" value="Ploiesti"/>-->
-<!--        </insert>-->
-<!--    </changeSet>-->
+    <changeSet id="client-1" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="client"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="client">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="phone_number" type="varchar(20)"/>
+            <column name="date_of_birth" type="varchar(20)"/>
+            <column name="address" type="varchar(100)"/>
+            <column name="client_code" type="varchar(50)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="client-2" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM client;
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="client">
+            <column name="first_name" value="Andrei"/>
+            <column name="last_name" value="Alexandrescu"/>
+            <column name="phone_number" value="0720000000"/>
+            <column name="date_of_birth" value="1980-08-14"/>
+            <column name="address" value="Ploiesti"/>
+        </insert>
+        <insert tableName="client">
+            <column name="first_name" value="Ion"/>
+            <column name="last_name" value="Popescu"/>
+            <column name="phone_number" value="0723001002"/>
+            <column name="date_of_birth" value="1985-07-09"/>
+            <column name="address" value="Ploiesti"/>
+        </insert>
+        <insert tableName="client">
+            <column name="first_name" value="Alexandru"/>
+            <column name="last_name" value="Antonescu"/>
+            <column name="phone_number" value="0723001003"/>
+            <column name="date_of_birth" value="1991-10-15"/>
+            <column name="address" value="Ploiesti"/>
+        </insert>
+        <insert tableName="client">
+            <column name="first_name" value="Ion"/>
+            <column name="last_name" value="Constantinescu"/>
+            <column name="phone_number" value="0723001004"/>
+            <column name="date_of_birth" value="1979-01-30"/>
+            <column name="address" value="Ploiesti"/>
+        </insert>
+        <insert tableName="client">
+            <column name="first_name" value="Alin"/>
+            <column name="last_name" value="Ionescu"/>
+            <column name="phone_number" value="0723001005"/>
+            <column name="date_of_birth" value="1984-12-05"/>
+            <column name="address" value="Ploiesti"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="client-3" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="0">
+                    SELECT COUNT(*)
+                    FROM client
+                    WHERE client_code IS NULL;
+                </sqlCheck>
+            </not>
+        </preConditions>
+        <sql>
+            UPDATE client
+            SET client_code = (SELECT UUID())
+            WHERE client_code IS NULL;
+        </sql>
+        <sql>UPDATE client
+             SET client_code = UPPER(REPLACE(CONCAT('C', client_code), '-', ''))
+             WHERE LENGTH(client_code) = 36;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

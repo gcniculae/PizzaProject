@@ -4,35 +4,29 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
-    <changeSet id="test-1" author="George Niculae">
+    <changeSet id="menu-1" author="George Niculae">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="test_table"/>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="menu"/>
             </not>
         </preConditions>
-        <createTable tableName="test_table">
-            <column name="id" type="int" autoIncrement="true">
+        <createTable tableName="menu">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="test_column" type="varchar(20)"/>
+            <column name="name" type="varchar(20)"/>
         </createTable>
     </changeSet>
 
-    <changeSet id="test-2" author="George Niculae">
+    <changeSet id="menu-2" author="George Niculae">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*)
-                FROM test_table;
+                FROM menu;
             </sqlCheck>
         </preConditions>
-        <insert tableName="test_table">
-            <column name="test_column" value="test value 1"/>
-        </insert>
-        <insert tableName="test_table">
-            <column name="test_column" value="test value 2"/>
-        </insert>
-        <insert tableName="test_table">
-            <column name="test_column" value="test value 3"/>
+        <insert tableName="menu">
+            <column name="name" value="Menu1"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
