@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="owner-pizzeria-1" author="George Niculae">
+        <preConditions>
+            <not>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="owner"/>
+            </not>
+            <not>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="pizzeria"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="owner">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(50)"/>
+            <column name="last_name" type="varchar(50)"/>
+            <column name="phone_number" type="varchar(20)"/>
+            <column name="date_of_birth" type="varchar(20)"/>
+            <column name="address" type="varchar(100)"/>
+            <column name="pizzeria_id" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="pizzeria">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="owner_id" type="bigint"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="pizzeria_id"
+                                 baseTableName="owner"
+                                 constraintName="fk_owner_pizzeria_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pizzeria"/>
+
+        <addForeignKeyConstraint baseColumnNames="owner_id"
+                                 baseTableName="pizzeria"
+                                 constraintName="fk_pizzeria_owner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="owner"/>
+    </changeSet>
+
+    <changeSet id="owner-pizzeria-2" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM owner;
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="owner">
+            <column name="first_name" value="Andrei"/>
+            <column name="last_name" value="Andreescu"/>
+            <column name="phone_number" value="0723001001"/>
+            <column name="date_of_birth" value="1980-09-11"/>
+            <column name="address" value="Ploiesti"/>
+<!--            <column name="pizzeria_id" value="1"/>-->
+        </insert>
+    </changeSet>
+
+    <changeSet id="owner-pizzeria-3" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM pizzeria;
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="pizzeria">
+            <column name="name" value="Pizzeria"/>
+            <!--            <column name="owner_id" value="1"/>-->
+        </insert>
+    </changeSet>
+</databaseChangeLog>
