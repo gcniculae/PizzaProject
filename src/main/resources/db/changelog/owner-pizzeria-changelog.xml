@@ -60,7 +60,7 @@
             <column name="phone_number" value="0723001001"/>
             <column name="date_of_birth" value="1980-09-11"/>
             <column name="address" value="Ploiesti"/>
-<!--            <column name="pizzeria_id" value="1"/>-->
+            <!--            <column name="pizzeria_id" value="1"/>-->
         </insert>
     </changeSet>
 
@@ -73,7 +73,24 @@
         </preConditions>
         <insert tableName="pizzeria">
             <column name="name" value="Pizzeria"/>
-            <!--            <column name="owner_id" value="1"/>-->
+            <column name="owner_id" value="1"/>
         </insert>
+    </changeSet>
+
+    <changeSet id="owner-pizzeria-4" author="George Niculae">
+        <preConditions>
+            <not>
+                <sqlCheck expectedResult="0">
+                    SELECT COUNT(*)
+                    FROM owner
+                    WHERE pizzeria_id IS NULL;
+                </sqlCheck>
+            </not>
+        </preConditions>
+        <sql>
+            UPDATE owner
+            SET pizzeria_id = 1
+            WHERE pizzeria_id IS NULL;
+        </sql>
     </changeSet>
 </databaseChangeLog>
