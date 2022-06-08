@@ -14,8 +14,12 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(50)"/>
-            <column name="address" type="varchar(50)"/>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
             <column name="pizzeria_id" type="bigint"/>
         </createTable>
 

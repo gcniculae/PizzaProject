@@ -14,9 +14,13 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(50)"/>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="pizzeria_id" type="bigint"/>
-            <column name="location_id" type="bigint"/>
         </createTable>
 
         <addForeignKeyConstraint baseColumnNames="pizzeria_id"

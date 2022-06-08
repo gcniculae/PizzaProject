@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -16,6 +14,7 @@ import java.util.List;
 public class Owner extends Person {
 
     @OneToOne
+    @JoinColumn(nullable = false)
     private Pizzeria pizzeria;
 
     @OneToMany(mappedBy = "owner")
