@@ -23,7 +23,8 @@
             <column name="phone_number" type="varchar(20)"/>
             <column name="date_of_birth" type="varchar(20)"/>
             <column name="address" type="varchar(100)"/>
-            <column name="pizzeria_id" type="bigint"/>
+            <column name="pizzeria_id" type="bigint" />
+<!--            unique-->
         </createTable>
 
         <createTable tableName="pizzeria">

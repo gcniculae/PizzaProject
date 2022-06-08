@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import java.util.List;
 
 @Entity
-//@NoArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Owner extends Person {
@@ -32,8 +32,8 @@ public class Owner extends Person {
         this.employees = ownerBuilder.employees;
     }
 
-    public Owner() {
-    }
+//    public Owner() {
+//    }
 
     public static class OwnerBuilder extends PersonBuilder<OwnerBuilder> {
 

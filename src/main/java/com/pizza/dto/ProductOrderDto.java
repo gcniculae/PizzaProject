@@ -14,6 +14,6 @@ import java.util.List;
 @Setter
 public class ProductOrderDto extends BaseEntityDto {
 
-    private Client client;
+    private Long clientId;
     private List<PizzaDto> pizzasDto;
 }

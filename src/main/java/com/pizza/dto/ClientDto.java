@@ -15,9 +15,36 @@ import java.util.List;
 public class ClientDto extends PersonDto {
 
     private String clientCode;
-    private List<ProductOrder> productOrders;
+//    private List<ProductOrder> productOrders;
 
-    public ClientDto(String firstName, String lastName, String phoneNumber, LocalDate dateOfBirth, String address) {
-        super(firstName, lastName, phoneNumber, dateOfBirth, address);
+    public ClientDto(ClientDtoBuilder clientDtoBuilder) {
+        this.clientCode = clientDtoBuilder.clientCode;
+//        this.productOrders = clientDtoBuilder.productOrders;
+    }
+
+    public static class ClientDtoBuilder extends PersonDtoBuilder<ClientDtoBuilder> {
+
+        private String clientCode;
+//        private List<ProductOrder> productOrders;
+
+        public ClientDtoBuilder setClientCode(String clientCode) {
+            this.clientCode = clientCode;
+            return this;
+        }
+
+//        public ClientDtoBuilder setProductOrderList(List<ProductOrder> productOrders) {
+//            this.productOrders = productOrders;
+//            return this;
+//        }
+
+        @Override
+        public ClientDtoBuilder getThisDto() {
+            return this;
+        }
+
+        @Override
+        public ClientDto buildDto() {
+            return new ClientDto(this);
+        }
     }
 }

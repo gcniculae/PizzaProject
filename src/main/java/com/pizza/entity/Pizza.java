@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
+import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -19,6 +20,6 @@ public class Pizza extends BaseEntity {
 
     private Double price;
 
-    @ManyToOne
-    private ProductOrder order;
+    @ManyToMany
+    private List<ProductOrder> orders;
 }

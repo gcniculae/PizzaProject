@@ -39,8 +39,8 @@ public class Client extends Person {
         private String clientCode;
         private List<ProductOrder> productOrders;
 
-        public ClientBuilder() {
-        }
+//        public ClientBuilder() {
+//        }
 
         public ClientBuilder setProductOrderList(List<ProductOrder> productOrders) {
             this.productOrders = productOrders;

@@ -1,11 +1,9 @@
 package com.pizza.dto;
 
-import com.pizza.entity.Pizzeria;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @NoArgsConstructor
@@ -13,12 +11,37 @@ import java.util.List;
 @Setter
 public class OwnerDto extends PersonDto {
 
-    private Pizzeria pizzeria;
-    private List<EmployeeDto> employeesDto;
+    private PizzeriaDto pizzeriaDto;
+//    private List<EmployeeDto> employeesDto;
 
-    public OwnerDto(String firstName, String lastName, String phoneNumber, LocalDate dateOfBirth, String address, Pizzeria pizzeria, List<EmployeeDto> employeesDto) {
-        super(firstName, lastName, phoneNumber, dateOfBirth, address);
-        this.pizzeria = pizzeria;
-        this.employeesDto = employeesDto;
+    public OwnerDto(OwnerDtoBuilder ownerDtoBuilder) {
+        this.pizzeriaDto = ownerDtoBuilder.pizzeriaDto;
+//        this.employeesDto = ownerDtoBuilder.employeesDto;
+    }
+
+    public static class OwnerDtoBuilder extends PersonDtoBuilder<OwnerDtoBuilder> {
+
+        private PizzeriaDto pizzeriaDto;
+//        private List<EmployeeDto> employeesDto;
+
+        public OwnerDtoBuilder setPizzeriaDto(PizzeriaDto pizzeriaDto) {
+            this.pizzeriaDto = pizzeriaDto;
+            return this;
+        }
+
+//        public OwnerDtoBuilder setEmployeesDtoList(List<EmployeeDto> employeesDto) {
+//            this.employeesDto = employeesDto;
+//            return this;
+//        }
+
+        @Override
+        public OwnerDtoBuilder getThisDto() {
+            return this;
+        }
+
+        @Override
+        public OwnerDto buildDto() {
+            return new OwnerDto(this);
+        }
     }
 }

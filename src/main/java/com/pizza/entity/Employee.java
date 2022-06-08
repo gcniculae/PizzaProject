@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Entity
-//@NoArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Employee extends Person {
@@ -25,8 +25,8 @@ public class Employee extends Person {
         this.owner = employeeBuilder.owner;
     }
 
-    public Employee() {
-    }
+//    public Employee() {
+//    }
 
 //    public Employee(String firstName, String lastName, String phoneNumber, LocalDate datOfBirth, String address, Position position) {
 //        super(firstName, lastName, phoneNumber, datOfBirth, address);
@@ -48,8 +48,8 @@ public class Employee extends Person {
             return this;
         }
 
-        public EmployeeBuilder() {
-        }
+//        public EmployeeBuilder() {
+//        }
 
         @Override
         public EmployeeBuilder getThis() {

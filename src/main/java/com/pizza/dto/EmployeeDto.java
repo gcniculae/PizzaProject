@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -15,9 +13,34 @@ public class EmployeeDto extends PersonDto {
     private Position position;
     private OwnerDto ownerDto;
 
-    public EmployeeDto(String firstName, String lastName, String phoneNumber, LocalDate dateOfBirth, String address, Position position, OwnerDto ownerDto) {
-        super(firstName, lastName, phoneNumber, dateOfBirth, address);
-        this.position = position;
-        this.ownerDto = ownerDto;
+    public EmployeeDto(EmployeeDtoBuilder employeeDtoBuilder) {
+        this.position = employeeDtoBuilder.position;
+        this.ownerDto = employeeDtoBuilder.ownerDto;
+    }
+
+    public static class EmployeeDtoBuilder extends PersonDtoBuilder<EmployeeDtoBuilder> {
+
+        private Position position;
+        private OwnerDto ownerDto;
+
+        public EmployeeDtoBuilder setPosition(Position position) {
+            this.position = position;
+            return this;
+        }
+
+        public EmployeeDtoBuilder setOwnerDto(OwnerDto ownerDto) {
+            this.ownerDto = ownerDto;
+            return this;
+        }
+
+        @Override
+        public EmployeeDtoBuilder getThisDto() {
+            return this;
+        }
+
+        @Override
+        public EmployeeDto buildDto() {
+            return new EmployeeDto(this);
+        }
     }
 }
