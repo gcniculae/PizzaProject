@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
@@ -14,9 +16,11 @@ import java.time.LocalDate;
 @Setter
 public class Employee extends Person {
 
+    @Column(nullable = false)
     private Position position;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Owner owner;
 
     public Employee(EmployeeBuilder employeeBuilder) {

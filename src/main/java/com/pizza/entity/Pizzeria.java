@@ -1,10 +1,10 @@
 package com.pizza.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -13,9 +13,11 @@ import java.util.List;
 @Setter
 public class Pizzeria extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
     @OneToOne
+    @JoinColumn(nullable = false)
     private Owner owner;
 
     @OneToMany(mappedBy = "pizzeria")

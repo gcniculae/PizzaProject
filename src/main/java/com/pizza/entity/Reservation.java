@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -15,11 +17,13 @@ import javax.persistence.ManyToOne;
 @Setter
 public class Reservation extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
     @ManyToOne
-    private Pizzeria pizzeria;
+    @JoinColumn(nullable = false)
+    private Location location;
 
     @ManyToOne
-    private Location location;
+    private Pizzeria pizzeria;
 }

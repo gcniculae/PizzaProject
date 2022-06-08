@@ -2,6 +2,7 @@ package com.pizza.entity;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 
@@ -12,10 +13,19 @@ import java.time.LocalDate;
 @Setter
 public class Person extends BaseEntity {
 
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false)
     private String phoneNumber;
+
+    @Column(nullable = false)
     private LocalDate dateOfBirth;
+
+    @Column(nullable = false)
     private String address;
 
     protected Person(PersonBuilder<?> personBuilder) {
