@@ -1,5 +1,6 @@
 package com.pizza.entity;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,10 @@ import java.util.List;
 @Setter
 public class Pizza extends BaseEntity {
 
-    @Column(nullable = false)
+    @NotNull
     private String name;
 
-    @Column(nullable = false)
+    @NotNull
     private Double price;
 
     @ManyToMany

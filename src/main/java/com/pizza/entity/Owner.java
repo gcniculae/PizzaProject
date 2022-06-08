@@ -1,5 +1,6 @@
 package com.pizza.entity;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.util.List;
 public class Owner extends Person {
 
     @OneToOne
-    @JoinColumn(nullable = false)
+    @NotNull
     private Pizzeria pizzeria;
 
     @OneToMany(mappedBy = "owner")

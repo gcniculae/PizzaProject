@@ -1,5 +1,6 @@
 package com.pizza.entity;
 
+import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -13,19 +14,19 @@ import java.time.LocalDate;
 @Setter
 public class Person extends BaseEntity {
 
-    @Column(nullable = false)
+    @NotNull
     private String firstName;
 
-    @Column(nullable = false)
+    @NotNull
     private String lastName;
 
-    @Column(nullable = false)
+    @NotNull
     private String phoneNumber;
 
-    @Column(nullable = false)
+    @NotNull
     private LocalDate dateOfBirth;
 
-    @Column(nullable = false)
+    @NotNull
     private String address;
 
     protected Person(PersonBuilder<?> personBuilder) {

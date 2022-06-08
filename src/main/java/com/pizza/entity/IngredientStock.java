@@ -1,5 +1,6 @@
 package com.pizza.entity;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,16 +19,17 @@ import java.time.LocalDate;
 @Setter
 public class IngredientStock extends BaseEntity {
 
-    @Column(nullable = false, unique = true)
+    @NotNull
+    @Column(unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @NotNull
     private Long quantity;
 
-    @Column(nullable = false)
+    @NotNull
     private LocalDate expirationDate;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @NotNull
     private Location location;
 }

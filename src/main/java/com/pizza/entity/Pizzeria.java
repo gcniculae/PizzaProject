@@ -1,5 +1,6 @@
 package com.pizza.entity;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,11 +14,11 @@ import java.util.List;
 @Setter
 public class Pizzeria extends BaseEntity {
 
-    @Column(nullable = false)
+    @NotNull
     private String name;
 
     @OneToOne
-    @JoinColumn(nullable = false)
+    @NotNull
     private Owner owner;
 
     @OneToMany(mappedBy = "pizzeria")

@@ -1,5 +1,6 @@
 package com.pizza.entity;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,11 +18,11 @@ import javax.persistence.ManyToOne;
 @Setter
 public class Reservation extends BaseEntity {
 
-    @Column(nullable = false)
+    @NotNull
     private String name;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @NotNull
     private Location location;
 
     @ManyToOne

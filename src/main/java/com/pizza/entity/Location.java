@@ -1,5 +1,6 @@
 package com.pizza.entity;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,11 @@ import java.util.List;
 @Setter
 public class Location extends BaseEntity {
 
-    @Column(nullable = false, unique = true)
+    @NotNull
+    @Column(unique = true)
     private String name;
 
-    @Column(nullable = false)
+    @NotNull
     private String address;
 
     @ManyToOne

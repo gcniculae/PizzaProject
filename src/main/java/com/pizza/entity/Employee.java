@@ -1,5 +1,6 @@
 package com.pizza.entity;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,11 +17,11 @@ import java.time.LocalDate;
 @Setter
 public class Employee extends Person {
 
-    @Column(nullable = false)
+    @NotNull
     private Position position;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @NotNull
     private Owner owner;
 
     public Employee(EmployeeBuilder employeeBuilder) {
