@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class PizzaRestController {
     }
 
     @PostMapping
-    public ResponseEntity<PizzaDto> addPizza(@RequestBody PizzaDto pizzaDto) {
+    public ResponseEntity<PizzaDto> addPizza(@Valid @RequestBody PizzaDto pizzaDto) {
         Pizza pizza = pizzaConverter.convertFromDtoToEntity(pizzaDto);
         Pizza savedPizza = pizzaService.savePizza(pizza);
 
@@ -62,7 +63,7 @@ public class PizzaRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<PizzaDto> updatePizza(@PathVariable(name = "id") Long id, @RequestBody PizzaDto pizzaDto) {
+    public ResponseEntity<PizzaDto> updatePizza(@PathVariable(name = "id") Long id, @Valid @RequestBody PizzaDto pizzaDto) {
         Pizza pizza = pizzaConverter.convertFromDtoToEntity(pizzaDto);
         Pizza updatedPizza = pizzaService.updatePizza(id, pizza);
 

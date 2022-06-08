@@ -7,6 +7,7 @@ import com.pizza.service.ReservationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -45,7 +46,7 @@ public class ReservationRestController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationDto> addReservation(@RequestBody ReservationDto reservationDto) {
+    public ResponseEntity<ReservationDto> addReservation(@Valid @RequestBody ReservationDto reservationDto) {
         Reservation reservation = reservationConverter.convertFromDtoToEntity(reservationDto);
         Reservation savedReservation = reservationService.saveReservation(reservation);
 
@@ -53,7 +54,7 @@ public class ReservationRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id, @RequestBody ReservationDto reservationDto) {
+    public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id, @Valid @RequestBody ReservationDto reservationDto) {
         Reservation reservation = reservationConverter.convertFromDtoToEntity(reservationDto);
         Reservation updatedReservation = reservationService.updateReservation(id, reservation);
 

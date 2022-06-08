@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +107,7 @@ public class EmployeeRestController {
 //    }
 
     @PostMapping
-    public ResponseEntity<EmployeeDto> addEmployee(@RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
         Employee employee = employeeTransformer.convertFromDtoToEntity(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee);
         EmployeeDto savedEmployeeDto = employeeTransformer.convertFromEntityToDto(savedEmployee);
@@ -115,7 +116,7 @@ public class EmployeeRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeDto employeeDto) {
         Employee employee = employeeTransformer.convertFromDtoToEntity(employeeDto);
         Employee updatedEmployee = employeeService.updateEmployee(id, employee);
         EmployeeDto updatedEmployeeDto = employeeTransformer.convertFromEntityToDto(updatedEmployee);

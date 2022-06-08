@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +34,7 @@ public class ProductOrderRestController {
 
         if (allProductOrders != null) {
             allProductOrdersList = productOrderService.findAllProductOrders();
-        }
-        else if (clientId != null) {
+        } else if (clientId != null) {
             allProductOrdersList = productOrderService.findProductOrdersByClientId(clientId);
         }
 
@@ -47,7 +47,7 @@ public class ProductOrderRestController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductOrderDto> addProductOrder(@RequestBody ProductOrderDto productOrderDto) {
+    public ResponseEntity<ProductOrderDto> addProductOrder(@Valid @RequestBody ProductOrderDto productOrderDto) {
         ProductOrder productOrder = productOrderConverter.convertFromDtoToEntity(productOrderDto);
         ProductOrder savedProductOwner = productOrderService.saveProductOrder(productOrder);
 
@@ -55,7 +55,7 @@ public class ProductOrderRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ProductOrderDto> updateProductOrder(@PathVariable(name = "id") Long id, @RequestBody ProductOrderDto productOrderDto) {
+    public ResponseEntity<ProductOrderDto> updateProductOrder(@PathVariable(name = "id") Long id, @Valid @RequestBody ProductOrderDto productOrderDto) {
         ProductOrder productOrder = productOrderConverter.convertFromDtoToEntity(productOrderDto);
         ProductOrder updatedProductOwner = productOrderService.updateProductOrder(id, productOrder);
 

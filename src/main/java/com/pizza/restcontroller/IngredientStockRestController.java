@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class IngredientStockRestController {
     }
 
     @PostMapping
-    public ResponseEntity<IngredientStockDto> addIngredientStocks(@RequestBody IngredientStockDto ingredientStockDto) {
+    public ResponseEntity<IngredientStockDto> addIngredientStocks(@Valid @RequestBody IngredientStockDto ingredientStockDto) {
         IngredientStock ingredientStock = ingredientStockConverter.convertFromDtoToEntity(ingredientStockDto);
         IngredientStock savedIngredientStock = ingredientStockService.saveIngredientStock(ingredientStock);
 
@@ -68,7 +69,7 @@ public class IngredientStockRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<IngredientStockDto> updateIngredientStocks(@PathVariable Long id, @RequestBody IngredientStockDto ingredientStockDto) {
+    public ResponseEntity<IngredientStockDto> updateIngredientStocks(@PathVariable Long id, @Valid @RequestBody IngredientStockDto ingredientStockDto) {
         IngredientStock ingredientStock = ingredientStockConverter.convertFromDtoToEntity(ingredientStockDto);
         IngredientStock updatedIngredientStock = ingredientStockService.updateIngredientStock(id, ingredientStock);
 

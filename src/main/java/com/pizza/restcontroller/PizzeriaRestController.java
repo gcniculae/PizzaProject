@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/pizzeria")
 @CrossOrigin(origins = "*")
@@ -37,7 +39,7 @@ public class PizzeriaRestController {
     }
 
     @PostMapping
-    public ResponseEntity<PizzeriaDto> addPizzeria(@RequestBody PizzeriaDto pizzeriaDto) {
+    public ResponseEntity<PizzeriaDto> addPizzeria(@Valid @RequestBody PizzeriaDto pizzeriaDto) {
         Pizzeria pizzeria = pizzeriaConverter.convertFromDtoToEntity(pizzeriaDto);
         Pizzeria savedPizzeria = pizzeriaService.savePizzeria(pizzeria);
 
@@ -45,7 +47,7 @@ public class PizzeriaRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<PizzeriaDto> addPizzeria(@PathVariable(name = "id") Long id, @RequestBody PizzeriaDto pizzeriaDto) {
+    public ResponseEntity<PizzeriaDto> addPizzeria(@PathVariable(name = "id") Long id, @Valid @RequestBody PizzeriaDto pizzeriaDto) {
         Pizzeria pizzeria = pizzeriaConverter.convertFromDtoToEntity(pizzeriaDto);
         Pizzeria updatedPizzeria = pizzeriaService.updatePizzeria(id, pizzeria);
 

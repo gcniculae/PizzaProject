@@ -7,6 +7,8 @@ import com.pizza.converter.OwnerConverter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/owner")
 @CrossOrigin(origins = "*")
@@ -29,7 +31,7 @@ public class OwnerRestController {
     }
 
     @PostMapping
-    public ResponseEntity<OwnerDto> addOwner(@RequestBody OwnerDto ownerDto) {
+    public ResponseEntity<OwnerDto> addOwner(@Valid @RequestBody OwnerDto ownerDto) {
         Owner owner = ownerTransformer.convertFromDtoToEntity(ownerDto);
         Owner savedOwner = ownerService.saveOwner(owner);
         OwnerDto savedOwnerDto = ownerTransformer.convertFromEntityToDto(savedOwner);
@@ -38,7 +40,7 @@ public class OwnerRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<OwnerDto> updateOwner(@PathVariable("id") Long id, @RequestBody OwnerDto ownerDto) {
+    public ResponseEntity<OwnerDto> updateOwner(@PathVariable("id") Long id, @Valid @RequestBody OwnerDto ownerDto) {
         Owner owner = ownerTransformer.convertFromDtoToEntity(ownerDto);
         Owner updatedOwner = ownerService.updateOwner(id, owner);
         OwnerDto updatedOwnerDto = ownerTransformer.convertFromEntityToDto(updatedOwner);

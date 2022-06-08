@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +112,7 @@ public class ClientRestController {
     }
 
     @PostMapping
-    public ResponseEntity<ClientDto> addClient(@RequestBody ClientDto clientDto) {
+    public ResponseEntity<ClientDto> addClient(@Valid @RequestBody ClientDto clientDto) {
         Client client = clientTransformer.convertFromDtoToEntity(clientDto);
         Client savedClient = clientService.saveClient(client);
         ClientDto savedClientDto = clientTransformer.convertFromEntityToDto(savedClient);
@@ -120,7 +121,7 @@ public class ClientRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @RequestBody ClientDto clientDto) {
+    public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @Valid @RequestBody ClientDto clientDto) {
         Client client = clientTransformer.convertFromDtoToEntity(clientDto);
         Client updatedClient = clientService.updateClient(id, client);
         ClientDto updatedClientDto = clientTransformer.convertFromEntityToDto(updatedClient);
