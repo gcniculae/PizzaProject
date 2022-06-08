@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
@@ -19,9 +20,12 @@ import java.util.List;
 public class Pizza extends BaseEntity {
 
     @NotNull
+    @NotEmpty
+    @Column(unique = true)
     private String name;
 
     @NotNull
+    @NotEmpty
     private Double price;
 
     @ManyToMany

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @Entity
@@ -18,10 +19,12 @@ import java.time.LocalDate;
 public class Employee extends Person {
 
     @NotNull
+    @NotEmpty
     private Position position;
 
     @ManyToOne
     @NotNull
+    @NotEmpty
     private Owner owner;
 
     public Employee(EmployeeBuilder employeeBuilder) {

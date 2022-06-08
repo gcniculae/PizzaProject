@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @AllArgsConstructor
@@ -19,6 +20,7 @@ import javax.persistence.ManyToOne;
 public class Menu extends BaseEntity {
 
     @NotNull
+    @NotEmpty
     private String name;
 
     @ManyToOne

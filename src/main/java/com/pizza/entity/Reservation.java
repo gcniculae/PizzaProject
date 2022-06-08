@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @AllArgsConstructor
@@ -19,6 +20,8 @@ import javax.persistence.ManyToOne;
 public class Reservation extends BaseEntity {
 
     @NotNull
+    @NotEmpty
+    @Column(unique = true)
     private String name;
 
     @ManyToOne

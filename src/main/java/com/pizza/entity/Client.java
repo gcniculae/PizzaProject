@@ -1,11 +1,13 @@
 package com.pizza.entity;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +17,8 @@ import java.util.UUID;
 @Setter
 public class Client extends Person {
 
+    @NotNull
+    @NotEmpty
     private String clientCode;
 
     @OneToMany(mappedBy = "client")

@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @Entity
@@ -20,13 +21,16 @@ import java.time.LocalDate;
 public class IngredientStock extends BaseEntity {
 
     @NotNull
+    @NotEmpty
     @Column(unique = true)
     private String name;
 
     @NotNull
+    @NotEmpty
     private Long quantity;
 
     @NotNull
+    @NotEmpty
     private LocalDate expirationDate;
 
     @ManyToOne

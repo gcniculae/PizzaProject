@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @MappedSuperclass
@@ -15,18 +16,23 @@ import java.time.LocalDate;
 public class Person extends BaseEntity {
 
     @NotNull
+    @NotEmpty
     private String firstName;
 
     @NotNull
+    @NotEmpty
     private String lastName;
 
     @NotNull
+    @NotEmpty
     private String phoneNumber;
 
     @NotNull
+    @NotEmpty
     private LocalDate dateOfBirth;
 
     @NotNull
+    @NotEmpty
     private String address;
 
     protected Person(PersonBuilder<?> personBuilder) {
