@@ -60,7 +60,6 @@
             <column name="phone_number" value="0723001001"/>
             <column name="date_of_birth" value="1980-09-11"/>
             <column name="address" value="Ploiesti"/>
-            <!--            <column name="pizzeria_id" value="1"/>-->
         </insert>
     </changeSet>
 

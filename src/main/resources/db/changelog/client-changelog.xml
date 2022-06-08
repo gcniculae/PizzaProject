@@ -39,31 +39,31 @@
             <column name="address" value="Ploiesti"/>
         </insert>
         <insert tableName="client">
-            <column name="first_name" value="Ion"/>
-            <column name="last_name" value="Popescu"/>
-            <column name="phone_number" value="0723001002"/>
-            <column name="date_of_birth" value="1985-07-09"/>
+            <column name="first_name" value="Marin"/>
+            <column name="last_name" value="Stefanescu"/>
+            <column name="phone_number" value="0720000050"/>
+            <column name="date_of_birth" value="1994-02-04"/>
             <column name="address" value="Ploiesti"/>
         </insert>
         <insert tableName="client">
-            <column name="first_name" value="Alexandru"/>
-            <column name="last_name" value="Antonescu"/>
-            <column name="phone_number" value="0723001003"/>
-            <column name="date_of_birth" value="1991-10-15"/>
+            <column name="first_name" value="Andrei"/>
+            <column name="last_name" value="Albulescu"/>
+            <column name="phone_number" value="0720002340"/>
+            <column name="date_of_birth" value="1999-09-22"/>
             <column name="address" value="Ploiesti"/>
         </insert>
         <insert tableName="client">
             <column name="first_name" value="Ion"/>
             <column name="last_name" value="Constantinescu"/>
             <column name="phone_number" value="0723001004"/>
-            <column name="date_of_birth" value="1979-01-30"/>
+            <column name="date_of_birth" value="1979-09-22"/>
             <column name="address" value="Ploiesti"/>
         </insert>
         <insert tableName="client">
-            <column name="first_name" value="Alin"/>
-            <column name="last_name" value="Ionescu"/>
-            <column name="phone_number" value="0723001005"/>
-            <column name="date_of_birth" value="1984-12-05"/>
+            <column name="first_name" value="Marius"/>
+            <column name="last_name" value="Stefanescu"/>
+            <column name="phone_number" value="0724456097"/>
+            <column name="date_of_birth" value="1975-07-19"/>
             <column name="address" value="Ploiesti"/>
         </insert>
     </changeSet>

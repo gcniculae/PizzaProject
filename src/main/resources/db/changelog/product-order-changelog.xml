@@ -4,37 +4,35 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
-    <changeSet id="menu-1" author="George Niculae">
+    <changeSet id="product-order-1" author="George Niculae">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="menu"/>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="product_order"/>
             </not>
         </preConditions>
-        <createTable tableName="menu">
+        <createTable tableName="product_order">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="name" type="varchar(20)"/>
-            <column name="pizzeria_id" type="bigint"/>
+            <column name="client_id" type="bigint"/>
         </createTable>
 
-        <addForeignKeyConstraint baseColumnNames="pizzeria_id"
-                                 baseTableName="menu"
-                                 constraintName="fk_menu_pizzeria_id"
+        <addForeignKeyConstraint baseColumnNames="client_id"
+                                 baseTableName="product_order"
+                                 constraintName="fk_product_order_client_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="pizzeria"/>
+                                 referencedTableName="client"/>
     </changeSet>
 
-    <changeSet id="menu-2" author="George Niculae">
+    <changeSet id="product-order-2" author="George Niculae">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*)
-                FROM menu;
+                FROM product_order;
             </sqlCheck>
         </preConditions>
-        <insert tableName="menu">
-            <column name="name" value="Menu1"/>
-            <column name="pizzeria_id" value="1"/>
+        <insert tableName="product_order">
+            <column name="client_id" value="1"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

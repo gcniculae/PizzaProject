@@ -4,41 +4,44 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
-    <changeSet id="ingredient-stock-1" author="George Niculae">
+    <changeSet id="reservation-1" author="George Niculae">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="ingredient_stock"/>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="reservation"/>
             </not>
         </preConditions>
-
-        <createTable tableName="ingredient_stock">
+        <createTable tableName="reservation">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(50)"/>
-            <column name="quantity" type="int"/>
-            <column name="expiration_date" type="date"/>
+            <column name="pizzeria_id" type="bigint"/>
             <column name="location_id" type="bigint"/>
         </createTable>
 
-        <addForeignKeyConstraint baseColumnNames="location_id"
-                                 baseTableName="ingredient_stock"
-                                 constraintName="fk_ingredient_stock_location_id"
+        <addForeignKeyConstraint baseColumnNames="pizzeria_id"
+                                 baseTableName="reservation"
+                                 constraintName="fk_reservation_pizzeria_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="location"/>
+                                 referencedTableName="pizzeria"/>
+
+        <addForeignKeyConstraint baseColumnNames="location_id"
+                                 baseTableName="reservation"
+                                 constraintName="fk_reservation_location_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pizzeria"/>
     </changeSet>
 
-    <changeSet id="client-2" author="George Niculae">
+    <changeSet id="reservation-2" author="George Niculae">
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*)
-                FROM ingredient_stock;
+                FROM reservation;
             </sqlCheck>
         </preConditions>
-        <insert tableName="ingredient_stock">
-            <column name="name" value="salt"/>
-            <column name="quantity" value="200"/>
-            <column name="expiration_date" value="2025-01-01"/>
+        <insert tableName="reservation">
+            <column name="name" value="Reservation1"/>
+            <column name="pizzeria_id" value="1"/>
             <column name="location_id" value="1"/>
         </insert>
     </changeSet>

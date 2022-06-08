@@ -16,7 +16,14 @@
             </column>
             <column name="name" type="varchar(20)"/>
             <column name="price" type="varchar(20)"/>
+            <column name="order_id" type="bigint"/>
         </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="pizza"
+                                 constraintName="fk_pizza_product_order_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product_order"/>
     </changeSet>
 
         <changeSet id="pizza-2" author="George Niculae">
@@ -29,6 +36,7 @@
             <insert tableName="pizza">
                 <column name="name" value="Chicken"/>
                 <column name="price" value="30"/>
+                <column name="order_id" value="1"/>
             </insert>
         </changeSet>
 </databaseChangeLog>

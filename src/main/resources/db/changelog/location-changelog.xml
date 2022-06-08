@@ -16,7 +16,14 @@
             </column>
             <column name="name" type="varchar(50)"/>
             <column name="address" type="varchar(50)"/>
+            <column name="pizzeria_id" type="bigint"/>
         </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="pizzeria_id"
+                                 baseTableName="location"
+                                 constraintName="fk_location_owner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pizzeria"/>
     </changeSet>
 
     <changeSet id="location-2" author="George Niculae">
@@ -29,6 +36,7 @@
         <insert tableName="location">
             <column name="name" value="Location1"/>
             <column name="address" value="Ploiesti"/>
+            <column name="pizzeria_id" value="1"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
