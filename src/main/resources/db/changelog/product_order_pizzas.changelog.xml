@@ -35,16 +35,16 @@
                                  referencedTableName="pizza"/>
     </changeSet>
 
-    <changeSet id="product-order-pizzas-2" author="George Niculae">
-        <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">
-                SELECT COUNT(*)
-                FROM product_order_pizzas;
-            </sqlCheck>
-        </preConditions>
-        <insert tableName="product_order_pizzas">
-            <column name="product_order_id" value="1"/>
-            <column name="pizzas_id" value="1"/>
-        </insert>
-    </changeSet>
+<!--    <changeSet id="product-order-pizzas-2" author="George Niculae">-->
+<!--        <preConditions onFail="MARK_RAN">-->
+<!--            <sqlCheck expectedResult="0">-->
+<!--                SELECT COUNT(*)-->
+<!--                FROM product_order_pizzas;-->
+<!--            </sqlCheck>-->
+<!--        </preConditions>-->
+<!--        <insert tableName="product_order_pizzas">-->
+<!--            <column name="product_order_id" value="1"/>-->
+<!--            <column name="pizzas_id" value="1"/>-->
+<!--        </insert>-->
+<!--    </changeSet>-->
 </databaseChangeLog>
