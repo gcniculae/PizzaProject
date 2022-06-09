@@ -17,10 +17,19 @@
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
+            <column name="client_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="location_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="client_id"
+                                 baseTableName="reservation"
+                                 constraintName="fk_reservation_client_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="client"/>
 
         <addForeignKeyConstraint baseColumnNames="location_id"
                                  baseTableName="reservation"
@@ -38,6 +47,7 @@
         </preConditions>
         <insert tableName="reservation">
             <column name="name" value="Reservation1"/>
+            <column name="client_id" value="1"/>
             <column name="location_id" value="1"/>
         </insert>
     </changeSet>

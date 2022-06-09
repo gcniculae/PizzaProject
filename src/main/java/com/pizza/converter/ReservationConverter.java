@@ -11,7 +11,8 @@ public class ReservationConverter extends BaseConverter<ReservationDto, Reservat
     @Override
     public ReservationDto convertFromEntityToDto(Reservation reservation) {
         ReservationDto reservationDto = new ReservationDto();
-        BeanUtils.copyProperties(reservation, reservationDto, "location");
+        BeanUtils.copyProperties(reservation, reservationDto);
+        reservationDto.setClientId(reservation.getClient().getId());
         reservationDto.setLocationId(reservation.getLocation().getId());
 
         return reservationDto;
@@ -20,7 +21,7 @@ public class ReservationConverter extends BaseConverter<ReservationDto, Reservat
     @Override
     public Reservation convertFromDtoToEntity(ReservationDto reservationDto) {
         Reservation reservation = new Reservation();
-        BeanUtils.copyProperties(reservationDto, reservation, "locationId");
+        BeanUtils.copyProperties(reservationDto, reservation);
 
         return reservation;
     }

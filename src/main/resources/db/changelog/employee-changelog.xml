@@ -76,7 +76,7 @@
             <column name="phone_number" value="0723001003"/>
             <column name="date_of_birth" value="1991-10-15"/>
             <column name="address" value="Ploiesti"/>
-            <column name="position" value="3"/>
+            <column name="position" value="1"/>
             <column name="location_id" value="1"/>
         </insert>
         <insert tableName="employee">
@@ -95,6 +95,24 @@
             <column name="date_of_birth" value="1984-12-05"/>
             <column name="address" value="Ploiesti"/>
             <column name="position" value="4"/>
+            <column name="location_id" value="1"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="first_name" value="Valentin"/>
+            <column name="last_name" value="Ionescu"/>
+            <column name="phone_number" value="0723001099"/>
+            <column name="date_of_birth" value="1977-11-04"/>
+            <column name="address" value="Ploiesti"/>
+            <column name="position" value="3"/>
+            <column name="location_id" value="1"/>
+        </insert>
+        <insert tableName="employee">
+            <column name="first_name" value="Alexandru"/>
+            <column name="last_name" value="Tomescu"/>
+            <column name="phone_number" value="0723081485"/>
+            <column name="date_of_birth" value="1989-06-23"/>
+            <column name="address" value="Ploiesti"/>
+            <column name="position" value="1"/>
             <column name="location_id" value="1"/>
         </insert>
     </changeSet>

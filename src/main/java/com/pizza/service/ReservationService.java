@@ -1,5 +1,6 @@
 package com.pizza.service;
 
+import com.pizza.dto.ReservationDto;
 import com.pizza.entity.Reservation;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ReservationRepository;
@@ -14,15 +15,18 @@ public class ReservationService {
 
     private final ReservationRepository reservationRepository;
     private final LocationService locationService;
+    private final ClientService clientService;
 
     @Autowired
-    public ReservationService(ReservationRepository reservationRepository, LocationService locationService) {
+    public ReservationService(ReservationRepository reservationRepository, LocationService locationService, ClientService clientService) {
         this.reservationRepository = reservationRepository;
         this.locationService = locationService;
+        this.clientService = clientService;
     }
 
-    public Reservation saveReservation(Reservation reservation, Long reservationId) {
-        reservation.setLocation(locationService.findLocationById(reservationId));
+    public Reservation saveReservation(Reservation reservation, ReservationDto reservationDto) {
+        reservation.setClient(clientService.findClientById(reservationDto.getClientId()));
+        reservation.setLocation(locationService.findLocationById(reservationDto.getLocationId()));
 
         return reservationRepository.save(reservation);
     }
@@ -61,11 +65,11 @@ public class ReservationService {
         }
     }
 
-    public Reservation updateReservation(Long id, Reservation reservation, Long reservationId) {
+    public Reservation updateReservation(Long id, Reservation reservation, ReservationDto reservationDto) {
         Reservation reservationById = findReservationById(id);
         reservation.setId(reservationById.getId());
 
-        return saveReservation(reservation, reservationId);
+        return saveReservation(reservation, reservationDto);
     }
 
     public void deleteReservationById(Long id) {

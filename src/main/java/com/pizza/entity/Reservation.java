@@ -25,5 +25,10 @@ public class Reservation extends BaseEntity {
 
     @ManyToOne
     @NotNull
+    @NotEmpty
+    private Client client;
+
+    @ManyToOne
+    @NotNull
     private Location location;
 }
