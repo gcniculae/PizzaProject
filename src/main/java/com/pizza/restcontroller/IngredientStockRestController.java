@@ -31,6 +31,7 @@ public class IngredientStockRestController {
     @GetMapping(path = "/all")
     public ResponseEntity<List<IngredientStockDto>> findAllIngredientStocks(@RequestParam(name = "allIngredientStocks", required = false) Boolean allIngredientStocks,
                                                                             @RequestParam(name = "quantity", required = false) Long quantity,
+                                                                            @RequestParam(name = "lowQuantity", required = false) Boolean lowQuantity,
                                                                             @RequestParam(value = "expirationDate", required = false)
                                                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate expirationDate) {
         List<IngredientStock> allIngredientStocksList = new ArrayList<>();
@@ -39,6 +40,8 @@ public class IngredientStockRestController {
             allIngredientStocksList = ingredientStockService.findAllIngredientStocks();
         } else if (quantity != null) {
             allIngredientStocksList = ingredientStockService.findIngredientStockByQuantity(quantity);
+        } else if (lowQuantity != null && lowQuantity) {
+            allIngredientStocksList = ingredientStockService.findIngredientStocksByLowQuantity();
         } else if (expirationDate != null) {
             allIngredientStocksList = ingredientStockService.findIngredientStockByExpirationDate(expirationDate);
         }

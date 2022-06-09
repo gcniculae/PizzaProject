@@ -34,6 +34,10 @@ public class IngredientStockService {
         return ingredientStockRepository.findAll();
     }
 
+    public List<IngredientStock> findIngredientStocksByLowQuantity() {
+        return ingredientStockRepository.findByLowQuantity();
+    }
+
     public IngredientStock findIngredientStockById(Long id) {
         Optional<IngredientStock> optionalIngredientStock = ingredientStockRepository.findById(id);
 
