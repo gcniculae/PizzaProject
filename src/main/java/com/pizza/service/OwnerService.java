@@ -13,17 +13,13 @@ import java.util.Optional;
 public class OwnerService {
 
     private final OwnerRepository ownerRepository;
-    private final PizzeriaService pizzeriaService;
 
     @Autowired
-    public OwnerService(OwnerRepository ownerRepository, PizzeriaService pizzeriaService) {
+    public OwnerService(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
-        this.pizzeriaService = pizzeriaService;
     }
 
-    public Owner saveOwner(Owner owner, Long pizzeriaId) {
-        owner.setPizzeria(pizzeriaService.findPizzeriaById(pizzeriaId));
-
+    public Owner saveOwner(Owner owner) {
         return ownerRepository.save(owner);
     }
 
@@ -37,11 +33,11 @@ public class OwnerService {
         }
     }
 
-    public Owner updateOwner(Long id, Owner owner, Long pizzeriaId) {
+    public Owner updateOwner(Long id, Owner owner) {
         Owner ownerById = findOwnerById(id);
         owner.setId(ownerById.getId());
 
-        return saveOwner(owner, pizzeriaId);
+        return saveOwner(owner);
     }
 
     public void deleteOwnerById(Long id) {

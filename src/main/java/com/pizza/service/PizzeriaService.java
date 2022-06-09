@@ -16,7 +16,7 @@ public class PizzeriaService {
     private final OwnerService ownerService;
 
     @Autowired
-    public PizzeriaService(PizzeriaRepository pizzeriaRepository, @Lazy OwnerService ownerService) {
+    public PizzeriaService(PizzeriaRepository pizzeriaRepository, OwnerService ownerService) {
         this.pizzeriaRepository = pizzeriaRepository;
         this.ownerService = ownerService;
     }

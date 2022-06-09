@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="owner-1" author="George Niculae">
+        <preConditions>
+            <not>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="owner"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="owner">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birth" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="owner-2" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM owner;
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="owner">
+            <column name="first_name" value="Andrei"/>
+            <column name="last_name" value="Andreescu"/>
+            <column name="phone_number" value="0723001001"/>
+            <column name="date_of_birth" value="1980-09-11"/>
+            <column name="address" value="Ploiesti"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

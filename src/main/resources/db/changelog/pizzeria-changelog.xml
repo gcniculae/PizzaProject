@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="pizzeria-1" author="George Niculae">
+        <preConditions>
+            <not>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="pizzeria"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="pizzeria">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="owner_id"
+                                 baseTableName="pizzeria"
+                                 constraintName="fk_owner_pizzeria_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="owner"/>
+    </changeSet>
+
+    <changeSet id="pizzeria-2" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM pizzeria;
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="pizzeria">
+            <column name="name" value="Pizzeria"/>
+            <column name="owner_id" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

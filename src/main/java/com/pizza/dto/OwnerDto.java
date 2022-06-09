@@ -9,28 +9,11 @@ import lombok.Setter;
 @Setter
 public class OwnerDto extends PersonDto {
 
-    private Long pizzeriaId;
-//    private List<EmployeeDto> employeesDto;
-
     public OwnerDto(OwnerDtoBuilder ownerDtoBuilder) {
-        this.pizzeriaId = ownerDtoBuilder.pizzeriaId;
-//        this.employeesDto = ownerDtoBuilder.employeesDto;
+        super(ownerDtoBuilder);
     }
 
     public static class OwnerDtoBuilder extends PersonDtoBuilder<OwnerDtoBuilder> {
-
-        private Long pizzeriaId;
-//        private List<EmployeeDto> employeesDto;
-
-        public OwnerDtoBuilder setPizzeriaDto(Long pizzeriaId) {
-            this.pizzeriaId = pizzeriaId;
-            return this;
-        }
-
-//        public OwnerDtoBuilder setEmployeesDtoList(List<EmployeeDto> employeesDto) {
-//            this.employeesDto = employeesDto;
-//            return this;
-//        }
 
         @Override
         public OwnerDtoBuilder getThisDto() {

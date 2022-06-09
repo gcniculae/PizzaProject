@@ -2,8 +2,6 @@ package com.pizza.dto;
 
 import lombok.*;
 
-import java.util.List;
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -11,8 +9,9 @@ public class PizzeriaDto extends BaseEntityDto {
 
     private String name;
     private Long ownerId;
-//    private List<MenuDto> menuDto;
+//    private List<EmployeeDto> employeesDto;
 //    private List<LocationDto> locationsDto;
+//    private List<MenuDto> menuDto;
 
     @Builder
     public static class PizzeriaDtoBuilder {
@@ -21,6 +20,6 @@ public class PizzeriaDto extends BaseEntityDto {
         private Long ownerId;
 //        private List<MenuDto> menuDto;
 //        private List<LocationDto> locationsDto;
-
+//        private List<MenuDto> menuDto;
     }
 }

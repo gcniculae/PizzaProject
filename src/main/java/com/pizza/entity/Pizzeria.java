@@ -25,17 +25,21 @@ public class Pizzeria extends BaseEntity {
     @NotEmpty
     private Owner owner;
 
-    @OneToMany(mappedBy = "pizzeria")
-    private List<Menu> menu;
+    @OneToMany(mappedBy = "owner")
+    private List<Employee> employees;
 
     @OneToMany(mappedBy = "pizzeria")
     private List<Location> locations;
 
+    @OneToMany(mappedBy = "pizzeria")
+    private List<Menu> menu;
+
     private Pizzeria(PizzeriaBuilder pizzeriaBuilder) {
         this.name = pizzeriaBuilder.name;
         this.owner = pizzeriaBuilder.owner;
-        this.menu = pizzeriaBuilder.menus;
+
         this.locations = pizzeriaBuilder.locations;
+        this.menu = pizzeriaBuilder.menus;
     }
 
     //    @Builder
@@ -43,8 +47,10 @@ public class Pizzeria extends BaseEntity {
 
         private String name;
         private Owner owner;
-        private List<Menu> menus;
+
         private List<Location> locations;
+
+        private List<Menu> menus;
 
         public PizzeriaBuilder setName(String name) {
             this.name = name;
@@ -56,13 +62,13 @@ public class Pizzeria extends BaseEntity {
             return this;
         }
 
-        public PizzeriaBuilder setMenu(List<Menu> menus) {
-            this.menus = menus;
+        public PizzeriaBuilder setLocation(List<Location> locations) {
+            this.locations = locations;
             return this;
         }
 
-        public PizzeriaBuilder setLocation(List<Location> locations) {
-            this.locations = locations;
+        public PizzeriaBuilder setMenu(List<Menu> menus) {
+            this.menus = menus;
             return this;
         }
 
