@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,8 +25,22 @@ public class ReservationRestController {
     }
 
     @GetMapping(path = "/all")
-    public ResponseEntity<List<ReservationDto>> findAllReservations() {
-        return ResponseEntity.ok(reservationConverter.convertFromEntityListToDtoList(reservationService.findAllReservations()));
+    public ResponseEntity<List<ReservationDto>> findAllReservations(@RequestParam(name = "allReservations", required = false) Boolean allReservations,
+                                                                    @RequestParam(name = "clientId", required = false) Long clientId,
+                                                                    @RequestParam(name = "locationId", required = false) Long locationId) {
+        List<Reservation> allReservationsList = new ArrayList<>();
+
+        if (allReservations != null && allReservations) {
+            allReservationsList = reservationService.findAllReservations();
+        } else if (clientId != null) {
+            allReservationsList = reservationService.findReservationsByClientId(clientId);
+        } else if (locationId != null) {
+            allReservationsList = reservationService.findReservationsByLocationId(locationId);
+        } else if (clientId != null && locationId != null) {
+            allReservationsList = reservationService.findReservationsByClientIdAndLocationId(clientId, locationId);
+        }
+
+        return ResponseEntity.ok(reservationConverter.convertFromEntityListToDtoList(allReservationsList));
     }
 
     @GetMapping

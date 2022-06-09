@@ -35,6 +35,18 @@ public class ReservationService {
         return reservationRepository.findAll();
     }
 
+    public List<Reservation> findReservationsByClientId(Long clientId) {
+        return reservationRepository.findReservationsByClientId(clientId);
+    }
+
+    public List<Reservation> findReservationsByLocationId(Long locationId) {
+        return reservationRepository.findReservationsByLocationId(locationId);
+    }
+
+    public List<Reservation> findReservationsByClientIdAndLocationId(Long clientId, Long locationId) {
+        return reservationRepository.findReservationsByClientIdAndLocationId(clientId, locationId);
+    }
+
     public Reservation findReservationById(Long id) {
         Optional<Reservation> optionalReservation = reservationRepository.findById(id);
 
