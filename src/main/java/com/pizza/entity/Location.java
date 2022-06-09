@@ -30,6 +30,9 @@ public class Location extends BaseEntity {
     private Pizzeria pizzeria;
 
     @OneToMany(mappedBy = "location")
+    private List<Employee> employees;
+
+    @OneToMany(mappedBy = "location")
     private List<Reservation> reservations;
 
     @OneToMany(mappedBy = "location")

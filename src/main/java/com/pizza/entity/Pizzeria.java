@@ -25,9 +25,6 @@ public class Pizzeria extends BaseEntity {
     @NotEmpty
     private Owner owner;
 
-    @OneToMany(mappedBy = "owner")
-    private List<Employee> employees;
-
     @OneToMany(mappedBy = "pizzeria")
     private List<Location> locations;
 

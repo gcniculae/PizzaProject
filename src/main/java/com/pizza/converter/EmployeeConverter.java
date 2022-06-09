@@ -12,7 +12,7 @@ public class EmployeeConverter extends BaseConverter<EmployeeDto, Employee> {
     public EmployeeDto convertFromEntityToDto(Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
         BeanUtils.copyProperties(employee, employeeDto, "owner");
-        employeeDto.setOwnerId(employee.getOwner().getId());
+        employeeDto.setLocationId(employee.getLocation().getId());
 
         return employeeDto;
     }

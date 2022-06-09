@@ -17,12 +17,12 @@ import java.util.Optional;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
-    private final OwnerService ownerService;
+    private final LocationService locationService;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository, OwnerService ownerService) {
+    public EmployeeService(EmployeeRepository employeeRepository, LocationService locationService) {
         this.employeeRepository = employeeRepository;
-        this.ownerService = ownerService;
+        this.locationService = locationService;
     }
 
 //    @PostConstruct
@@ -37,8 +37,8 @@ public class EmployeeService {
 //        employeeRepository.saveAll(initialEmployees);
 //    }
 
-    public Employee saveEmployee(Employee employee, Long ownerId) {
-        employee.setOwner(ownerService.findOwnerById(ownerId));
+    public Employee saveEmployee(Employee employee, Long locationId) {
+        employee.setLocation(locationService.findLocationById(locationId));
 
         return employeeRepository.save(employee);
     }
@@ -77,11 +77,11 @@ public class EmployeeService {
         return employeeRepository.findByPosition(position);
     }
 
-    public Employee updateEmployee(Long id, Employee employee, Long ownerId) {
+    public Employee updateEmployee(Long id, Employee employee, Long locationId) {
         Employee employeeById = findEmployeeById(id);
         employee.setId(employeeById.getId());
 
-        return saveEmployee(employee, ownerId);
+        return saveEmployee(employee, locationId);
     }
 
     public void deleteEmployeeById(Long id) {

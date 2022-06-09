@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -14,5 +12,4 @@ import java.util.List;
 public class ProductOrderDto extends BaseEntityDto {
 
     private Long clientId;
-//    private List<PizzaDto> pizzasDto;
 }

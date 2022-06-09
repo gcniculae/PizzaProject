@@ -33,16 +33,16 @@
             <column name="position" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="owner_id" type="bigint">
+            <column name="location_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addForeignKeyConstraint baseColumnNames="owner_id"
+        <addForeignKeyConstraint baseColumnNames="location_id"
                                  baseTableName="employee"
-                                 constraintName="fk_employee_owner_id"
+                                 constraintName="fk_employee_location_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="owner"/>
+                                 referencedTableName="location"/>
     </changeSet>
 
     <changeSet id="employee-2" author="George Niculae">
@@ -58,8 +58,8 @@
             <column name="phone_number" value="0723001001"/>
             <column name="date_of_birth" value="1980-09-11"/>
             <column name="address" value="Ploiesti"/>
-            <column name="position" value="1"/>
-            <column name="owner_id" value="1"/>
+            <column name="position" value="0"/>
+            <column name="location_id" value="1"/>
         </insert>
         <insert tableName="employee">
             <column name="first_name" value="Ion"/>
@@ -68,7 +68,7 @@
             <column name="date_of_birth" value="1985-07-09"/>
             <column name="address" value="Ploiesti"/>
             <column name="position" value="1"/>
-            <column name="owner_id" value="1"/>
+            <column name="location_id" value="1"/>
         </insert>
         <insert tableName="employee">
             <column name="first_name" value="Alexandru"/>
@@ -76,8 +76,8 @@
             <column name="phone_number" value="0723001003"/>
             <column name="date_of_birth" value="1991-10-15"/>
             <column name="address" value="Ploiesti"/>
-            <column name="position" value="1"/>
-            <column name="owner_id" value="1"/>
+            <column name="position" value="3"/>
+            <column name="location_id" value="1"/>
         </insert>
         <insert tableName="employee">
             <column name="first_name" value="Ion"/>
@@ -85,8 +85,8 @@
             <column name="phone_number" value="0723001004"/>
             <column name="date_of_birth" value="1979-01-30"/>
             <column name="address" value="Ploiesti"/>
-            <column name="position" value="1"/>
-            <column name="owner_id" value="1"/>
+            <column name="position" value="2"/>
+            <column name="location_id" value="1"/>
         </insert>
         <insert tableName="employee">
             <column name="first_name" value="Alin"/>
@@ -94,8 +94,8 @@
             <column name="phone_number" value="0723001005"/>
             <column name="date_of_birth" value="1984-12-05"/>
             <column name="address" value="Ploiesti"/>
-            <column name="position" value="1"/>
-            <column name="owner_id" value="1"/>
+            <column name="position" value="4"/>
+            <column name="location_id" value="1"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

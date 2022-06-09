@@ -7,8 +7,8 @@
     <include file="db/changelog/client-changelog.xml"/>
     <include file="db/changelog/owner-changelog.xml"/>
     <include file="db/changelog/pizzeria-changelog.xml"/>
-    <include file="db/changelog/employee-changelog.xml"/>
     <include file="db/changelog/location-changelog.xml"/>
+    <include file="db/changelog/employee-changelog.xml"/>
     <include file="db/changelog/ingredient-stock-changelog.xml"/>
     <include file="db/changelog/menu-changelog.xml"/>
     <include file="db/changelog/product-order-changelog.xml"/>

@@ -22,31 +22,28 @@ public class Employee extends Person {
     @ManyToOne
     @NotNull
     @NotEmpty
-    private Owner owner;
+    private Location location;
 
     public Employee(EmployeeBuilder employeeBuilder) {
         super(employeeBuilder);
         this.position = employeeBuilder.position;
-        this.owner = employeeBuilder.owner;
+        this.location = employeeBuilder.location;
     }
 
     public static class EmployeeBuilder extends PersonBuilder<EmployeeBuilder> {
 
         private Position position;
-        private Owner owner;
+        private Location location;
 
         public EmployeeBuilder setPosition(Position position) {
             this.position = position;
             return this;
         }
 
-        public EmployeeBuilder setOwner(Owner owner) {
-            this.owner = owner;
+        public EmployeeBuilder setLocation(Location location) {
+            this.location = location;
             return this;
         }
-
-//        public EmployeeBuilder() {
-//        }
 
         @Override
         public EmployeeBuilder getThis() {
