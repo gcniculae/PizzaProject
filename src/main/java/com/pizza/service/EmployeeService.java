@@ -1,7 +1,6 @@
 package com.pizza.service;
 
 import com.pizza.entity.Employee;
-import com.pizza.entity.Owner;
 import com.pizza.entity.Position;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.EmployeeRepository;
@@ -12,7 +11,6 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -47,6 +45,10 @@ public class EmployeeService {
 
     public List<Employee> findAllEmployees() {
         return employeeRepository.findAll();
+    }
+
+    public List<Employee> findCooksWithAgeUnder35() {
+        return employeeRepository.findCooksWithAgeUnder35();
     }
 
     public Employee findEmployeeById(Long id) {

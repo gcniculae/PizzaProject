@@ -33,7 +33,7 @@ public class ClientRestController {
                                                          @RequestParam(name = "address", required = false) String address) {
         List<Client> allClientsList = new ArrayList<>();
 
-        if (allClients != null) {
+        if (allClients != null && allClients) {
             allClientsList = clientService.findAllClients();
         } else if (firstName != null) {
             allClientsList = clientService.findClientsByFirstName(firstName);

@@ -32,7 +32,7 @@ public class ProductOrderRestController {
 
         List<ProductOrder> allProductOrdersList = new ArrayList<>();
 
-        if (allProductOrders != null) {
+        if (allProductOrders != null && allProductOrders) {
             allProductOrdersList = productOrderService.findAllProductOrders();
         } else if (clientId != null) {
             allProductOrdersList = productOrderService.findProductOrdersByClientId(clientId);

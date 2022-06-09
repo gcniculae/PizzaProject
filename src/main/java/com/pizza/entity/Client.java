@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-//@NoArgsConstructor
 @Getter
 @Setter
 public class Client extends Person {
@@ -21,11 +20,6 @@ public class Client extends Person {
 
     @OneToMany(mappedBy = "client")
     private List<ProductOrder> productOrders;
-
-//    public Client(String firstName, String lastName, String phoneNumber, LocalDate dateOfBirth, String address) {
-//        super(firstName, lastName, phoneNumber, dateOfBirth, address);
-//        this.clientCode = "C" + UUID.randomUUID().toString().toUpperCase().replaceAll("-", "");
-//    }
 
     public Client(ClientBuilder clientBuilder) {
         super(clientBuilder);
@@ -40,9 +34,6 @@ public class Client extends Person {
 
         private String clientCode;
         private List<ProductOrder> productOrders;
-
-//        public ClientBuilder() {
-//        }
 
         public ClientBuilder setProductOrderList(List<ProductOrder> productOrders) {
             this.productOrders = productOrders;

@@ -35,7 +35,7 @@ public class IngredientStockRestController {
                                                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate expirationDate) {
         List<IngredientStock> allIngredientStocksList = new ArrayList<>();
 
-        if (allIngredientStocks != null) {
+        if (allIngredientStocks != null && allIngredientStocks) {
             allIngredientStocksList = ingredientStockService.findAllIngredientStocks();
         } else if (quantity != null) {
             allIngredientStocksList = ingredientStockService.findIngredientStockByQuantity(quantity);

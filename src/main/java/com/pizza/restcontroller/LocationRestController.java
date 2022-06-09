@@ -31,7 +31,7 @@ public class LocationRestController {
                                                               @RequestParam(name = "address", required = false) String address) {
         List<Location> allLocationsList = new ArrayList<>();
 
-        if (allLocations != null) {
+        if (allLocations != null && allLocations) {
             allLocationsList = locationService.findAllLocations();
         } else if (address != null) {
             allLocationsList = locationService.findLocationsByAddress(address);

@@ -5,12 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -32,14 +29,6 @@ public class Employee extends Person {
         this.position = employeeBuilder.position;
         this.owner = employeeBuilder.owner;
     }
-
-//    public Employee() {
-//    }
-
-//    public Employee(String firstName, String lastName, String phoneNumber, LocalDate datOfBirth, String address, Position position) {
-//        super(firstName, lastName, phoneNumber, datOfBirth, address);
-//        this.position = position;
-//    }
 
     public static class EmployeeBuilder extends PersonBuilder<EmployeeBuilder> {
 

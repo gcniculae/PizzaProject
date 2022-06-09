@@ -31,7 +31,7 @@ public class PizzaRestController {
                                                         @RequestParam(name = "price", required = false) Double price) {
         List<Pizza> allPizzasList = new ArrayList<>();
 
-        if (allPizzas != null) {
+        if (allPizzas != null && allPizzas) {
             allPizzasList = pizzaService.findAllPizza();
         } else if (price != null) {
             allPizzasList = pizzaService.findPizzasByPrice(price);

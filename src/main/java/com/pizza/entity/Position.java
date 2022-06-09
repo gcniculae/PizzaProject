@@ -2,7 +2,6 @@ package com.pizza.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Getter

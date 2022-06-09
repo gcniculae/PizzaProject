@@ -3,14 +3,12 @@ package com.pizza.entity;
 import com.sun.istack.NotNull;
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
 @MappedSuperclass
-//@AllArgsConstructor
-//@NoArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Person extends BaseEntity {
@@ -43,9 +41,6 @@ public class Person extends BaseEntity {
         this.address = personBuilder.address;
     }
 
-    public Person() {
-    }
-
     public abstract static class PersonBuilder<T extends PersonBuilder<T>> {
 
         private String firstName;
@@ -53,9 +48,6 @@ public class Person extends BaseEntity {
         private String phoneNumber;
         private LocalDate dateOfBirth;
         private String address;
-
-        PersonBuilder() {
-        }
 
         public abstract T getThis();
 

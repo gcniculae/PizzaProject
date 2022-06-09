@@ -35,10 +35,11 @@ public class EmployeeRestController {
                                                               @RequestParam(name = "lastName", required = false) String lastName,
                                                               @RequestParam(name = "dateOfBirth", required = false)
                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
-                                                              @RequestParam(name = "position", required = false) Position position) {
+                                                              @RequestParam(name = "position", required = false) Position position,
+                                                              @RequestParam(name = "under35", required = false) Boolean under35) {
         List<Employee> allEmployeesList = new ArrayList<>();
 
-        if (allEmployees != null) {
+        if (allEmployees != null && allEmployees) {
             allEmployeesList = employeeService.findAllEmployees();
         } else if (firstName != null) {
             allEmployeesList = employeeService.findEmployeesByFirstName(firstName);
@@ -48,6 +49,8 @@ public class EmployeeRestController {
             allEmployeesList = employeeService.findEmployeesByDateOfBirth(dateOfBirth);
         } else if (position != null) {
             allEmployeesList = employeeService.findEmployeesByPosition(position);
+        } else if (under35 != null && under35) {
+            allEmployeesList = employeeService.findCooksWithAgeUnder35();
         }
 
         return ResponseEntity.ok(employeeTransformer.convertFromEntityListToDtoList(allEmployeesList));
