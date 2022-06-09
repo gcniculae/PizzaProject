@@ -1,6 +1,5 @@
 package com.pizza.dto;
 
-import com.pizza.entity.Location;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +16,5 @@ public class IngredientStockDto extends BaseEntityDto {
     private String name;
     private Long quantity;
     private LocalDate expirationDate;
-    private Location location;
+    private Long locationId;
 }

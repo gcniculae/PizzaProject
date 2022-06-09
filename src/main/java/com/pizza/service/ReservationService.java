@@ -7,20 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final LocationService locationService;
 
     @Autowired
-    public ReservationService(ReservationRepository reservationRepository) {
+    public ReservationService(ReservationRepository reservationRepository, LocationService locationService) {
         this.reservationRepository = reservationRepository;
+        this.locationService = locationService;
     }
 
-    public Reservation saveReservation(Reservation reservation) {
+    public Reservation saveReservation(Reservation reservation, Long reservationId) {
+        reservation.setLocation(locationService.findLocationById(reservationId));
+
         return reservationRepository.save(reservation);
     }
 
@@ -58,11 +61,11 @@ public class ReservationService {
         }
     }
 
-    public Reservation updateReservation(Long id, Reservation reservation) {
+    public Reservation updateReservation(Long id, Reservation reservation, Long reservationId) {
         Reservation reservationById = findReservationById(id);
         reservation.setId(reservationById.getId());
 
-        return saveReservation(reservation);
+        return saveReservation(reservation, reservationId);
     }
 
     public void deleteReservationById(Long id) {

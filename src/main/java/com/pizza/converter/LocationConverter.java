@@ -11,7 +11,8 @@ public class LocationConverter extends BaseConverter<LocationDto, Location> {
     @Override
     public LocationDto convertFromEntityToDto(Location location) {
         LocationDto locationDto = new LocationDto();
-        BeanUtils.copyProperties(location, locationDto);
+        BeanUtils.copyProperties(location, locationDto, "location");
+        locationDto.setPizzeriaId(location.getPizzeria().getId());
 
         return locationDto;
     }
@@ -19,7 +20,7 @@ public class LocationConverter extends BaseConverter<LocationDto, Location> {
     @Override
     public Location convertFromDtoToEntity(LocationDto locationDto) {
         Location location = new Location();
-        BeanUtils.copyProperties(locationDto, location);
+        BeanUtils.copyProperties(locationDto, location, "locationId");
 
         return location;
     }

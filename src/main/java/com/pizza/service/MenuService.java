@@ -12,12 +12,16 @@ import java.util.Optional;
 public class MenuService {
 
     private final MenuRepository menuRepository;
+    private final PizzeriaService pizzeriaService;
 
-    public MenuService(MenuRepository menuRepository) {
+    public MenuService(MenuRepository menuRepository, PizzeriaService pizzeriaService) {
         this.menuRepository = menuRepository;
+        this.pizzeriaService = pizzeriaService;
     }
 
-    public Menu saveMenu(Menu menu) {
+    public Menu saveMenu(Menu menu, Long pizzeriaId) {
+        menu.setPizzeria(pizzeriaService.findPizzeriaById(pizzeriaId));
+
         return menuRepository.save(menu);
     }
 
@@ -45,11 +49,11 @@ public class MenuService {
         }
     }
 
-    public Menu updateMenu(Long id, Menu menu) {
+    public Menu updateMenu(Long id, Menu menu, Long pizzeriaId) {
         Menu menuById = findMenuById(id);
         menu.setId(menuById.getId());
 
-        return saveMenu(menu);
+        return saveMenu(menu, pizzeriaId);
     }
 
     public void deleteMenuById(Long id) {

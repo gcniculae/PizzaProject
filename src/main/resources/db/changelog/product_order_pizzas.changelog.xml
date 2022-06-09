@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="product-order-pizzas-1" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="product_order_pizzas"/>
+            </not>
+        </preConditions>
+        <createTable tableName="product_order_pizzas">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="product_order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pizzas_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="product_order_id"
+                                 baseTableName="product_order_pizzas"
+                                 constraintName="fk_product_order_pizzas_product_order_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product_order"/>
+
+        <addForeignKeyConstraint baseColumnNames="pizzas_id"
+                                 baseTableName="product_order_pizzas"
+                                 constraintName="fk_product_order_pizzas_pizza_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pizza"/>
+    </changeSet>
+
+    <changeSet id="product-order-pizzas-2" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM product_order_pizzas;
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="product_order_pizzas">
+            <column name="product_order_id" value="1"/>
+            <column name="pizzas_id" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

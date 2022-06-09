@@ -1,6 +1,7 @@
 package com.pizza.service;
 
 import com.pizza.entity.Employee;
+import com.pizza.entity.Owner;
 import com.pizza.entity.Position;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.EmployeeRepository;
@@ -18,10 +19,12 @@ import java.util.Optional;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final OwnerService ownerService;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, OwnerService ownerService) {
         this.employeeRepository = employeeRepository;
+        this.ownerService = ownerService;
     }
 
 //    @PostConstruct
@@ -36,7 +39,9 @@ public class EmployeeService {
 //        employeeRepository.saveAll(initialEmployees);
 //    }
 
-    public Employee saveEmployee(Employee employee) {
+    public Employee saveEmployee(Employee employee, Long ownerId) {
+        employee.setOwner(ownerService.findOwnerById(ownerId));
+
         return employeeRepository.save(employee);
     }
 
@@ -70,11 +75,11 @@ public class EmployeeService {
         return employeeRepository.findByPosition(position);
     }
 
-    public Employee updateEmployee(Long id, Employee employee) {
+    public Employee updateEmployee(Long id, Employee employee, Long ownerId) {
         Employee employeeById = findEmployeeById(id);
         employee.setId(employeeById.getId());
 
-        return saveEmployee(employee);
+        return saveEmployee(employee, ownerId);
     }
 
     public void deleteEmployeeById(Long id) {

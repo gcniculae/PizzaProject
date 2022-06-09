@@ -48,15 +48,15 @@ public class ReservationRestController {
     @PostMapping
     public ResponseEntity<ReservationDto> addReservation(@Valid @RequestBody ReservationDto reservationDto) {
         Reservation reservation = reservationConverter.convertFromDtoToEntity(reservationDto);
-        Reservation savedReservation = reservationService.saveReservation(reservation);
+        Reservation savedReservation = reservationService.saveReservation(reservation, reservationDto.getLocationId());
 
-        return ResponseEntity.ok(reservationConverter.convertFromEntityToDto(reservation));
+        return ResponseEntity.ok(reservationConverter.convertFromEntityToDto(savedReservation));
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id, @Valid @RequestBody ReservationDto reservationDto) {
         Reservation reservation = reservationConverter.convertFromDtoToEntity(reservationDto);
-        Reservation updatedReservation = reservationService.updateReservation(id, reservation);
+        Reservation updatedReservation = reservationService.updateReservation(id, reservation, reservationDto.getLocationId());
 
         return ResponseEntity.ok(reservationConverter.convertFromEntityToDto(updatedReservation));
     }

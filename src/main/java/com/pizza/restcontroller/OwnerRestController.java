@@ -33,7 +33,7 @@ public class OwnerRestController {
     @PostMapping
     public ResponseEntity<OwnerDto> addOwner(@Valid @RequestBody OwnerDto ownerDto) {
         Owner owner = ownerTransformer.convertFromDtoToEntity(ownerDto);
-        Owner savedOwner = ownerService.saveOwner(owner);
+        Owner savedOwner = ownerService.saveOwner(owner, ownerDto.getPizzeriaId());
         OwnerDto savedOwnerDto = ownerTransformer.convertFromEntityToDto(savedOwner);
 
         return ResponseEntity.ok(savedOwnerDto);
@@ -42,7 +42,7 @@ public class OwnerRestController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<OwnerDto> updateOwner(@PathVariable("id") Long id, @Valid @RequestBody OwnerDto ownerDto) {
         Owner owner = ownerTransformer.convertFromDtoToEntity(ownerDto);
-        Owner updatedOwner = ownerService.updateOwner(id, owner);
+        Owner updatedOwner = ownerService.updateOwner(id, owner, ownerDto.getPizzeriaId());
         OwnerDto updatedOwnerDto = ownerTransformer.convertFromEntityToDto(updatedOwner);
 
         return ResponseEntity.ok(updatedOwnerDto);

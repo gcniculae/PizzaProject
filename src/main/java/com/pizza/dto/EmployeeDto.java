@@ -11,25 +11,25 @@ import lombok.Setter;
 public class EmployeeDto extends PersonDto {
 
     private Position position;
-    private OwnerDto ownerDto;
+    private Long ownerId;
 
     public EmployeeDto(EmployeeDtoBuilder employeeDtoBuilder) {
         this.position = employeeDtoBuilder.position;
-        this.ownerDto = employeeDtoBuilder.ownerDto;
+        this.ownerId = employeeDtoBuilder.ownerId;
     }
 
     public static class EmployeeDtoBuilder extends PersonDtoBuilder<EmployeeDtoBuilder> {
 
         private Position position;
-        private OwnerDto ownerDto;
+        private Long ownerId;
 
         public EmployeeDtoBuilder setPosition(Position position) {
             this.position = position;
             return this;
         }
 
-        public EmployeeDtoBuilder setOwnerDto(OwnerDto ownerDto) {
-            this.ownerDto = ownerDto;
+        public EmployeeDtoBuilder setOwnerDto(Long ownerDtoId) {
+            this.ownerId = ownerDtoId;
             return this;
         }
 

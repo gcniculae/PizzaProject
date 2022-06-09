@@ -41,7 +41,7 @@ public class PizzeriaRestController {
     @PostMapping
     public ResponseEntity<PizzeriaDto> addPizzeria(@Valid @RequestBody PizzeriaDto pizzeriaDto) {
         Pizzeria pizzeria = pizzeriaConverter.convertFromDtoToEntity(pizzeriaDto);
-        Pizzeria savedPizzeria = pizzeriaService.savePizzeria(pizzeria);
+        Pizzeria savedPizzeria = pizzeriaService.savePizzeria(pizzeria, pizzeriaDto.getOwnerId());
 
         return ResponseEntity.ok(pizzeriaConverter.convertFromEntityToDto(savedPizzeria));
     }
@@ -49,7 +49,7 @@ public class PizzeriaRestController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<PizzeriaDto> addPizzeria(@PathVariable(name = "id") Long id, @Valid @RequestBody PizzeriaDto pizzeriaDto) {
         Pizzeria pizzeria = pizzeriaConverter.convertFromDtoToEntity(pizzeriaDto);
-        Pizzeria updatedPizzeria = pizzeriaService.updatePizzeria(id, pizzeria);
+        Pizzeria updatedPizzeria = pizzeriaService.updatePizzeria(id, pizzeria, pizzeriaDto.getOwnerId());
 
         return ResponseEntity.ok(pizzeriaConverter.convertFromEntityToDto(updatedPizzeria));
     }

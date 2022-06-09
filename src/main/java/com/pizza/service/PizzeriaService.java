@@ -4,6 +4,7 @@ import com.pizza.entity.Pizzeria;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.PizzeriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,13 +13,17 @@ import java.util.Optional;
 public class PizzeriaService {
 
     private final PizzeriaRepository pizzeriaRepository;
+    private final OwnerService ownerService;
 
     @Autowired
-    public PizzeriaService(PizzeriaRepository pizzeriaRepository) {
+    public PizzeriaService(PizzeriaRepository pizzeriaRepository, @Lazy OwnerService ownerService) {
         this.pizzeriaRepository = pizzeriaRepository;
+        this.ownerService = ownerService;
     }
 
-    public Pizzeria savePizzeria(Pizzeria pizzeria) {
+    public Pizzeria savePizzeria(Pizzeria pizzeria, Long ownerId) {
+        pizzeria.setOwner(ownerService.findOwnerById(ownerId));
+
         return pizzeriaRepository.save(pizzeria);
     }
 
@@ -42,11 +47,11 @@ public class PizzeriaService {
         }
     }
 
-    public Pizzeria updatePizzeria(Long id, Pizzeria pizzeria) {
+    public Pizzeria updatePizzeria(Long id, Pizzeria pizzeria, Long ownerId) {
         Pizzeria pizzeriaById = findPizzeriaById(id);
         pizzeria.setId(pizzeriaById.getId());
 
-        return savePizzeria(pizzeria);
+        return savePizzeria(pizzeria, ownerId);
     }
 
     public void deletePizzeriaById(Long id) {

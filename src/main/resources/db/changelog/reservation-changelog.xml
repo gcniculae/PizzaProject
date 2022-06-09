@@ -20,14 +20,7 @@
             <column name="location_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="pizzeria_id" type="bigint"/>
         </createTable>
-
-        <addForeignKeyConstraint baseColumnNames="pizzeria_id"
-                                 baseTableName="reservation"
-                                 constraintName="fk_reservation_pizzeria_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="pizzeria"/>
 
         <addForeignKeyConstraint baseColumnNames="location_id"
                                  baseTableName="reservation"
@@ -45,7 +38,6 @@
         </preConditions>
         <insert tableName="reservation">
             <column name="name" value="Reservation1"/>
-            <column name="pizzeria_id" value="1"/>
             <column name="location_id" value="1"/>
         </insert>
     </changeSet>

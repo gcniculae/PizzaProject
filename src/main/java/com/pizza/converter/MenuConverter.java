@@ -11,7 +11,8 @@ public class MenuConverter extends BaseConverter<MenuDto, Menu> {
     @Override
     public MenuDto convertFromEntityToDto(Menu menu) {
         MenuDto menuDto = new MenuDto();
-        BeanUtils.copyProperties(menu, menuDto);
+        BeanUtils.copyProperties(menu, menuDto, "pizzeria");
+        menuDto.setPizzeriaId(menu.getPizzeria().getId());
 
         return menuDto;
     }
@@ -19,7 +20,7 @@ public class MenuConverter extends BaseConverter<MenuDto, Menu> {
     @Override
     public Menu convertFromDtoToEntity(MenuDto menuDto) {
         Menu menu = new Menu();
-        BeanUtils.copyProperties(menuDto, menu);
+        BeanUtils.copyProperties(menuDto, menu, "pizzeriaId");
 
         return menu;
     }

@@ -13,13 +13,17 @@ import java.util.Optional;
 public class ProductOrderService {
 
     private final ProductOrderRepository productOrderRepository;
+    private final ClientService clientService;
 
     @Autowired
-    public ProductOrderService(ProductOrderRepository productOrderRepository) {
+    public ProductOrderService(ProductOrderRepository productOrderRepository, ClientService clientService) {
         this.productOrderRepository = productOrderRepository;
+        this.clientService = clientService;
     }
 
-    public ProductOrder saveProductOrder(ProductOrder productOrder) {
+    public ProductOrder saveProductOrder(ProductOrder productOrder, Long clientId) {
+        productOrder.setClient(clientService.findClientById(clientId));
+
         return productOrderRepository.save(productOrder);
     }
 
@@ -41,11 +45,11 @@ public class ProductOrderService {
         }
     }
 
-    public ProductOrder updateProductOrder(Long id, ProductOrder productOrder) {
+    public ProductOrder updateProductOrder(Long id, ProductOrder productOrder, Long clientId) {
         ProductOrder productOrderById = findProductOrderById(id);
         productOrder.setId(productOrderById.getId());
 
-        return saveProductOrder(productOrder);
+        return saveProductOrder(productOrder, clientId);
     }
 
     public void deleteProductOrderServiceById(Long id) {

@@ -11,7 +11,8 @@ public class EmployeeConverter extends BaseConverter<EmployeeDto, Employee> {
     @Override
     public EmployeeDto convertFromEntityToDto(Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
-        BeanUtils.copyProperties(employee, employeeDto);
+        BeanUtils.copyProperties(employee, employeeDto, "owner");
+        employeeDto.setOwnerId(employee.getOwner().getId());
 
         return employeeDto;
     }
@@ -19,7 +20,7 @@ public class EmployeeConverter extends BaseConverter<EmployeeDto, Employee> {
     @Override
     public Employee convertFromDtoToEntity(EmployeeDto employeeDto) {
         Employee employee = new Employee();
-        BeanUtils.copyProperties(employeeDto, employee);
+        BeanUtils.copyProperties(employeeDto, employee, "ownerDtoId");
 
         return employee;
     }

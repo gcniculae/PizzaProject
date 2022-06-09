@@ -17,8 +17,6 @@ import java.util.UUID;
 @Setter
 public class Client extends Person {
 
-    @NotNull
-    @NotEmpty
     private String clientCode;
 
     @OneToMany(mappedBy = "client")

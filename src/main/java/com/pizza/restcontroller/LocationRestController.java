@@ -57,7 +57,7 @@ public class LocationRestController {
     @PostMapping
     public ResponseEntity<LocationDto> addLocation(@Valid @RequestBody LocationDto locationDto) {
         Location location = locationConverter.convertFromDtoToEntity(locationDto);
-        Location savedLocation = locationService.saveLocation(location);
+        Location savedLocation = locationService.saveLocation(location, locationDto.getPizzeriaId());
 
         return ResponseEntity.ok(locationConverter.convertFromEntityToDto(savedLocation));
     }
@@ -65,7 +65,7 @@ public class LocationRestController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<LocationDto> updateLocation(@PathVariable Long id, @Valid @RequestBody LocationDto locationDto) {
         Location location = locationConverter.convertFromDtoToEntity(locationDto);
-        Location updatedLocation = locationService.updateLocation(id, location);
+        Location updatedLocation = locationService.updateLocation(id, location, locationDto.getPizzeriaId());
 
         return ResponseEntity.ok(locationConverter.convertFromEntityToDto(updatedLocation));
     }

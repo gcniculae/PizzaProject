@@ -10,17 +10,17 @@ import java.util.List;
 public class PizzeriaDto extends BaseEntityDto {
 
     private String name;
-    private OwnerDto ownerDto;
-    private List<MenuDto> menuDto;
-    private List<LocationDto> locationsDto;
+    private Long ownerId;
+//    private List<MenuDto> menuDto;
+//    private List<LocationDto> locationsDto;
 
     @Builder
     public static class PizzeriaDtoBuilder {
 
         private String name;
-        private OwnerDto ownerDto;
-        private List<MenuDto> menuDto;
-        private List<LocationDto> locationsDto;
+        private Long ownerId;
+//        private List<MenuDto> menuDto;
+//        private List<LocationDto> locationsDto;
 
     }
 }

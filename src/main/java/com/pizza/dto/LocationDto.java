@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -15,6 +13,5 @@ public class LocationDto extends BaseEntityDto {
 
     private String name;
     private String address;
-    private PizzeriaDto pizzeriaDto;
-    private List<IngredientStockDto> ingredientStocksDto;
+    private Long pizzeriaId;
 }

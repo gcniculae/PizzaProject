@@ -1,9 +1,12 @@
 package com.pizza.dto;
 
+import com.pizza.entity.ProductOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,5 +16,5 @@ public class PizzaDto extends BaseEntityDto {
 
     private String name;
     private Double price;
-    private ProductOrderDto orderDto;
+//    private List<ProductOrder> productOrders;
 }

@@ -4,28 +4,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @NoArgsConstructor
 @Getter
 @Setter
 public class OwnerDto extends PersonDto {
 
-    private PizzeriaDto pizzeriaDto;
+    private Long pizzeriaId;
 //    private List<EmployeeDto> employeesDto;
 
     public OwnerDto(OwnerDtoBuilder ownerDtoBuilder) {
-        this.pizzeriaDto = ownerDtoBuilder.pizzeriaDto;
+        this.pizzeriaId = ownerDtoBuilder.pizzeriaId;
 //        this.employeesDto = ownerDtoBuilder.employeesDto;
     }
 
     public static class OwnerDtoBuilder extends PersonDtoBuilder<OwnerDtoBuilder> {
 
-        private PizzeriaDto pizzeriaDto;
+        private Long pizzeriaId;
 //        private List<EmployeeDto> employeesDto;
 
-        public OwnerDtoBuilder setPizzeriaDto(PizzeriaDto pizzeriaDto) {
-            this.pizzeriaDto = pizzeriaDto;
+        public OwnerDtoBuilder setPizzeriaDto(Long pizzeriaId) {
+            this.pizzeriaId = pizzeriaId;
             return this;
         }
 

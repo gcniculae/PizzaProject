@@ -1,6 +1,7 @@
 package com.pizza.service;
 
 import com.pizza.entity.IngredientStock;
+import com.pizza.entity.Location;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.IngredientStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,17 @@ import java.util.Optional;
 public class IngredientStockService {
 
     private final IngredientStockRepository ingredientStockRepository;
+    private final LocationService locationService;
 
     @Autowired
-    public IngredientStockService(IngredientStockRepository ingredientStockRepository) {
+    public IngredientStockService(IngredientStockRepository ingredientStockRepository, LocationService locationService) {
         this.ingredientStockRepository = ingredientStockRepository;
+        this.locationService = locationService;
     }
 
-    public IngredientStock saveIngredientStock(IngredientStock ingredientStock) {
+    public IngredientStock saveIngredientStock(IngredientStock ingredientStock, Long locationId) {
+        ingredientStock.setLocation(locationService.findLocationById(locationId));
+
         return ingredientStockRepository.save(ingredientStock);
     }
 
@@ -57,11 +62,11 @@ public class IngredientStockService {
         return ingredientStockRepository.findByExpirationDate(expirationDate);
     }
 
-    public IngredientStock updateIngredientStock(Long id, IngredientStock ingredientStock) {
+    public IngredientStock updateIngredientStock(Long id, IngredientStock ingredientStock, Long locationId) {
         IngredientStock ingredientStockById = findIngredientStockById(id);
         ingredientStock.setId(id);
 
-        return saveIngredientStock(ingredientStock);
+        return saveIngredientStock(ingredientStock, locationId);
     }
 
     public void deleteIngredientStockById(Long id) {

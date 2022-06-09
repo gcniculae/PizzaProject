@@ -11,7 +11,7 @@ public class OwnerConverter extends BaseConverter<OwnerDto, Owner> {
     @Override
     public OwnerDto convertFromEntityToDto(Owner owner) {
         OwnerDto ownerDto = new OwnerDto();
-        BeanUtils.copyProperties(owner, ownerDto);
+        BeanUtils.copyProperties(owner, ownerDto, "pizzeria");
 
         return ownerDto;
     }
@@ -19,7 +19,7 @@ public class OwnerConverter extends BaseConverter<OwnerDto, Owner> {
     @Override
     public Owner convertFromDtoToEntity(OwnerDto ownerDto) {
         Owner owner = new Owner();
-        BeanUtils.copyProperties(ownerDto, owner);
+        BeanUtils.copyProperties(ownerDto, owner, "pizzeriaId");
 
         return owner;
     }

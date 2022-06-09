@@ -63,7 +63,7 @@ public class IngredientStockRestController {
     @PostMapping
     public ResponseEntity<IngredientStockDto> addIngredientStocks(@Valid @RequestBody IngredientStockDto ingredientStockDto) {
         IngredientStock ingredientStock = ingredientStockConverter.convertFromDtoToEntity(ingredientStockDto);
-        IngredientStock savedIngredientStock = ingredientStockService.saveIngredientStock(ingredientStock);
+        IngredientStock savedIngredientStock = ingredientStockService.saveIngredientStock(ingredientStock, ingredientStockDto.getLocationId());
 
         return ResponseEntity.ok(ingredientStockConverter.convertFromEntityToDto(savedIngredientStock));
     }
@@ -71,7 +71,7 @@ public class IngredientStockRestController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<IngredientStockDto> updateIngredientStocks(@PathVariable Long id, @Valid @RequestBody IngredientStockDto ingredientStockDto) {
         IngredientStock ingredientStock = ingredientStockConverter.convertFromDtoToEntity(ingredientStockDto);
-        IngredientStock updatedIngredientStock = ingredientStockService.updateIngredientStock(id, ingredientStock);
+        IngredientStock updatedIngredientStock = ingredientStockService.updateIngredientStock(id, ingredientStock, ingredientStockDto.getLocationId());
 
         return ResponseEntity.ok(ingredientStockConverter.convertFromEntityToDto(updatedIngredientStock));
     }

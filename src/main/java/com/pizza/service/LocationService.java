@@ -7,20 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class LocationService {
 
     private final LocationRepository locationRepository;
+    private final PizzeriaService pizzeriaService;
 
     @Autowired
-    public LocationService(LocationRepository locationRepository) {
+    public LocationService(LocationRepository locationRepository, PizzeriaService pizzeriaService) {
         this.locationRepository = locationRepository;
+        this.pizzeriaService = pizzeriaService;
     }
 
-    public Location saveLocation(Location location) {
+    public Location saveLocation(Location location, Long pizzeriaId) {
+        location.setPizzeria(pizzeriaService.findPizzeriaById(pizzeriaId));
+
         return locationRepository.save(location);
     }
 
@@ -52,11 +55,11 @@ public class LocationService {
         return locationRepository.findByAddressContainingIgnoreCase(address);
     }
 
-    public Location updateLocation(Long id, Location location) {
+    public Location updateLocation(Long id, Location location, Long pizzeriaId) {
         Location locationById = findLocationById(id);
         location.setId(locationById.getId());
 
-        return saveLocation(location);
+        return saveLocation(location, pizzeriaId);
     }
 
     public void deleteLocationById(Long id) {
