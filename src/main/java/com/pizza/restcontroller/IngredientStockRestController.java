@@ -32,7 +32,7 @@ public class IngredientStockRestController {
     public ResponseEntity<List<IngredientStockDto>> findAllIngredientStocks(@RequestParam(name = "allIngredientStocks", required = false) Boolean allIngredientStocks,
                                                                             @RequestParam(name = "quantity", required = false) Long quantity,
                                                                             @RequestParam(name = "lowQuantity", required = false) Boolean lowQuantity,
-                                                                            @RequestParam(value = "expirationDate", required = false)
+                                                                            @RequestParam(name = "expirationDate", required = false)
                                                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate expirationDate) {
         List<IngredientStock> allIngredientStocksList = new ArrayList<>();
 

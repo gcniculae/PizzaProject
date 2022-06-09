@@ -2,11 +2,10 @@ package com.pizza.repository;
 
 import com.pizza.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +20,12 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     Optional<Client> findByClientCode(String clientCode);
 
+    List<Client> findByAddressContainingIgnoreCase(String address);
+
+    @Query(value = "from Client c where c.dateOfBirth between :startDate and :endDate")
+    List<Client> findClientsBornInTimeframe(LocalDate startDate, LocalDate endDate);
+
     void deleteByClientCode(String clientCode);
 
     void deleteByPhoneNumber(String phoneNumber);
-
-    List<Client> findByAddressContainingIgnoreCase(String address);
 }

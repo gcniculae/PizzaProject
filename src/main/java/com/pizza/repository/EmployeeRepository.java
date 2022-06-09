@@ -1,6 +1,5 @@
 package com.pizza.repository;
 
-import com.pizza.entity.Client;
 import com.pizza.entity.Employee;
 import com.pizza.entity.Position;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +22,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Query(nativeQuery = true, value = "SELECT * FROM employee WHERE position = 1 and YEAR(date_of_birth) > YEAR(NOW()) - 35;")
     List<Employee> findCooksWithAgeUnder35();
+
+    @Query(value = "from Employee e where e.dateOfBirth between :startDate and :endDate")
+    List<Employee> findEmployeesBornInTimeframe(LocalDate startDate, LocalDate endDate);
 }

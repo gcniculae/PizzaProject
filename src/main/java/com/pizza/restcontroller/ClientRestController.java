@@ -5,10 +5,12 @@ import com.pizza.entity.Client;
 import com.pizza.service.ClientService;
 import com.pizza.converter.ClientConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,11 @@ public class ClientRestController {
     public ResponseEntity<List<ClientDto>> getAllClients(@RequestParam(name = "allClients", required = false) Boolean allClients,
                                                          @RequestParam(name = "firstName", required = false) String firstName,
                                                          @RequestParam(name = "lastName", required = false) String lastName,
-                                                         @RequestParam(name = "address", required = false) String address) {
+                                                         @RequestParam(name = "address", required = false) String address,
+                                                         @RequestParam(name = "startDate", required = false)
+                                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                                         @RequestParam(name = "endDate", required = false)
+                                                         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         List<Client> allClientsList = new ArrayList<>();
 
         if (allClients != null && allClients) {
@@ -41,6 +47,8 @@ public class ClientRestController {
             allClientsList = clientService.findClientsByLastName(lastName);
         } else if (address != null) {
             allClientsList = clientService.findClientsByAddress(address);
+        } else if (startDate != null && endDate != null) {
+            allClientsList = clientService.findClientsBornInTimeframe(startDate, endDate);
         }
 
         List<ClientDto> allClientsDto = clientTransformer.convertFromEntityListToDtoList(allClientsList);

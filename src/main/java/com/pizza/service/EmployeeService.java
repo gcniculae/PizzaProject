@@ -7,9 +7,7 @@ import com.pizza.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +47,10 @@ public class EmployeeService {
 
     public List<Employee> findCooksWithAgeUnder35() {
         return employeeRepository.findCooksWithAgeUnder35();
+    }
+
+    public List<Employee> findEmployeesBornInTimeframe(LocalDate startDate, LocalDate endDate) {
+        return employeeRepository.findEmployeesBornInTimeframe(startDate, endDate);
     }
 
     public Employee findEmployeeById(Long id) {

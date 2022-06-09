@@ -92,6 +92,10 @@ public class ClientService {
         }
     }
 
+    public List<Client> findClientsBornInTimeframe(LocalDate startDate, LocalDate endDate) {
+        return clientRepository.findClientsBornInTimeframe(startDate, endDate);
+    }
+
     public Client updateClient(Long id, Client client) {
         Client clientById = findClientById(id);
         client.setId(clientById.getId());
