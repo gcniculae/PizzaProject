@@ -17,12 +17,10 @@ import java.util.List;
 @Setter
 public class Location extends BaseEntity {
 
-    @NotNull
     @NotEmpty
     @Column(unique = true)
     private String name;
 
-    @NotNull
     @NotEmpty
     private String address;
 

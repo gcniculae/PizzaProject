@@ -13,23 +13,18 @@ import java.time.LocalDate;
 @Setter
 public class Person extends BaseEntity {
 
-    @NotNull
     @NotEmpty
     private String firstName;
 
-    @NotNull
     @NotEmpty
     private String lastName;
 
-    @NotNull
     @NotEmpty
     private String phoneNumber;
 
     @NotNull
-    @NotEmpty
     private LocalDate dateOfBirth;
 
-    @NotNull
     @NotEmpty
     private String address;
 

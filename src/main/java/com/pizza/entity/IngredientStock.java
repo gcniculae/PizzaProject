@@ -19,17 +19,14 @@ import java.time.LocalDate;
 @Setter
 public class IngredientStock extends BaseEntity {
 
-    @NotNull
     @NotEmpty
     @Column(unique = true)
     private String name;
 
-    @NotNull
-    @NotEmpty
+    @javax.validation.constraints.NotNull
     private Long quantity;
 
     @NotNull
-    @NotEmpty
     private LocalDate expirationDate;
 
     @ManyToOne

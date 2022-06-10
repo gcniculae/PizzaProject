@@ -18,14 +18,12 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class Reservation extends BaseEntity {
 
-    @NotNull
     @NotEmpty
     @Column(unique = true)
     private String name;
 
     @ManyToOne
     @NotNull
-    @NotEmpty
     private Client client;
 
     @ManyToOne

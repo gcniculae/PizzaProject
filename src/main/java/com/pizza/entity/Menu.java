@@ -17,7 +17,6 @@ import javax.validation.constraints.NotEmpty;
 @Setter
 public class Menu extends BaseEntity {
 
-    @NotNull
     @NotEmpty
     private String name;
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="pizza-orders-1" author="George Niculae">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="pizza_project" catalogName="pizza_project" tableName="pizza_orders"/>
+            </not>
+        </preConditions>
+        <createTable tableName="pizza_orders">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="pizza_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="orders_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="pizza_id"
+                                 baseTableName="pizza_orders"
+                                 constraintName="fk_pizza_orders_pizza_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pizza"/>
+
+        <addForeignKeyConstraint baseColumnNames="orders_id"
+                                 baseTableName="pizza_orders"
+                                 constraintName="fk_pizza_orders_product_order_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pizza"/>
+    </changeSet>
+
+<!--    <changeSet id="pizza-orders-2" author="George Niculae">-->
+<!--        <preConditions onFail="MARK_RAN">-->
+<!--            <sqlCheck expectedResult="0">-->
+<!--                SELECT COUNT(*)-->
+<!--                FROM pizza_orders;-->
+<!--            </sqlCheck>-->
+<!--        </preConditions>-->
+<!--        <insert tableName="pizza_orders">-->
+<!--            <column name="pizza_id" value="1"/>-->
+<!--            <column name="orders_id" value="1"/>-->
+<!--        </insert>-->
+<!--    </changeSet>-->
+</databaseChangeLog>

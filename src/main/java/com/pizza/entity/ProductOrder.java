@@ -19,7 +19,6 @@ public class ProductOrder extends BaseEntity {
 
     @ManyToOne
     @NotNull
-    @NotEmpty
     private Client client;
 
     @ManyToMany

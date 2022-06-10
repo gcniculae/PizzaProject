@@ -15,4 +15,5 @@
     <include file="db/changelog/pizza-changelog.xml"/>
     <include file="db/changelog/reservation-changelog.xml"/>
     <include file="db/changelog/product_order_pizzas.changelog.xml"/>
+    <include file="db/changelog/pizza-orders.changelog.xml"/>
 </databaseChangeLog>

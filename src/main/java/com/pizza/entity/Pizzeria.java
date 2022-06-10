@@ -15,14 +15,12 @@ import java.util.List;
 @Setter
 public class Pizzeria extends BaseEntity {
 
-    @NotNull
     @NotEmpty
     @Column(unique = true)
     private String name;
 
     @OneToOne
     @NotNull
-    @NotEmpty
     private Owner owner;
 
     @OneToMany(mappedBy = "pizzeria")

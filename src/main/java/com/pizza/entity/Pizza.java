@@ -19,13 +19,11 @@ import java.util.List;
 @Setter
 public class Pizza extends BaseEntity {
 
-    @NotNull
     @NotEmpty
     @Column(unique = true)
     private String name;
 
     @NotNull
-    @NotEmpty
     private Double price;
 
     @ManyToMany
