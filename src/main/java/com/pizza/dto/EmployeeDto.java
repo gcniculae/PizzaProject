@@ -5,12 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+
 @NoArgsConstructor
 @Getter
 @Setter
 public class EmployeeDto extends PersonDto {
 
+    @NotNull
     private Position position;
+
+    @NotNull
     private Long locationId;
 
     public EmployeeDto(EmployeeDtoBuilder employeeDtoBuilder) {

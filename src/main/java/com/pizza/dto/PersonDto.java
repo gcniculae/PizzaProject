@@ -4,6 +4,8 @@ import lombok.NoArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @NoArgsConstructor
@@ -11,10 +13,19 @@ import java.time.LocalDate;
 @Setter
 public class PersonDto extends BaseEntityDto {
 
+    @NotEmpty
     private String firstName;
+
+    @NotEmpty
     private String lastName;
+
+    @NotEmpty
     private String phoneNumber;
+
+    @NotNull
     private LocalDate dateOfBirth;
+
+    @NotEmpty
     private String address;
 
     public <T extends PersonDtoBuilder<T>> PersonDto(PersonDtoBuilder personDtoBuilder) {

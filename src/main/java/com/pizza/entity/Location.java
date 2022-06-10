@@ -1,6 +1,5 @@
 package com.pizza.entity;
 
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -25,6 +25,7 @@ public class Location extends BaseEntity {
     private String address;
 
     @ManyToOne
+    @NotNull
     private Pizzeria pizzeria;
 
     @OneToMany(mappedBy = "location")

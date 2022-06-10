@@ -21,12 +21,12 @@ import java.util.List;
 public class EmployeeRestController {
 
     private final EmployeeService employeeService;
-    private final EmployeeConverter employeeTransformer;
+    private final EmployeeConverter employeeConverter;
 
     @Autowired
-    public EmployeeRestController(EmployeeService employeeService, EmployeeConverter employeeTransformer) {
+    public EmployeeRestController(EmployeeService employeeService, EmployeeConverter employeeConverter) {
         this.employeeService = employeeService;
-        this.employeeTransformer = employeeTransformer;
+        this.employeeConverter = employeeConverter;
     }
 
     @GetMapping
@@ -59,7 +59,14 @@ public class EmployeeRestController {
             allEmployeesList = employeeService.findEmployeesBornInTimeframe(startDate, endDate);
         }
 
-        return ResponseEntity.ok(employeeTransformer.convertFromEntityListToDtoList(allEmployeesList));
+        return ResponseEntity.ok(employeeConverter.convertFromEntityListToDtoList(allEmployeesList));
+    }
+
+    @GetMapping(path = "/e")
+    public ResponseEntity<List<EmployeeDto>> findEmployeesByFirstNameUsingSpecification(EmployeeDto employeeDto) {
+        List<Employee> employeesByFirstNameUsingSpecification = employeeService.findEmployeesUsingSpecification(employeeDto);
+
+        return ResponseEntity.ok(employeeConverter.convertFromEntityListToDtoList(employeesByFirstNameUsingSpecification));
     }
 
 //    @GetMapping(path = "/all-employees")
@@ -74,7 +81,7 @@ public class EmployeeRestController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable("id") Long id) {
         Employee employee = employeeService.findEmployeeById(id);
-        EmployeeDto employeeDto = employeeTransformer.convertFromEntityToDto(employee);
+        EmployeeDto employeeDto = employeeConverter.convertFromEntityToDto(employee);
 
         return ResponseEntity.ok(employeeDto);
     }
@@ -117,18 +124,18 @@ public class EmployeeRestController {
 
     @PostMapping
     public ResponseEntity<EmployeeDto> addEmployee(@Valid @RequestBody EmployeeDto employeeDto) {
-        Employee employee = employeeTransformer.convertFromDtoToEntity(employeeDto);
+        Employee employee = employeeConverter.convertFromDtoToEntity(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee, employeeDto.getLocationId());
-        EmployeeDto savedEmployeeDto = employeeTransformer.convertFromEntityToDto(savedEmployee);
+        EmployeeDto savedEmployeeDto = employeeConverter.convertFromEntityToDto(savedEmployee);
 
         return ResponseEntity.ok(savedEmployeeDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeDto employeeDto) {
-        Employee employee = employeeTransformer.convertFromDtoToEntity(employeeDto);
+        Employee employee = employeeConverter.convertFromDtoToEntity(employeeDto);
         Employee updatedEmployee = employeeService.updateEmployee(id, employee, employeeDto.getLocationId());
-        EmployeeDto updatedEmployeeDto = employeeTransformer.convertFromEntityToDto(updatedEmployee);
+        EmployeeDto updatedEmployeeDto = employeeConverter.convertFromEntityToDto(updatedEmployee);
 
         return ResponseEntity.ok(updatedEmployeeDto);
     }

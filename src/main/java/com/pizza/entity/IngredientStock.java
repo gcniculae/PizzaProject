@@ -23,7 +23,7 @@ public class IngredientStock extends BaseEntity {
     @Column(unique = true)
     private String name;
 
-    @javax.validation.constraints.NotNull
+    @NotNull
     private Long quantity;
 
     @NotNull

@@ -1,12 +1,17 @@
 package com.pizza.service;
 
+import com.pizza.dto.EmployeeDto;
 import com.pizza.entity.Employee;
 import com.pizza.entity.Position;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.EmployeeRepository;
+import com.pizza.repository.EmployeeSpecification;
+import com.pizza.repository.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -61,6 +66,28 @@ public class EmployeeService {
         } else {
             throw new NotFoundException("No such employee found.", "employee.not.found");
         }
+    }
+
+    public List<Employee> findEmployeesUsingSpecification(EmployeeDto employeeDto) {
+        EmployeeSpecification employeeFilter = new EmployeeSpecification();
+
+        if (employeeDto.getFirstName() != null) {
+            employeeFilter.add(new SearchCriteria("firstName", employeeDto.getFirstName(), "=="));
+        } else if (employeeDto.getLastName() != null) {
+            employeeFilter.add(new SearchCriteria("lastName", employeeDto.getLastName(), "=="));
+        } else if (employeeDto.getPhoneNumber() != null) {
+            employeeFilter.add(new SearchCriteria("phoneNumber", employeeDto.getPhoneNumber(), "=="));
+        } else if (employeeDto.getDateOfBirth() != null) {
+            employeeFilter.add(new SearchCriteria("dateOfBirth", employeeDto.getDateOfBirth(), "=="));
+        } else if (employeeDto.getAddress() != null) {
+            employeeFilter.add(new SearchCriteria("address", employeeDto.getAddress(), "=="));
+        } else if (employeeDto.getPosition() != null) {
+            employeeFilter.add(new SearchCriteria("position", employeeDto.getPosition(), "=="));
+        } else if (employeeDto.getLocationId() != null) {
+            employeeFilter.add(new SearchCriteria("location", locationService.findLocationById(employeeDto.getLocationId()), "=="));
+        }
+
+        return employeeRepository.findAll(Specification.where(employeeFilter));
     }
 
     public List<Employee> findEmployeesByFirstName(String firstName) {

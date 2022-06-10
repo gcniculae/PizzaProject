@@ -1,18 +1,17 @@
-package com.pizza.dto;
+package com.pizza.repository;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductOrderDto extends BaseEntityDto {
+public class SearchCriteria {
 
-    @NotNull
-    private Long clientId;
+    private String key;
+    private Object value;
+    private String operation;
 }
