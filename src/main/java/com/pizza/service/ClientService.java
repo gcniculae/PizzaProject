@@ -70,6 +70,8 @@ public class ClientService {
             clientFilter.add(new SearchCriteria("dateOfBirth", clientDto.getDateOfBirth(), "=="));
         } else if (clientDto.getAddress() != null) {
             clientFilter.add(new SearchCriteria("address", clientDto.getAddress(), "=="));
+        } else if (clientDto.getClientCode() != null) {
+            clientFilter.add(new SearchCriteria("clientCode", clientDto.getClientCode(), "=="));
         }
 
         return clientRepository.findAll(Specification.where(clientFilter));
