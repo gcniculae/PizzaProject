@@ -1,2 +1,6 @@
-package com.pizza.repository;public class EmployeeSpecification {
+package com.pizza.repository;
+
+import com.pizza.entity.Employee;
+
+public class EmployeeSpecification extends GenericSpecification<Employee> {
 }

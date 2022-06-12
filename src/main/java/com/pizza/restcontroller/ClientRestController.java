@@ -20,12 +20,12 @@ import java.util.List;
 public class ClientRestController {
 
     private final ClientService clientService;
-    private final ClientConverter clientTransformer;
+    private final ClientConverter clientConverter;
 
     @Autowired
-    public ClientRestController(ClientService clientService, ClientConverter clientTransformer) {
+    public ClientRestController(ClientService clientService, ClientConverter clientConverter) {
         this.clientService = clientService;
-        this.clientTransformer = clientTransformer;
+        this.clientConverter = clientConverter;
     }
 
     @GetMapping
@@ -51,9 +51,16 @@ public class ClientRestController {
             allClientsList = clientService.findClientsBornInTimeframe(startDate, endDate);
         }
 
-        List<ClientDto> allClientsDto = clientTransformer.convertFromEntityListToDtoList(allClientsList);
+        List<ClientDto> allClientsDto = clientConverter.convertFromEntityListToDtoList(allClientsList);
 
         return ResponseEntity.ok(allClientsDto);
+    }
+
+    @GetMapping(path = "/c")
+    public ResponseEntity<List<ClientDto>> findClientsByFirstNameUsingSpecification(ClientDto clientDto) {
+        List<Client> clientsByFirstNameUsingSpecification = clientService.findClientsUsingSpecification(clientDto);
+
+        return ResponseEntity.ok(clientConverter.convertFromEntityListToDtoList(clientsByFirstNameUsingSpecification));
     }
 
 //    @GetMapping(path = "/id/{id}")
@@ -114,25 +121,25 @@ public class ClientRestController {
             client = clientService.findClientByPhoneNumber(phoneNumber);
         }
 
-        ClientDto clientDto = clientTransformer.convertFromEntityToDto(client);
+        ClientDto clientDto = clientConverter.convertFromEntityToDto(client);
 
         return ResponseEntity.ok(clientDto);
     }
 
     @PostMapping
     public ResponseEntity<ClientDto> addClient(@Valid @RequestBody ClientDto clientDto) {
-        Client client = clientTransformer.convertFromDtoToEntity(clientDto);
+        Client client = clientConverter.convertFromDtoToEntity(clientDto);
         Client savedClient = clientService.saveClient(client);
-        ClientDto savedClientDto = clientTransformer.convertFromEntityToDto(savedClient);
+        ClientDto savedClientDto = clientConverter.convertFromEntityToDto(savedClient);
 
         return ResponseEntity.ok(savedClientDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<ClientDto> updateClient(@PathVariable Long id, @Valid @RequestBody ClientDto clientDto) {
-        Client client = clientTransformer.convertFromDtoToEntity(clientDto);
+        Client client = clientConverter.convertFromDtoToEntity(clientDto);
         Client updatedClient = clientService.updateClient(id, client);
-        ClientDto updatedClientDto = clientTransformer.convertFromEntityToDto(updatedClient);
+        ClientDto updatedClientDto = clientConverter.convertFromEntityToDto(updatedClient);
 
         return ResponseEntity.ok(updatedClientDto);
     }

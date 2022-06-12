@@ -1,6 +1,5 @@
 package com.pizza.repository;
 
-import com.pizza.entity.Employee;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,11 +9,11 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeSpecification implements Specification<Employee> {
+public class GenericSpecification<T> implements Specification<T> {
 
     private List<SearchCriteria> searchCriteriaList;
 
-    public EmployeeSpecification() {
+    public GenericSpecification() {
         this.searchCriteriaList = new ArrayList<>();
     }
 
@@ -23,7 +22,7 @@ public class EmployeeSpecification implements Specification<Employee> {
     }
 
     @Override
-    public Predicate toPredicate(Root<Employee> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+    public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
         List<Predicate> predicates = new ArrayList<>();
 
         for (SearchCriteria criteria : searchCriteriaList) {
@@ -43,10 +42,10 @@ public class EmployeeSpecification implements Specification<Employee> {
                 case "match" -> predicates.add(criteriaBuilder.like(
                         criteriaBuilder.lower(root.get(criteria.getKey())),
                         "%" + criteria.getValue().toString().toLowerCase() + "%"));
-                case "endsWith" -> predicates.add(criteriaBuilder.like(
+                case "beginsWith" -> predicates.add(criteriaBuilder.like(
                         criteriaBuilder.lower(root.get(criteria.getKey())),
                         criteria.getValue().toString().toLowerCase() + "%"));
-                case "beginsWith" -> predicates.add(criteriaBuilder.like(
+                case "endsWith" -> predicates.add(criteriaBuilder.like(
                         criteriaBuilder.lower(root.get(criteria.getKey())),
                         "%" + criteria.getValue().toString().toLowerCase()));
                 case "in" -> predicates.add(criteriaBuilder.in(root.get(criteria.getKey())).value(criteria.getValue()));

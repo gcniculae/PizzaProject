@@ -1,9 +1,16 @@
 package com.pizza.service;
 
+import com.pizza.dto.ClientDto;
+import com.pizza.dto.EmployeeDto;
 import com.pizza.entity.Client;
+import com.pizza.entity.Employee;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ClientRepository;
+import com.pizza.repository.ClientSpecification;
+import com.pizza.repository.EmployeeSpecification;
+import com.pizza.repository.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +55,24 @@ public class ClientService {
 
     public List<Client> findAllClients() {
         return clientRepository.findAll();
+    }
+
+    public List<Client> findClientsUsingSpecification(ClientDto clientDto) {
+        ClientSpecification clientFilter = new ClientSpecification();
+
+        if (clientDto.getFirstName() != null) {
+            clientFilter.add(new SearchCriteria("firstName", clientDto.getFirstName(), "=="));
+        } else if (clientDto.getLastName() != null) {
+            clientFilter.add(new SearchCriteria("lastName", clientDto.getLastName(), "endsWith"));
+        } else if (clientDto.getPhoneNumber() != null) {
+            clientFilter.add(new SearchCriteria("phoneNumber", clientDto.getPhoneNumber(), "=="));
+        } else if (clientDto.getDateOfBirth() != null) {
+            clientFilter.add(new SearchCriteria("dateOfBirth", clientDto.getDateOfBirth(), "=="));
+        } else if (clientDto.getAddress() != null) {
+            clientFilter.add(new SearchCriteria("address", clientDto.getAddress(), "=="));
+        }
+
+        return clientRepository.findAll(Specification.where(clientFilter));
     }
 
     public Client findClientById(Long id) {

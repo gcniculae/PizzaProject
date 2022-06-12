@@ -1,2 +1,6 @@
-package com.pizza.repository;public class ClientSpecification {
+package com.pizza.repository;
+
+import com.pizza.entity.Client;
+
+public class ClientSpecification extends GenericSpecification<Client> {
 }

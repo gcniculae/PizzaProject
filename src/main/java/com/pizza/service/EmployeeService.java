@@ -6,12 +6,12 @@ import com.pizza.entity.Position;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.EmployeeRepository;
 import com.pizza.repository.EmployeeSpecification;
+import com.pizza.repository.GenericSpecification;
 import com.pizza.repository.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
