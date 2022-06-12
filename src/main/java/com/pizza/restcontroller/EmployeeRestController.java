@@ -62,7 +62,7 @@ public class EmployeeRestController {
         return ResponseEntity.ok(employeeConverter.convertFromEntityListToDtoList(allEmployeesList));
     }
 
-    @GetMapping(path = "/e")
+    @GetMapping(path = "/s")
     public ResponseEntity<List<EmployeeDto>> findEmployeesByFirstNameUsingSpecification(EmployeeDto employeeDto) {
         List<Employee> employeesByFirstNameUsingSpecification = employeeService.findEmployeesUsingSpecification(employeeDto);
 

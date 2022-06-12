@@ -56,7 +56,7 @@ public class ClientRestController {
         return ResponseEntity.ok(allClientsDto);
     }
 
-    @GetMapping(path = "/c")
+    @GetMapping(path = "/s")
     public ResponseEntity<List<ClientDto>> findClientsByFirstNameUsingSpecification(ClientDto clientDto) {
         List<Client> clientsByFirstNameUsingSpecification = clientService.findClientsUsingSpecification(clientDto);
 
