@@ -40,7 +40,7 @@ public class EmployeeSpecification implements Specification<Employee> {
                         root.get(criteria.getKey()), criteria.getValue()));
                 case "==" -> predicates.add(criteriaBuilder.equal(
                         root.get(criteria.getKey()), criteria.getValue()));
-                case "contains" -> predicates.add(criteriaBuilder.like(
+                case "match" -> predicates.add(criteriaBuilder.like(
                         criteriaBuilder.lower(root.get(criteria.getKey())),
                         "%" + criteria.getValue().toString().toLowerCase() + "%"));
                 case "endsWith" -> predicates.add(criteriaBuilder.like(

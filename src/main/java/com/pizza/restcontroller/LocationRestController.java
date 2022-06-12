@@ -26,8 +26,8 @@ public class LocationRestController {
         this.locationConverter = locationConverter;
     }
 
-    @GetMapping(path = "/all")
-    public ResponseEntity<List<LocationDto>> findAllLocations(@RequestParam(name = "allLocations", required = false) Boolean allLocations,
+    @GetMapping
+    public ResponseEntity<List<LocationDto>> findAllLocations(@RequestParam(name = "allLocations", required = false, defaultValue = "false") Boolean allLocations,
                                                               @RequestParam(name = "address", required = false) String address) {
         List<Location> allLocationsList = new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class LocationRestController {
         return ResponseEntity.ok(locationConverter.convertFromEntityListToDtoList(allLocationsList));
     }
 
-    @GetMapping
+    @GetMapping(path = "/location")
     public ResponseEntity<LocationDto> findLocation(@RequestParam(name = "id", required = false) Long id,
                                                     @RequestParam(name = "name", required = false) String name) {
         Location location = new Location();

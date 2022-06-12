@@ -28,8 +28,8 @@ public class ClientRestController {
         this.clientTransformer = clientTransformer;
     }
 
-    @GetMapping(path = "/all")
-    public ResponseEntity<List<ClientDto>> getAllClients(@RequestParam(name = "allClients", required = false) Boolean allClients,
+    @GetMapping
+    public ResponseEntity<List<ClientDto>> getAllClients(@RequestParam(name = "allClients", required = false, defaultValue = "false") Boolean allClients,
                                                          @RequestParam(name = "firstName", required = false) String firstName,
                                                          @RequestParam(name = "lastName", required = false) String lastName,
                                                          @RequestParam(name = "address", required = false) String address,
@@ -39,7 +39,7 @@ public class ClientRestController {
                                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         List<Client> allClientsList = new ArrayList<>();
 
-        if (allClients != null && allClients) {
+        if (allClients) {
             allClientsList = clientService.findAllClients();
         } else if (firstName != null) {
             allClientsList = clientService.findClientsByFirstName(firstName);
@@ -100,7 +100,7 @@ public class ClientRestController {
 //        return ResponseEntity.ok(clientDto);
 //    }
 
-    @GetMapping()
+    @GetMapping(path = "/client")
     public ResponseEntity<ClientDto> getClient(@RequestParam(name = "id", required = false) Long id,
                                                @RequestParam(name = "clientCode", required = false) String clientCode,
                                                @RequestParam(name = "phoneNumber", required = false) String phoneNumber) {

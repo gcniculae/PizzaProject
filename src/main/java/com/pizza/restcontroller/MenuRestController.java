@@ -25,12 +25,12 @@ public class MenuRestController {
         this.menuConverter = menuConverter;
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping
     public ResponseEntity<List<MenuDto>> getAllMenus() {
         return ResponseEntity.ok(menuConverter.convertFromEntityListToDtoList(menuService.findAllMenus()));
     }
 
-    @GetMapping
+    @GetMapping(path = "menu")
     public ResponseEntity<MenuDto> getMenuById(@RequestParam(name = "id", required = false) Long id,
                                                @RequestParam(name = "name", required = false) String name) {
         Menu menu = new Menu();

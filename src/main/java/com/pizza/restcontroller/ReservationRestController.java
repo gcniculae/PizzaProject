@@ -24,8 +24,8 @@ public class ReservationRestController {
         this.reservationConverter = reservationConverter;
     }
 
-    @GetMapping(path = "/all")
-    public ResponseEntity<List<ReservationDto>> findAllReservations(@RequestParam(name = "allReservations", required = false) Boolean allReservations,
+    @GetMapping
+    public ResponseEntity<List<ReservationDto>> findAllReservations(@RequestParam(name = "allReservations", required = false, defaultValue = "false") Boolean allReservations,
                                                                     @RequestParam(name = "clientId", required = false) Long clientId,
                                                                     @RequestParam(name = "locationId", required = false) Long locationId) {
         List<Reservation> allReservationsList = new ArrayList<>();
@@ -43,7 +43,7 @@ public class ReservationRestController {
         return ResponseEntity.ok(reservationConverter.convertFromEntityListToDtoList(allReservationsList));
     }
 
-    @GetMapping
+    @GetMapping(value = "/reservation")
     public ResponseEntity<ReservationDto> findReservation(@RequestParam(name = "id", required = false) Long id,
                                                           @RequestParam(name = "name", required = false) String name,
                                                           @RequestParam(name = "locationId", required = false) Long locationId) {

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,6 +67,16 @@ public class EmployeeService {
         } else {
             throw new NotFoundException("No such employee found.", "employee.not.found");
         }
+    }
+
+    public List<Employee> findEmployeesById(List<Long> ids) {
+        List<Employee> employees = new ArrayList<>();
+
+        for (Long id : ids) {
+            employees.add(findEmployeeById(id));
+        }
+
+        return employees;
     }
 
     public List<Employee> findEmployeesUsingSpecification(EmployeeDto employeeDto) {

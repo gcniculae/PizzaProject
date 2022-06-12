@@ -26,8 +26,8 @@ public class PizzaRestController {
         this.pizzaConverter = pizzaConverter;
     }
 
-    @GetMapping(path = "/all")
-    public ResponseEntity<List<PizzaDto>> findAllPizzas(@RequestParam(name = "allPizzas", required = false) Boolean allPizzas,
+    @GetMapping
+    public ResponseEntity<List<PizzaDto>> findAllPizzas(@RequestParam(name = "allPizzas", required = false, defaultValue = "false") Boolean allPizzas,
                                                         @RequestParam(name = "price", required = false) Double price) {
         List<Pizza> allPizzasList = new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class PizzaRestController {
         return ResponseEntity.ok(pizzaConverter.convertFromEntityListToDtoList(allPizzasList));
     }
 
-    @GetMapping
+    @GetMapping(path = "/pizza")
     public ResponseEntity<PizzaDto> findPizza(@RequestParam(name = "id", required = false) Long id,
                                               @RequestParam(name = "name", required = false) String name) {
         Pizza pizza = new Pizza();

@@ -26,8 +26,8 @@ public class ProductOrderRestController {
         this.productOrderConverter = productOrderConverter;
     }
 
-    @GetMapping(path = "/all")
-    public ResponseEntity<List<ProductOrderDto>> findAllProductOrders(@RequestParam(name = "allProductOrders", required = false) Boolean allProductOrders,
+    @GetMapping
+    public ResponseEntity<List<ProductOrderDto>> findAllProductOrders(@RequestParam(name = "allProductOrders", required = false, defaultValue = "false") Boolean allProductOrders,
                                                                       @RequestParam(name = "clientId", required = false) Long clientId) {
 
         List<ProductOrder> allProductOrdersList = new ArrayList<>();

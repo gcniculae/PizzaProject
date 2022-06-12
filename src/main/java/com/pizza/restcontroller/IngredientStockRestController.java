@@ -28,8 +28,8 @@ public class IngredientStockRestController {
         this.ingredientStockConverter = ingredientStockConverter;
     }
 
-    @GetMapping(path = "/all")
-    public ResponseEntity<List<IngredientStockDto>> findAllIngredientStocks(@RequestParam(name = "allIngredientStocks", required = false) Boolean allIngredientStocks,
+    @GetMapping
+    public ResponseEntity<List<IngredientStockDto>> findAllIngredientStocks(@RequestParam(name = "allIngredientStocks", required = false, defaultValue = "false") Boolean allIngredientStocks,
                                                                             @RequestParam(name = "quantity", required = false) Long quantity,
                                                                             @RequestParam(name = "lowQuantity", required = false) Boolean lowQuantity,
                                                                             @RequestParam(name = "expirationDate", required = false)
@@ -49,7 +49,7 @@ public class IngredientStockRestController {
         return ResponseEntity.ok(ingredientStockConverter.convertFromEntityListToDtoList(allIngredientStocksList));
     }
 
-    @GetMapping
+    @GetMapping(path = "/ingredient")
     public ResponseEntity<IngredientStockDto> findIngredientStock(@RequestParam(name = "id", required = false) Long id,
                                                                   @RequestParam(name = "name", required = false) String name) {
         IngredientStock ingredientStock = new IngredientStock();

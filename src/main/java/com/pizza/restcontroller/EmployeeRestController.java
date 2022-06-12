@@ -30,7 +30,7 @@ public class EmployeeRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<EmployeeDto>> findAllEmployees(@RequestParam(name = "employeeIds", required = false, defaultValue = "false") Boolean employeeIds,
+    public ResponseEntity<List<EmployeeDto>> findAllEmployees(@RequestParam(name = "employeeIds", required = false) List<Long> employeeIds,
                                                               @RequestParam(name = "firstName", required = false) String firstName,
                                                               @RequestParam(name = "lastName", required = false) String lastName,
                                                               @RequestParam(name = "dateOfBirth", required = false)
@@ -43,8 +43,8 @@ public class EmployeeRestController {
                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         List<Employee> allEmployeesList = new ArrayList<>();
 
-        if (employeeIds != null && employeeIds) {
-            allEmployeesList = employeeService.findAllEmployees();
+        if (!employeeIds.isEmpty()) {
+            allEmployeesList = employeeService.findEmployeesById(employeeIds);
         } else if (firstName != null) {
             allEmployeesList = employeeService.findEmployeesByFirstName(firstName);
         } else if (lastName != null) {
