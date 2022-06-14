@@ -1,22 +1,17 @@
 package com.pizza.service;
 
 import com.pizza.dto.ClientDto;
-import com.pizza.dto.EmployeeDto;
 import com.pizza.entity.Client;
-import com.pizza.entity.Employee;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ClientRepository;
 import com.pizza.repository.ClientSpecification;
-import com.pizza.repository.EmployeeSpecification;
 import com.pizza.repository.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,6 +70,16 @@ public class ClientService {
         }
 
         return clientRepository.findAll(Specification.where(clientFilter));
+    }
+
+    public List<Client> findClientsUnder30LivingInCertainArea(ClientDto clientDto) {
+        ClientSpecification clientDateOfBirth = new ClientSpecification();
+        clientDateOfBirth.add(new SearchCriteria("dateOfBirth", LocalDate.of(1992,6,14), ">"));
+
+        ClientSpecification clientAddress = new ClientSpecification();
+        clientAddress.add(new SearchCriteria("address", clientDto.getAddress(), "match"));
+
+        return clientRepository.findAll(Specification.where(clientDateOfBirth).and(clientAddress));
     }
 
     public Client findClientById(Long id) {

@@ -57,9 +57,14 @@ public class ClientRestController {
     }
 
     @GetMapping(path = "/s")
-    public ResponseEntity<List<ClientDto>> findClientsByFirstNameUsingSpecification(ClientDto clientDto) {
-        List<Client> clientsByFirstNameUsingSpecification = clientService.findClientsUsingSpecification(clientDto);
+    public ResponseEntity<List<ClientDto>> findClientsUsingSpecification(ClientDto clientDto) {
+        List<Client> clientsByFirstNameUsingSpecification;
 
+        if (clientDto.getAddress() != null) {
+            clientsByFirstNameUsingSpecification = clientService.findClientsUnder30LivingInCertainArea(clientDto);
+        } else {
+            clientsByFirstNameUsingSpecification = clientService.findClientsUsingSpecification(clientDto);
+        }
         return ResponseEntity.ok(clientConverter.convertFromEntityListToDtoList(clientsByFirstNameUsingSpecification));
     }
 
@@ -107,7 +112,7 @@ public class ClientRestController {
 //        return ResponseEntity.ok(clientDto);
 //    }
 
-    @GetMapping(path = "/client")
+    @GetMapping(path = "/single")
     public ResponseEntity<ClientDto> getClient(@RequestParam(name = "id", required = false) Long id,
                                                @RequestParam(name = "clientCode", required = false) String clientCode,
                                                @RequestParam(name = "phoneNumber", required = false) String phoneNumber) {
