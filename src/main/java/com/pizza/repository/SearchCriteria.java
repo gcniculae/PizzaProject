@@ -1,5 +1,6 @@
 package com.pizza.repository;
 
+import com.pizza.dto.SpecificationOperation;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,5 @@ public class SearchCriteria {
 
     private String key;
     private Object value;
-    private String operation;
+    private SpecificationOperation operation;
 }

@@ -1,6 +1,8 @@
 package com.pizza.service;
 
 import com.pizza.dto.ClientDto;
+import com.pizza.dto.ClientDtoFilter;
+import com.pizza.dto.SpecificationOperation;
 import com.pizza.entity.Client;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ClientRepository;
@@ -56,17 +58,17 @@ public class ClientService {
         ClientSpecification clientFilter = new ClientSpecification();
 
         if (clientDto.getFirstName() != null) {
-            clientFilter.add(new SearchCriteria("firstName", clientDto.getFirstName(), "=="));
+            clientFilter.add(new SearchCriteria("firstName", clientDto.getFirstName(), SpecificationOperation.EQUAL));
         } else if (clientDto.getLastName() != null) {
-            clientFilter.add(new SearchCriteria("lastName", clientDto.getLastName(), "endsWith"));
+            clientFilter.add(new SearchCriteria("lastName", clientDto.getLastName(), SpecificationOperation.ENDS_WITH));
         } else if (clientDto.getPhoneNumber() != null) {
-            clientFilter.add(new SearchCriteria("phoneNumber", clientDto.getPhoneNumber(), "=="));
+            clientFilter.add(new SearchCriteria("phoneNumber", clientDto.getPhoneNumber(), SpecificationOperation.EQUAL));
         } else if (clientDto.getDateOfBirth() != null) {
-            clientFilter.add(new SearchCriteria("dateOfBirth", clientDto.getDateOfBirth(), "=="));
+            clientFilter.add(new SearchCriteria("dateOfBirth", clientDto.getDateOfBirth(), SpecificationOperation.EQUAL));
         } else if (clientDto.getAddress() != null) {
-            clientFilter.add(new SearchCriteria("address", clientDto.getAddress(), "=="));
+            clientFilter.add(new SearchCriteria("address", clientDto.getAddress(), SpecificationOperation.EQUAL));
         } else if (clientDto.getClientCode() != null) {
-            clientFilter.add(new SearchCriteria("clientCode", clientDto.getClientCode(), "=="));
+            clientFilter.add(new SearchCriteria("clientCode", clientDto.getClientCode(), SpecificationOperation.EQUAL));
         }
 
         return clientRepository.findAll(Specification.where(clientFilter));
@@ -74,12 +76,22 @@ public class ClientService {
 
     public List<Client> findClientsUnder30LivingInCertainArea(ClientDto clientDto) {
         ClientSpecification clientDateOfBirth = new ClientSpecification();
-        clientDateOfBirth.add(new SearchCriteria("dateOfBirth", LocalDate.of(1992,6,14), ">"));
+        clientDateOfBirth.add(new SearchCriteria("dateOfBirth", LocalDate.of(1992, 6, 14), SpecificationOperation.GREATER_THAN));
 
         ClientSpecification clientAddress = new ClientSpecification();
-        clientAddress.add(new SearchCriteria("address", clientDto.getAddress(), "match"));
+        clientAddress.add(new SearchCriteria("address", clientDto.getAddress(), SpecificationOperation.MATCH));
 
         return clientRepository.findAll(Specification.where(clientDateOfBirth).and(clientAddress));
+    }
+
+    public List<Client> findClientsUsingClientDtoFilterAndSpecification(List<ClientDtoFilter> clientDtoFilter) {
+        ClientSpecification clientSpecification = new ClientSpecification();
+
+        for (ClientDtoFilter filter : clientDtoFilter) {
+            clientSpecification.add(new SearchCriteria(filter.getFieldName(), filter.getOperand(), filter.getOperator()));
+        }
+
+        return clientRepository.findAll(Specification.where(clientSpecification));
     }
 
     public Client findClientById(Long id) {

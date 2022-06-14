@@ -1,17 +1,14 @@
 package com.pizza.repository;
 
-import org.apache.tomcat.jni.Local;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class GenericSpecification<T> implements Specification<T> {
 
@@ -31,7 +28,7 @@ public class GenericSpecification<T> implements Specification<T> {
 
         for (SearchCriteria criteria : searchCriteriaList) {
             switch (criteria.getOperation()) {
-                case ">":
+                case GREATER_THAN:
                     if (criteria.getValue() instanceof LocalDate) {
                         predicates.add(criteriaBuilder.greaterThan(
                                 root.get(criteria.getKey()), (LocalDate) criteria.getValue()));
@@ -40,7 +37,7 @@ public class GenericSpecification<T> implements Specification<T> {
                                 root.get(criteria.getKey()), criteria.getValue().toString()));
                     }
                     break;
-                case "<":
+                case LESS_THAN:
                     if (criteria.getValue() instanceof LocalDate) {
                         predicates.add(criteriaBuilder.lessThan(
                                 root.get(criteria.getKey()), (LocalDate) criteria.getValue()));
@@ -49,7 +46,7 @@ public class GenericSpecification<T> implements Specification<T> {
                                 root.get(criteria.getKey()), criteria.getValue().toString()));
                     }
                     break;
-                case ">=":
+                case GREATER_OR_EQUAL_THAN:
                     if (criteria.getValue() instanceof LocalDate) {
                         predicates.add(criteriaBuilder.greaterThanOrEqualTo(
                                 root.get(criteria.getKey()), (LocalDate) criteria.getValue()));
@@ -58,7 +55,7 @@ public class GenericSpecification<T> implements Specification<T> {
                                 root.get(criteria.getKey()), criteria.getValue().toString()));
                     }
                     break;
-                case "<=":
+                case LESS_OR_EQUAL_THAN:
                     if (criteria.getValue() instanceof LocalDate) {
                         predicates.add(criteriaBuilder.lessThanOrEqualTo(
                                 root.get(criteria.getKey()), (LocalDate) criteria.getValue()));
@@ -66,33 +63,33 @@ public class GenericSpecification<T> implements Specification<T> {
                     predicates.add(criteriaBuilder.lessThanOrEqualTo(
                             root.get(criteria.getKey()), criteria.getValue().toString()));
                     break;
-                case "!=":
+                case NOT_EQUAL:
                     predicates.add(criteriaBuilder.notEqual(
                             root.get(criteria.getKey()), criteria.getValue()));
                     break;
-                case "==":
+                case EQUAL:
                     predicates.add(criteriaBuilder.equal(
                             root.get(criteria.getKey()), criteria.getValue()));
                     break;
-                case "match":
+                case MATCH:
                     predicates.add(criteriaBuilder.like(
                             criteriaBuilder.lower(root.get(criteria.getKey())),
                             "%" + criteria.getValue().toString().toLowerCase() + "%"));
                     break;
-                case "beginsWith":
+                case STARTS_WITH:
                     predicates.add(criteriaBuilder.like(
                             criteriaBuilder.lower(root.get(criteria.getKey())),
                             criteria.getValue().toString().toLowerCase() + "%"));
                     break;
-                case "endsWith":
+                case ENDS_WITH:
                     predicates.add(criteriaBuilder.like(
                             criteriaBuilder.lower(root.get(criteria.getKey())),
                             "%" + criteria.getValue().toString().toLowerCase()));
                     break;
-                case "in":
+                case IN:
                     predicates.add(criteriaBuilder.in(root.get(criteria.getKey())).value(criteria.getValue()));
                     break;
-                case "notIn":
+                case NOT_IN:
                     predicates.add(criteriaBuilder.not(root.get(criteria.getKey())).in(criteria.getValue()));
             }
         }

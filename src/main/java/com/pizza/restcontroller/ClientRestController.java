@@ -1,6 +1,7 @@
 package com.pizza.restcontroller;
 
 import com.pizza.dto.ClientDto;
+import com.pizza.dto.ClientDtoFilter;
 import com.pizza.entity.Client;
 import com.pizza.service.ClientService;
 import com.pizza.converter.ClientConverter;
@@ -66,6 +67,13 @@ public class ClientRestController {
             clientsByFirstNameUsingSpecification = clientService.findClientsUsingSpecification(clientDto);
         }
         return ResponseEntity.ok(clientConverter.convertFromEntityListToDtoList(clientsByFirstNameUsingSpecification));
+    }
+
+    @GetMapping(path = "/dto")
+    public ResponseEntity<List<ClientDto>> findClientUsingClientDtoAndSpecification(@RequestBody List<ClientDtoFilter> clientDtoFilters) {
+        List<Client> clientsUsingClientDtoFilterAndSpecification = clientService.findClientsUsingClientDtoFilterAndSpecification(clientDtoFilters);
+
+        return ResponseEntity.ok(clientConverter.convertFromEntityListToDtoList(clientsUsingClientDtoFilterAndSpecification));
     }
 
 //    @GetMapping(path = "/id/{id}")

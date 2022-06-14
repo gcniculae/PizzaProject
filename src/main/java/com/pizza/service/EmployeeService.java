@@ -1,6 +1,7 @@
 package com.pizza.service;
 
 import com.pizza.dto.EmployeeDto;
+import com.pizza.dto.SpecificationOperation;
 import com.pizza.entity.Employee;
 import com.pizza.entity.Position;
 import com.pizza.exception.NotFoundException;
@@ -83,19 +84,19 @@ public class EmployeeService {
         EmployeeSpecification employeeFilter = new EmployeeSpecification();
 
         if (employeeDto.getFirstName() != null) {
-            employeeFilter.add(new SearchCriteria("firstName", employeeDto.getFirstName(), "=="));
+            employeeFilter.add(new SearchCriteria("firstName", employeeDto.getFirstName(), SpecificationOperation.EQUAL));
         } else if (employeeDto.getLastName() != null) {
-            employeeFilter.add(new SearchCriteria("lastName", employeeDto.getLastName(), "=="));
+            employeeFilter.add(new SearchCriteria("lastName", employeeDto.getLastName(), SpecificationOperation.EQUAL));
         } else if (employeeDto.getPhoneNumber() != null) {
-            employeeFilter.add(new SearchCriteria("phoneNumber", employeeDto.getPhoneNumber(), "=="));
+            employeeFilter.add(new SearchCriteria("phoneNumber", employeeDto.getPhoneNumber(), SpecificationOperation.EQUAL));
         } else if (employeeDto.getDateOfBirth() != null) {
-            employeeFilter.add(new SearchCriteria("dateOfBirth", employeeDto.getDateOfBirth(), "=="));
+            employeeFilter.add(new SearchCriteria("dateOfBirth", employeeDto.getDateOfBirth(), SpecificationOperation.EQUAL));
         } else if (employeeDto.getAddress() != null) {
-            employeeFilter.add(new SearchCriteria("address", employeeDto.getAddress(), "=="));
+            employeeFilter.add(new SearchCriteria("address", employeeDto.getAddress(), SpecificationOperation.EQUAL));
         } else if (employeeDto.getPosition() != null) {
-            employeeFilter.add(new SearchCriteria("position", employeeDto.getPosition(), "=="));
+            employeeFilter.add(new SearchCriteria("position", employeeDto.getPosition(), SpecificationOperation.EQUAL));
         } else if (employeeDto.getLocationId() != null) {
-            employeeFilter.add(new SearchCriteria("location", locationService.findLocationById(employeeDto.getLocationId()), "=="));
+            employeeFilter.add(new SearchCriteria("location", locationService.findLocationById(employeeDto.getLocationId()), SpecificationOperation.EQUAL));
         }
 
         return employeeRepository.findAll(Specification.where(employeeFilter));
