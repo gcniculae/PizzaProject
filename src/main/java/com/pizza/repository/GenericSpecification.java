@@ -32,6 +32,9 @@ public class GenericSpecification<T> implements Specification<T> {
                     if (criteria.getValue() instanceof LocalDate) {
                         predicates.add(criteriaBuilder.greaterThan(
                                 root.get(criteria.getKey()), (LocalDate) criteria.getValue()));
+                    } else if (criteria.isDate()) {
+                        predicates.add(criteriaBuilder.greaterThan(
+                                root.get(criteria.getKey()), LocalDate.parse((CharSequence) criteria.getValue())));
                     } else {
                         predicates.add(criteriaBuilder.greaterThan(
                                 root.get(criteria.getKey()), criteria.getValue().toString()));
@@ -41,6 +44,9 @@ public class GenericSpecification<T> implements Specification<T> {
                     if (criteria.getValue() instanceof LocalDate) {
                         predicates.add(criteriaBuilder.lessThan(
                                 root.get(criteria.getKey()), (LocalDate) criteria.getValue()));
+                    } else if (criteria.isDate()) {
+                        predicates.add(criteriaBuilder.lessThan(
+                                root.get(criteria.getKey()), LocalDate.parse((CharSequence) criteria.getValue())));
                     } else {
                         predicates.add(criteriaBuilder.lessThan(
                                 root.get(criteria.getKey()), criteria.getValue().toString()));
@@ -50,6 +56,9 @@ public class GenericSpecification<T> implements Specification<T> {
                     if (criteria.getValue() instanceof LocalDate) {
                         predicates.add(criteriaBuilder.greaterThanOrEqualTo(
                                 root.get(criteria.getKey()), (LocalDate) criteria.getValue()));
+                    } else if (criteria.isDate()) {
+                        predicates.add(criteriaBuilder.greaterThanOrEqualTo(
+                                root.get(criteria.getKey()), LocalDate.parse((CharSequence) criteria.getValue())));
                     } else {
                         predicates.add(criteriaBuilder.greaterThanOrEqualTo(
                                 root.get(criteria.getKey()), criteria.getValue().toString()));
@@ -59,17 +68,37 @@ public class GenericSpecification<T> implements Specification<T> {
                     if (criteria.getValue() instanceof LocalDate) {
                         predicates.add(criteriaBuilder.lessThanOrEqualTo(
                                 root.get(criteria.getKey()), (LocalDate) criteria.getValue()));
+                    } else if (criteria.isDate()) {
+                        predicates.add(criteriaBuilder.lessThanOrEqualTo(
+                                root.get(criteria.getKey()), LocalDate.parse((CharSequence) criteria.getValue())));
+                    } else {
+                        predicates.add(criteriaBuilder.lessThanOrEqualTo(
+                                root.get(criteria.getKey()), criteria.getValue().toString()));
                     }
-                    predicates.add(criteriaBuilder.lessThanOrEqualTo(
-                            root.get(criteria.getKey()), criteria.getValue().toString()));
                     break;
                 case NOT_EQUAL:
-                    predicates.add(criteriaBuilder.notEqual(
-                            root.get(criteria.getKey()), criteria.getValue()));
+                    if (criteria.getValue() instanceof LocalDate) {
+                        predicates.add(criteriaBuilder.notEqual(
+                                root.get(criteria.getKey()), criteria.getValue()));
+                    } else if (criteria.isDate()) {
+                        predicates.add(criteriaBuilder.notEqual(
+                                root.get(criteria.getKey()), LocalDate.parse((CharSequence) criteria.getValue())));
+                    } else {
+                        predicates.add(criteriaBuilder.notEqual(
+                                root.get(criteria.getKey()), criteria.getValue()));
+                    }
                     break;
                 case EQUAL:
-                    predicates.add(criteriaBuilder.equal(
-                            root.get(criteria.getKey()), criteria.getValue()));
+                    if (criteria.getValue() instanceof LocalDate) {
+                        predicates.add(criteriaBuilder.equal(
+                                root.get(criteria.getKey()), criteria.getValue()));
+                    } else if (criteria.isDate()) {
+                        predicates.add(criteriaBuilder.equal(
+                                root.get(criteria.getKey()), LocalDate.parse((CharSequence) criteria.getValue())));
+                    } else {
+                        predicates.add(criteriaBuilder.equal(
+                                root.get(criteria.getKey()), criteria.getValue().toString()));
+                    }
                     break;
                 case MATCH:
                     predicates.add(criteriaBuilder.like(
@@ -95,13 +124,5 @@ public class GenericSpecification<T> implements Specification<T> {
         }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-    }
-
-    public Object convertData(Object inputData) {
-        if (inputData instanceof LocalDate) {
-            return inputData;
-        } else {
-            return inputData.toString();
-        }
     }
 }

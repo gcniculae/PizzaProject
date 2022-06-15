@@ -1,13 +1,12 @@
 package com.pizza.service;
 
 import com.pizza.dto.EmployeeDto;
-import com.pizza.dto.SpecificationOperation;
+import com.pizza.repository.SpecificationOperation;
 import com.pizza.entity.Employee;
 import com.pizza.entity.Position;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.EmployeeRepository;
 import com.pizza.repository.EmployeeSpecification;
-import com.pizza.repository.GenericSpecification;
 import com.pizza.repository.SearchCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -84,19 +83,19 @@ public class EmployeeService {
         EmployeeSpecification employeeFilter = new EmployeeSpecification();
 
         if (employeeDto.getFirstName() != null) {
-            employeeFilter.add(new SearchCriteria("firstName", employeeDto.getFirstName(), SpecificationOperation.EQUAL));
+            employeeFilter.add(new SearchCriteria("firstName", employeeDto.getFirstName(), SpecificationOperation.EQUAL, false));
         } else if (employeeDto.getLastName() != null) {
-            employeeFilter.add(new SearchCriteria("lastName", employeeDto.getLastName(), SpecificationOperation.EQUAL));
+            employeeFilter.add(new SearchCriteria("lastName", employeeDto.getLastName(), SpecificationOperation.EQUAL, false));
         } else if (employeeDto.getPhoneNumber() != null) {
-            employeeFilter.add(new SearchCriteria("phoneNumber", employeeDto.getPhoneNumber(), SpecificationOperation.EQUAL));
+            employeeFilter.add(new SearchCriteria("phoneNumber", employeeDto.getPhoneNumber(), SpecificationOperation.EQUAL, false));
         } else if (employeeDto.getDateOfBirth() != null) {
-            employeeFilter.add(new SearchCriteria("dateOfBirth", employeeDto.getDateOfBirth(), SpecificationOperation.EQUAL));
+            employeeFilter.add(new SearchCriteria("dateOfBirth", employeeDto.getDateOfBirth(), SpecificationOperation.EQUAL, true));
         } else if (employeeDto.getAddress() != null) {
-            employeeFilter.add(new SearchCriteria("address", employeeDto.getAddress(), SpecificationOperation.EQUAL));
+            employeeFilter.add(new SearchCriteria("address", employeeDto.getAddress(), SpecificationOperation.EQUAL, false));
         } else if (employeeDto.getPosition() != null) {
-            employeeFilter.add(new SearchCriteria("position", employeeDto.getPosition(), SpecificationOperation.EQUAL));
+            employeeFilter.add(new SearchCriteria("position", employeeDto.getPosition(), SpecificationOperation.EQUAL, false));
         } else if (employeeDto.getLocationId() != null) {
-            employeeFilter.add(new SearchCriteria("location", locationService.findLocationById(employeeDto.getLocationId()), SpecificationOperation.EQUAL));
+            employeeFilter.add(new SearchCriteria("location", locationService.findLocationById(employeeDto.getLocationId()), SpecificationOperation.EQUAL, false));
         }
 
         return employeeRepository.findAll(Specification.where(employeeFilter));

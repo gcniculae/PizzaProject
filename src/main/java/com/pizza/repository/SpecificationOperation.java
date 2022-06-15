@@ -1,4 +1,4 @@
-package com.pizza.dto;
+package com.pizza.repository;
 
 public enum SpecificationOperation {
 
@@ -11,7 +11,6 @@ public enum SpecificationOperation {
     MATCH("match"),
     IN("in"),
     NOT_IN("notIn"),
-    BETWEEN("between"),
     ENDS_WITH("endsWith"),
     STARTS_WITH("startsWith");
 
