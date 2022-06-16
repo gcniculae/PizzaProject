@@ -1,13 +1,16 @@
 package com.pizza.service;
 
 import com.pizza.entity.Client;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ClientRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.OngoingStubbing;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -79,7 +82,6 @@ public class ClientServiceTest {
         when(clientRepository.save(client1)).thenReturn(client1);
 
         Client savedClient = clientService.saveClient(client1);
-
         assertThat(savedClient.getFirstName()).isSameAs(client1.getFirstName());
 
         verify(clientRepository, times(1)).save(client1);
@@ -142,7 +144,7 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void findClientByClientCode() {
+    public void findClientByClientCodeTest() {
         when(clientRepository.findByClientCode(client1.getClientCode())).thenReturn(Optional.of(client1));
 
         assertThat(clientService.findClientByClientCode(client1.getClientCode()).getClientCode()).isSameAs(client1.getClientCode());
@@ -150,5 +152,41 @@ public class ClientServiceTest {
         verify(clientRepository).findByClientCode(client1.getClientCode());
     }
 
-    
+    @Test
+    public void findClientsBornInTimeframeTest() {
+        List<Client> clients = Arrays.asList(client2, client3, client4);
+
+        LocalDate startDate = LocalDate.of(1980, 1, 1);
+        LocalDate endDate = LocalDate.of(1990, 1, 1);
+
+        when(clientRepository.findClientsBornInTimeframe(startDate, endDate)).thenReturn(clients);
+
+        assertEquals(clients.size(), clientService.findClientsBornInTimeframe(startDate, endDate).size());
+
+        verify(clientRepository).findClientsBornInTimeframe(startDate, endDate);
+    }
+
+    @Test
+    public void updateClientTest() {
+        when(clientRepository.findById(1L)).thenReturn(Optional.of(client1));
+
+        String newAddress = "Bucuresti";
+        LocalDate newDateOfBirth = LocalDate.of(1992, 3, 14);
+        client1.setAddress(newAddress);
+        client1.setDateOfBirth(newDateOfBirth);
+
+        when(clientRepository.save(client1)).thenReturn(client1);
+
+        String addressForUpdatedClient = clientService.updateClient(1L, client1).getAddress();
+        LocalDate dateOfBirthForUpdatedClient = clientService.updateClient(1L, client1).getDateOfBirth();
+        assertEquals(addressForUpdatedClient, client1.getAddress());
+        assertEquals(dateOfBirthForUpdatedClient, client1.getDateOfBirth());
+    }
+
+    @Test
+    public void deleteClientByIdTest() {
+        clientService.deleteClientById(1L);
+
+        verify(clientRepository).deleteById(1L);
+    }
 }
