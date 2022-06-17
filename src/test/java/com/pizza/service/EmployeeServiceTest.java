@@ -51,7 +51,7 @@ public class EmployeeServiceTest {
                 .setFirstName("Andrei")
                 .setLastName("Ionescu")
                 .setPhoneNumber("0723001001")
-                .setDateOfBirth(LocalDate.of(1970, 3, 24))
+                .setDateOfBirth(LocalDate.of(1988, 3, 24))
                 .setAddress("Ploiesti")
                 .setPosition(Position.COOK)
                 .build();
@@ -107,6 +107,17 @@ public class EmployeeServiceTest {
 
         assertEquals(employeeList.size(), employeeService.findAllEmployees().size());
 
-        verify(employeeRepository).findAll();
+        verify(employeeRepository, times(1)).findAll();
+    }
+
+    @Test
+    public void findCooksWithAgeUnder35Test() {
+        List<Employee> employeeList = Arrays.asList(employee1, employee3);
+
+        when(employeeRepository.findCooksWithAgeUnder35()).thenReturn(employeeList);
+
+        assertEquals(employeeList.size(), employeeService.findCooksWithAgeUnder35().size());
+
+        verify(employeeRepository, times(1)).findCooksWithAgeUnder35();
     }
 }
