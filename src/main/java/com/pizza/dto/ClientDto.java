@@ -12,6 +12,7 @@ public class ClientDto extends PersonDto {
     private String clientCode;
 
     public ClientDto(ClientDtoBuilder clientDtoBuilder) {
+        super(clientDtoBuilder);
         this.clientCode = clientDtoBuilder.clientCode;
     }
 

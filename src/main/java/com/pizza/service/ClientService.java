@@ -116,6 +116,10 @@ public class ClientService {
         return clientRepository.findByLastName(lastName);
     }
 
+    public List<Client> findClientsBornInTimeframe(LocalDate startDate, LocalDate endDate) {
+        return clientRepository.findClientsBornInTimeframe(startDate, endDate);
+    }
+
     public Client findClientByPhoneNumber(String phoneNumber) {
         Optional<Client> optionalClient = clientRepository.findByPhoneNumber(phoneNumber);
 
@@ -134,10 +138,6 @@ public class ClientService {
         } else {
             throw new NotFoundException("No such client found.", "client.not.found");
         }
-    }
-
-    public List<Client> findClientsBornInTimeframe(LocalDate startDate, LocalDate endDate) {
-        return clientRepository.findClientsBornInTimeframe(startDate, endDate);
     }
 
     public Client updateClient(Long id, Client client) {

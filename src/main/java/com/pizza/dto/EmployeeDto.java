@@ -19,6 +19,7 @@ public class EmployeeDto extends PersonDto {
     private Long locationId;
 
     public EmployeeDto(EmployeeDtoBuilder employeeDtoBuilder) {
+        super(employeeDtoBuilder);
         this.position = employeeDtoBuilder.position;
         this.locationId = employeeDtoBuilder.locationId;
     }

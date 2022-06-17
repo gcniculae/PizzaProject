@@ -49,7 +49,7 @@ public class IngredientStockRestController {
         return ResponseEntity.ok(ingredientStockConverter.convertFromEntityListToDtoList(allIngredientStocksList));
     }
 
-    @GetMapping(path = "/ingredient")
+    @GetMapping(path = "/ingredientStock")
     public ResponseEntity<IngredientStockDto> findIngredientStock(@RequestParam(name = "id", required = false) Long id,
                                                                   @RequestParam(name = "name", required = false) String name) {
         IngredientStock ingredientStock = new IngredientStock();

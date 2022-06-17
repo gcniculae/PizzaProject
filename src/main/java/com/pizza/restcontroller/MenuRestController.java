@@ -30,7 +30,7 @@ public class MenuRestController {
         return ResponseEntity.ok(menuConverter.convertFromEntityListToDtoList(menuService.findAllMenus()));
     }
 
-    @GetMapping(path = "menu")
+    @GetMapping(path = "/menu")
     public ResponseEntity<MenuDto> getMenuById(@RequestParam(name = "id", required = false) Long id,
                                                @RequestParam(name = "name", required = false) String name) {
         Menu menu = new Menu();
