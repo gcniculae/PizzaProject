@@ -184,9 +184,34 @@ public class ClientServiceTest {
     }
 
     @Test
-    public void deleteClientByIdTest() {
-        clientService.deleteClientById(1L);
+    public void deleteExistentClientByIdTest() {
+        when(clientRepository.findById(client1.getId())).thenReturn(Optional.of(client1));
+        doNothing().when(clientRepository).deleteById(client1.getId());
 
-        verify(clientRepository).deleteById(1L);
+        clientService.deleteClientById(client1.getId());
+
+        verify(clientRepository).findById(client1.getId());
     }
+
+    @Test
+    public void deleteExistentClientByClientCodeTest() {
+        when(clientRepository.findByClientCode(client1.getClientCode())).thenReturn(Optional.of(client1));
+        doNothing().when(clientRepository).deleteByClientCode(client1.getClientCode());
+
+        clientService.deleteClientByClientCode(client1.getClientCode());
+
+        verify(clientRepository).findByClientCode(client1.getClientCode());
+    }
+
+    @Test
+    public void deleteExistentClientByPhoneNumberTest() {
+        when(clientRepository.findByPhoneNumber(client1.getPhoneNumber())).thenReturn(Optional.of(client1));
+        doNothing().when(clientRepository).deleteByPhoneNumber(client1.getPhoneNumber());
+
+        clientService.deleteClientByPhoneNumber(client1.getPhoneNumber());
+
+        verify(clientRepository).findByPhoneNumber(client1.getPhoneNumber());
+    }
+
+    
 }

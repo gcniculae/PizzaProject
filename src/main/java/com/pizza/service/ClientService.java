@@ -148,16 +148,22 @@ public class ClientService {
     }
 
     public void deleteClientById(Long id) {
-        clientRepository.deleteById(id);
+        Client clientById = findClientById(id);
+
+        clientRepository.deleteById(clientById.getId());
     }
 
     @Transactional
     public void deleteClientByClientCode(String clientCode) {
-        clientRepository.deleteByClientCode(clientCode);
+        Client clientByClientCode = findClientByClientCode(clientCode);
+
+        clientRepository.deleteByClientCode(clientByClientCode.getClientCode());
     }
 
     @Transactional
     public void deleteClientByPhoneNumber(String phoneNumber) {
-        clientRepository.deleteByPhoneNumber(phoneNumber);
+        Client clientByPhoneNumber = findClientByPhoneNumber(phoneNumber);
+
+        clientRepository.deleteByPhoneNumber(clientByPhoneNumber.getPhoneNumber());
     }
 }
