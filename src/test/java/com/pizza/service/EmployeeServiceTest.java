@@ -3,6 +3,7 @@ package com.pizza.service;
 import com.pizza.entity.Employee;
 import com.pizza.entity.Location;
 import com.pizza.entity.Position;
+import com.pizza.exception.NotFoundException;
 import com.pizza.repository.EmployeeRepository;
 import com.pizza.repository.LocationRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,9 +14,10 @@ import org.mockito.Mock;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class EmployeeServiceTest {
@@ -41,9 +43,9 @@ public class EmployeeServiceTest {
         locationService = mock(LocationService.class);
         employeeService = new EmployeeService(employeeRepository, locationService);
 
-        initializeEmployees();
-
         initializeLocations();
+
+        initializeEmployees();
     }
 
     public void initializeEmployees() {
@@ -55,6 +57,8 @@ public class EmployeeServiceTest {
                 .setAddress("Ploiesti")
                 .setPosition(Position.COOK)
                 .build();
+        employee1.setId(1L);
+        employee1.setLocation(location1);
 
         employee2 = new Employee.EmployeeBuilder()
                 .setFirstName("Ion")
@@ -63,6 +67,8 @@ public class EmployeeServiceTest {
                 .setDateOfBirth(LocalDate.of(1985, 7, 9))
                 .setAddress("Ploiesti")
                 .setPosition(Position.CASHIER).build();
+        employee2.setId(2L);
+        employee2.setLocation(location1);
 
         employee3 = new Employee.EmployeeBuilder()
                 .setFirstName("Alexandru").setLastName("Antonescu")
@@ -71,6 +77,8 @@ public class EmployeeServiceTest {
                 .setAddress("Ploiesti")
                 .setPosition(Position.DELIVERY)
                 .build();
+        employee3.setId(3L);
+        employee3.setLocation(location1);
 
         employee4 = new Employee.EmployeeBuilder()
                 .setFirstName("Ion")
@@ -80,6 +88,8 @@ public class EmployeeServiceTest {
                 .setAddress("Ploiesti")
                 .setPosition(Position.WAITER)
                 .build();
+        employee4.setId(4L);
+        employee4.setLocation(location1);
     }
 
     private void initializeLocations() {
@@ -119,5 +129,36 @@ public class EmployeeServiceTest {
         assertEquals(employeeList.size(), employeeService.findCooksWithAgeUnder35().size());
 
         verify(employeeRepository, times(1)).findCooksWithAgeUnder35();
+    }
+
+    @Test
+    public void findExistentEmployeeByIdTest() {
+        when(employeeRepository.findById(eq(1L))).thenReturn(Optional.of(employee1));
+
+        Employee employeeById = employeeService.findEmployeeById(1L);
+
+        assertEquals(employee1.getId(), employeeById.getId());
+
+        verify(employeeRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    public void findNonexistentEmployeeById() {
+        when(employeeRepository.findById(eq(1L))).thenThrow(new NotFoundException("No such employee.", "employee.not.found"));
+
+        NotFoundException notFoundException = assertThrows(NotFoundException.class, () -> employeeService.findEmployeeById(1L));
+
+        assertNotNull(notFoundException);
+        assertEquals(notFoundException.getMessage(), ("No such employee."));
+    }
+
+    @Test
+    public void findEmployeesByIdTest() {
+        List<Long> ids = Arrays.asList(employee1.getId(), employee4.getId());
+
+        when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee1));
+        when(employeeRepository.findById(4L)).thenReturn(Optional.of(employee4));
+
+        assertEquals(ids.size(), employeeService.findEmployeesById(ids).size());
     }
 }
