@@ -2,6 +2,7 @@ package com.pizza.service;
 
 import com.pizza.dto.ClientDto;
 import com.pizza.entity.Client;
+import com.pizza.entity.Employee;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ClientRepository;
 import com.pizza.repository.ClientSpecification;
@@ -190,23 +191,21 @@ public class ClientServiceTest {
     public void updateClientTest() {
         when(clientRepository.findById(eq(1L))).thenReturn(Optional.of(client1));
 
-        String newAddress = "Bucuresti";
-        LocalDate newDateOfBirth = LocalDate.of(1992, 3, 14);
-        client1.setAddress(newAddress);
-        client1.setDateOfBirth(newDateOfBirth);
+        client1.setAddress("Bucuresti");
+        client1.setDateOfBirth(LocalDate.of(1992, 3, 14));
 
         when(clientRepository.save(client1)).thenReturn(client1);
 
-        String addressForUpdatedClient = clientService.updateClient(1L, client1).getAddress();
-        LocalDate dateOfBirthForUpdatedClient = clientService.updateClient(1L, client1).getDateOfBirth();
-        assertEquals(addressForUpdatedClient, client1.getAddress());
-        assertEquals(dateOfBirthForUpdatedClient, client1.getDateOfBirth());
+        Client updatedClient = clientService.updateClient(1L, client1);
+
+        assertEquals(updatedClient.getAddress(), client1.getAddress());
+        assertEquals(updatedClient.getDateOfBirth(), client1.getDateOfBirth());
     }
 
     @Test
     public void deleteExistentClientByIdTest() {
         when(clientRepository.findById(eq(client1.getId()))).thenReturn(Optional.of(client1));
-        doNothing().when(clientRepository).deleteById(client1.getId());
+        doNothing().when(clientRepository).deleteById(eq(client1.getId()));
 
         clientService.deleteClientById(client1.getId());
 
@@ -228,11 +227,11 @@ public class ClientServiceTest {
     @Test
     public void deleteExistentClientByClientCodeTest() {
         when(clientRepository.findByClientCode(eq(client1.getClientCode()))).thenReturn(Optional.of(client1));
-        doNothing().when(clientRepository).deleteByClientCode(client1.getClientCode());
+        doNothing().when(clientRepository).deleteByClientCode(eq(client1.getClientCode()));
 
         clientService.deleteClientByClientCode(client1.getClientCode());
 
-        verify(clientRepository).findByClientCode(client1.getClientCode());
+        verify(clientRepository, times(1)).findByClientCode(client1.getClientCode());
     }
 
     @Test
@@ -254,7 +253,7 @@ public class ClientServiceTest {
 
         clientService.deleteClientByPhoneNumber(client1.getPhoneNumber());
 
-        verify(clientRepository).findByPhoneNumber(client1.getPhoneNumber());
+        verify(clientRepository, times(1)).findByPhoneNumber(client1.getPhoneNumber());
     }
 
     @Test
@@ -272,15 +271,14 @@ public class ClientServiceTest {
 
     @Test
     public void findClientsUsingSpecificationTest() {
+        List<Client> clients = Arrays.asList(client1, client3);
+
         ClientDto clientDto = new ClientDto.ClientDtoBuilder()
-                .setFirstNameForDto("Andrei")
+                .setFirstNameForDto(client1.getFirstName())
                 .buildDto();
 
         ClientSpecification clientFilter = new ClientSpecification();
         clientFilter.add(new SearchCriteria("firstName", clientDto.getFirstName(), SpecificationOperation.EQUAL, false));
-
-        List<Client> clients = new ArrayList<>();
-        clients.add(new Client.ClientBuilder().setFirstName(clientDto.getFirstName()).build());
 
         when(clientRepository.findAll(Specification.where(any(ClientSpecification.class)))).thenReturn(clients);
 
