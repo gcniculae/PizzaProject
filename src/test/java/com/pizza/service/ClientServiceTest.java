@@ -2,7 +2,6 @@ package com.pizza.service;
 
 import com.pizza.dto.ClientDto;
 import com.pizza.entity.Client;
-import com.pizza.entity.Employee;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ClientRepository;
 import com.pizza.repository.ClientSpecification;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.time.LocalDate;
