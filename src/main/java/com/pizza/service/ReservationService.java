@@ -85,6 +85,8 @@ public class ReservationService {
     }
 
     public void deleteReservationById(Long id) {
-        reservationRepository.deleteById(id);
+        Reservation reservationById = findReservationById(id);
+
+        reservationRepository.deleteById(reservationById.getId());
     }
 }

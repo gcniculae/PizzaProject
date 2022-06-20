@@ -57,6 +57,8 @@ public class MenuService {
     }
 
     public void deleteMenuById(Long id) {
-        menuRepository.deleteById(id);
+        Menu menuById = findMenuById(id);
+
+        menuRepository.deleteById(menuById.getId());
     }
 }

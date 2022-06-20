@@ -60,7 +60,9 @@ public class PizzaService {
     }
 
     public void deletePizzaById(Long id) {
-        pizzaRepository.deleteById(id);
+        Pizza pizzaById = findPizzaById(id);
+
+        pizzaRepository.deleteById(pizzaById.getId());
     }
 
     @Transactional

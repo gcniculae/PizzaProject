@@ -113,11 +113,13 @@ public class EmployeeServiceTest {
         location1 = new Location();
         location1.setId(1L);
         location1.setName("Location1");
+        location1.setAddress("Ploiesti");
     }
 
     @Test
     public void saveEmployeeTest() {
-        when(employeeRepository.save(employee1)).thenReturn(employee1);
+        when(locationService.findLocationById(eq(location1.getId()))).thenReturn(location1);
+        when(employeeRepository.save(eq(employee1))).thenReturn(employee1);
 
         Employee savedEmployee = employeeService.saveEmployee(employee1, location1.getId());
 
@@ -241,6 +243,7 @@ public class EmployeeServiceTest {
         employee1.setPosition(Position.MANAGER);
         employee1.setAddress("Bucuresti");
 
+        when(locationService.findLocationById(eq(location1.getId()))).thenReturn(location1);
         when(employeeRepository.save(eq(employee1))).thenReturn(employee1);
 
         Employee updatedEmployee = employeeService.updateEmployee(1L, employee1, location1.getId());

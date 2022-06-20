@@ -102,6 +102,7 @@ public class ClientServiceTest {
 
         Client savedClient = clientService.saveClient(client1);
         assertThat(savedClient.getFirstName()).isSameAs(client1.getFirstName());
+        assertEquals(client1.getId(), savedClient.getId());
 
         verify(clientRepository, times(1)).save(client1);
     }

@@ -39,11 +39,11 @@ public class IngredientStockRestController {
         if (allIngredientStocks != null && allIngredientStocks) {
             allIngredientStocksList = ingredientStockService.findAllIngredientStocks();
         } else if (quantity != null) {
-            allIngredientStocksList = ingredientStockService.findIngredientStockByQuantity(quantity);
+            allIngredientStocksList = ingredientStockService.findIngredientStocksByQuantity(quantity);
         } else if (lowQuantity != null && lowQuantity) {
             allIngredientStocksList = ingredientStockService.findIngredientStocksByLowQuantity();
         } else if (expirationDate != null) {
-            allIngredientStocksList = ingredientStockService.findIngredientStockByExpirationDate(expirationDate);
+            allIngredientStocksList = ingredientStockService.findIngredientStocksByExpirationDate(expirationDate);
         }
 
         return ResponseEntity.ok(ingredientStockConverter.convertFromEntityListToDtoList(allIngredientStocksList));
@@ -57,7 +57,7 @@ public class IngredientStockRestController {
         if (id != null) {
             ingredientStock = ingredientStockService.findIngredientStockById(id);
         } else if (name != null) {
-            ingredientStock = ingredientStockService.findIngredientStocksByName(name);
+            ingredientStock = ingredientStockService.findIngredientStockByName(name);
         }
 
         return ResponseEntity.ok(ingredientStockConverter.convertFromEntityToDto(ingredientStock));

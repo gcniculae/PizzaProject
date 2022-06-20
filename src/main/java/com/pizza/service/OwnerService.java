@@ -41,7 +41,9 @@ public class OwnerService {
     }
 
     public void deleteOwnerById(Long id) {
-        ownerRepository.deleteById(id);
+        Owner ownerById = findOwnerById(id);
+
+        ownerRepository.deleteById(ownerById.getId());
     }
 
     @Transactional

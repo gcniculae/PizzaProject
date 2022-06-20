@@ -1,7 +1,6 @@
 package com.pizza.service;
 
 import com.pizza.entity.IngredientStock;
-import com.pizza.entity.Location;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.IngredientStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -48,7 +46,7 @@ public class IngredientStockService {
         }
     }
 
-    public IngredientStock findIngredientStocksByName(String name) {
+    public IngredientStock findIngredientStockByName(String name) {
         Optional<IngredientStock> optionalIngredientStock = ingredientStockRepository.findByName(name);
 
         if (optionalIngredientStock.isPresent()) {
@@ -58,17 +56,17 @@ public class IngredientStockService {
         }
     }
 
-    public List<IngredientStock> findIngredientStockByQuantity(Long quantity) {
+    public List<IngredientStock> findIngredientStocksByQuantity(Long quantity) {
         return ingredientStockRepository.findByQuantity(quantity);
     }
 
-    public List<IngredientStock> findIngredientStockByExpirationDate(LocalDate expirationDate) {
+    public List<IngredientStock> findIngredientStocksByExpirationDate(LocalDate expirationDate) {
         return ingredientStockRepository.findByExpirationDate(expirationDate);
     }
 
     public IngredientStock updateIngredientStock(Long id, IngredientStock ingredientStock, Long locationId) {
         IngredientStock ingredientStockById = findIngredientStockById(id);
-        ingredientStock.setId(id);
+        ingredientStock.setId(ingredientStockById.getId());
 
         return saveIngredientStock(ingredientStock, locationId);
     }

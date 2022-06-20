@@ -63,6 +63,8 @@ public class LocationService {
     }
 
     public void deleteLocationById(Long id) {
-        locationRepository.deleteById(id);
+        Location locationById = findLocationById(id);
+
+        locationRepository.deleteById(locationById.getId());
     }
 }

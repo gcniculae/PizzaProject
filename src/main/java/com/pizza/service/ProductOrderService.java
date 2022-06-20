@@ -53,6 +53,8 @@ public class ProductOrderService {
     }
 
     public void deleteProductOrderServiceById(Long id) {
-        productOrderRepository.deleteById(id);
+        ProductOrder productOrderById = findProductOrderById(id);
+
+        productOrderRepository.deleteById(productOrderById.getId());
     }
 }
