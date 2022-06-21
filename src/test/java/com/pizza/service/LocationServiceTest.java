@@ -148,7 +148,7 @@ public class LocationServiceTest {
 
     @Test
     public void deleteExistentLocation() {
-        when(locationRepository.findById(location1.getId())).thenReturn(Optional.of(location1));
+        when(locationRepository.findById(eq(location1.getId()))).thenReturn(Optional.of(location1));
         doNothing().when(locationRepository).deleteById(location1.getId());
 
         locationService.deleteLocationById(location1.getId());
@@ -158,7 +158,7 @@ public class LocationServiceTest {
 
     @Test
     public void deleteNonexistentLocation() {
-        when(locationRepository.findById(location1.getId())).thenThrow(new NotFoundException("No such location found.", "location.not.found"));
+        when(locationRepository.findById(eq(location1.getId()))).thenThrow(new NotFoundException("No such location found.", "location.not.found"));
 
         NotFoundException notFoundException = assertThrows(NotFoundException.class,
                 () -> locationService.deleteLocationById(location1.getId()));
