@@ -20,7 +20,7 @@ public class Owner extends Person {
 
         @Override
         public OwnerBuilder getThis() {
-            return null;
+            return this;
         }
 
         @Override
