@@ -33,6 +33,16 @@ public class OwnerService {
         }
     }
 
+    public Owner findOwnerByFirstNameAndLastName(String firstName, String lastName) {
+        Optional<Owner> optionalOwner = ownerRepository.findByFirstNameAndLastName(firstName, lastName);
+
+        if (optionalOwner.isPresent()) {
+            return optionalOwner.get();
+        } else {
+            throw new NotFoundException("No such owner found.", "owner.not.found");
+        }
+    }
+
     public Owner updateOwner(Long id, Owner owner) {
         Owner ownerById = findOwnerById(id);
         owner.setId(ownerById.getId());
@@ -48,6 +58,8 @@ public class OwnerService {
 
     @Transactional
     public void deleteOwnerByFirstNameAndLastName(String firstName, String lastName) {
-        ownerRepository.deleteByFirstNameAndLastName(firstName, lastName);
+        Owner ownerByFirstNameAndLastName = findOwnerByFirstNameAndLastName(firstName, lastName);
+
+        ownerRepository.deleteByFirstNameAndLastName(ownerByFirstNameAndLastName.getFirstName(), ownerByFirstNameAndLastName.getLastName());
     }
 }
