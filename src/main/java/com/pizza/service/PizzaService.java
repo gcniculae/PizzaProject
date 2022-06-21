@@ -67,6 +67,8 @@ public class PizzaService {
 
     @Transactional
     public void deletePizzaByName(String name) {
-        pizzaRepository.deleteByName(name);
+        Pizza pizzaByName = findPizzaByName(name);
+
+        pizzaRepository.deleteByName(pizzaByName.getName());
     }
 }
