@@ -15,35 +15,50 @@ import javax.validation.Valid;
 public class OwnerRestController {
 
     private final OwnerService ownerService;
-    private final OwnerConverter ownerTransformer;
+    private final OwnerConverter ownerConverter;
 
-    public OwnerRestController(OwnerService ownerService, OwnerConverter ownerTransformer) {
+    public OwnerRestController(OwnerService ownerService, OwnerConverter ownerConverter) {
         this.ownerService = ownerService;
-        this.ownerTransformer = ownerTransformer;
+        this.ownerConverter = ownerConverter;
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<OwnerDto> findOwnerById(@PathVariable("id") Long id) {
-        Owner owner = ownerService.findOwnerById(id);
-        OwnerDto ownerDto = ownerTransformer.convertFromEntityToDto(owner);
+    @GetMapping
+    public ResponseEntity<OwnerDto> findOwner(@RequestParam(name = "id", required = false) Long id,
+                                              @RequestParam(name = "firstName", required = false) String firstName,
+                                              @RequestParam(name = "lastName", required = false) String lastName) {
+        Owner owner = new Owner();
 
-        return ResponseEntity.ok(ownerDto);
+        if (id != null) {
+            owner = ownerService.findOwnerById(id);
+        } else if (firstName != null && lastName != null) {
+            owner = ownerService.findOwnerByFirstNameAndLastName(firstName, lastName);
+        }
+
+        return ResponseEntity.ok(ownerConverter.convertFromEntityToDto(owner));
     }
+
+//    @GetMapping(path = "/{id}")
+//    public ResponseEntity<OwnerDto> findOwnerById(@PathVariable("id") Long id) {
+//        Owner owner = ownerService.findOwnerById(id);
+//        OwnerDto ownerDto = ownerTransformer.convertFromEntityToDto(owner);
+//
+//        return ResponseEntity.ok(ownerDto);
+//    }
 
     @PostMapping
     public ResponseEntity<OwnerDto> addOwner(@Valid @RequestBody OwnerDto ownerDto) {
-        Owner owner = ownerTransformer.convertFromDtoToEntity(ownerDto);
+        Owner owner = ownerConverter.convertFromDtoToEntity(ownerDto);
         Owner savedOwner = ownerService.saveOwner(owner);
-        OwnerDto savedOwnerDto = ownerTransformer.convertFromEntityToDto(savedOwner);
+        OwnerDto savedOwnerDto = ownerConverter.convertFromEntityToDto(savedOwner);
 
         return ResponseEntity.ok(savedOwnerDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<OwnerDto> updateOwner(@PathVariable("id") Long id, @Valid @RequestBody OwnerDto ownerDto) {
-        Owner owner = ownerTransformer.convertFromDtoToEntity(ownerDto);
+        Owner owner = ownerConverter.convertFromDtoToEntity(ownerDto);
         Owner updatedOwner = ownerService.updateOwner(id, owner);
-        OwnerDto updatedOwnerDto = ownerTransformer.convertFromEntityToDto(updatedOwner);
+        OwnerDto updatedOwnerDto = ownerConverter.convertFromEntityToDto(updatedOwner);
 
         return ResponseEntity.ok(updatedOwnerDto);
     }
