@@ -1,5 +1,6 @@
 package com.pizza.service;
 
+import com.pizza.dto.ReservationDto;
 import com.pizza.entity.Client;
 import com.pizza.entity.Location;
 import com.pizza.entity.Reservation;
@@ -82,6 +83,12 @@ public class ReservationServiceTest {
 
     @Test
     public void saveReservation() {
+        ReservationDto reservationDto = new ReservationDto("Reservation1", client1.getId(), location1.getId());
+
         when(reservationRepository.save(eq(reservation1))).thenReturn(reservation1);
+        when(locationService.findLocationById(eq(location1.getId()))).thenReturn(location1);
+        when(clientService.findClientById(eq(client1.getId()))).thenReturn(client1);
+
+        reservationService.saveReservation(reservation1, reservationDto);
     }
 }
