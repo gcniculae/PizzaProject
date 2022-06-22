@@ -55,7 +55,7 @@ public class ControllerExceptionHandler {
     public ErrorDto handleException(HttpServletRequest request, Exception exception) {
         logger.error("An error occurred", exception);
 
-        return new ErrorDto("internal.server.error", "An error occurred",
+        return new ErrorDto("internal.server.error", "An error occurred.",
                 HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
