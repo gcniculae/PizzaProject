@@ -103,3 +103,30 @@
 2022-06-22 17:09:00,968 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
 2022-06-22 17:09:00,968 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path '/api'
 2022-06-22 17:09:00,984 INFO org.springframework.boot.StartupInfoLogger [main] Started PizzaProjectApplication in 2.64 seconds (JVM running for 3.039)
+2022-06-22 17:17:22,490 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-06-22 17:17:22,491 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-06-22 17:17:22,496 INFO com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2022-06-22 17:17:24,423 INFO org.springframework.boot.StartupInfoLogger [main] Starting PizzaProjectApplication using Java 17.0.3.1 on EN1311638 with PID 1316 (C:\Users\geniculae\Documents\Projects\PizzaProject\target\classes started by geniculae in C:\Users\geniculae\Documents\Projects\PizzaProject)
+2022-06-22 17:17:24,425 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-06-22 17:17:24,773 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-06-22 17:17:24,835 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 57 ms. Found 10 JPA repository interfaces.
+2022-06-22 17:17:25,062 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2022-06-22 17:17:25,066 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2022-06-22 17:17:25,066 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-06-22 17:17:25,066 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.63]
+2022-06-22 17:17:25,150 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-06-22 17:17:25,150 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 705 ms
+2022-06-22 17:17:25,262 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Starting...
+2022-06-22 17:17:25,394 INFO com.zaxxer.hikari.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-06-22 17:17:25,521 INFO liquibase.logging.core.JavaLogger [main] Successfully acquired change log lock
+2022-06-22 17:17:25,766 INFO liquibase.logging.core.JavaLogger [main] Reading from pizza_project.DATABASECHANGELOG
+2022-06-22 17:17:25,837 INFO liquibase.logging.core.JavaLogger [main] Successfully released change log lock
+2022-06-22 17:17:26,312 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-06-22 17:17:26,683 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-06-22 17:17:26,748 DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [main] ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2022-06-22 17:17:26,784 DEBUG org.springframework.web.servlet.handler.AbstractHandlerMethodMapping [main] 53 mappings in 'requestMappingHandlerMapping'
+2022-06-22 17:17:26,794 DEBUG org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [main] Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2022-06-22 17:17:26,798 DEBUG org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver [main] ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2022-06-22 17:17:26,841 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2022-06-22 17:17:26,853 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path '/api'
+2022-06-22 17:17:26,858 INFO org.springframework.boot.StartupInfoLogger [main] Started PizzaProjectApplication in 2.643 seconds (JVM running for 3.156)
