@@ -67,16 +67,6 @@ public class ReservationService {
         }
     }
 
-    public Reservation findReservationByLocationId(Long locationId) {
-        Optional<Reservation> optionalReservation = reservationRepository.findByLocationId(locationId);
-
-        if (optionalReservation.isPresent()) {
-            return optionalReservation.get();
-        } else {
-            throw new NotFoundException("No such reservation found.", "reservation.not.found");
-        }
-    }
-
     public Reservation updateReservation(Long id, Reservation reservation, ReservationDto reservationDto) {
         Reservation reservationById = findReservationById(id);
         reservation.setId(reservationById.getId());
