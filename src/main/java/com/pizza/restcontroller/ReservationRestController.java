@@ -45,16 +45,13 @@ public class ReservationRestController {
 
     @GetMapping(value = "/reservation")
     public ResponseEntity<ReservationDto> findReservation(@RequestParam(name = "id", required = false) Long id,
-                                                          @RequestParam(name = "name", required = false) String name,
-                                                          @RequestParam(name = "locationId", required = false) Long locationId) {
+                                                          @RequestParam(name = "name", required = false) String name) {
         Reservation reservation = new Reservation();
 
         if (id != null) {
             reservation = reservationService.findReservationById(id);
         } else if (name != null) {
             reservation = reservationService.findReservationByName(name);
-        } else if (locationId != null) {
-            reservation = reservationService.findReservationByLocationId(locationId);
         }
 
         return ResponseEntity.ok(reservationConverter.convertFromEntityToDto(reservation));
