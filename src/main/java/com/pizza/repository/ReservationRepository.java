@@ -15,8 +15,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> findReservationsByLocationId(Long locationId);
 
-    Optional<Reservation> findByLocationId(Long locationId);
-
     Optional<Reservation> findByName(String name);
 
     @Query(value = "from Reservation r where r.client.id = :clientId and r.location.id = :locationId")
