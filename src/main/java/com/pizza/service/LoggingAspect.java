@@ -1,4 +1,4 @@
-package com.pizza.restcontroller;
+package com.pizza.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,14 +11,12 @@ import org.springframework.util.StopWatch;
 
 @Aspect
 @Component
-public class LoggingAspect
-{
+public class LoggingAspect {
     private static final Logger LOGGER = LogManager.getLogger(LoggingAspect.class);
 
     //AOP expression for which methods shall be intercepted
     @Around("execution(* com.pizza.service..*(..)))")
-    public Object profileAllMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable
-    {
+    public Object profileAllMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
 
         //Get intercepted method details
