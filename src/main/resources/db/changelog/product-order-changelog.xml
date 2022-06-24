@@ -36,5 +36,8 @@
         <insert tableName="product_order">
             <column name="client_id" value="1"/>
         </insert>
+        <insert tableName="product_order">
+            <column name="client_id" value="4"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

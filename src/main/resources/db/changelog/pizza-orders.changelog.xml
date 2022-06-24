@@ -34,17 +34,4 @@
                                  referencedColumnNames="id"
                                  referencedTableName="pizza"/>
     </changeSet>
-
-<!--    <changeSet id="pizza-orders-2" author="George Niculae">-->
-<!--        <preConditions onFail="MARK_RAN">-->
-<!--            <sqlCheck expectedResult="0">-->
-<!--                SELECT COUNT(*)-->
-<!--                FROM pizza_orders;-->
-<!--            </sqlCheck>-->
-<!--        </preConditions>-->
-<!--        <insert tableName="pizza_orders">-->
-<!--            <column name="pizza_id" value="1"/>-->
-<!--            <column name="orders_id" value="1"/>-->
-<!--        </insert>-->
-<!--    </changeSet>-->
 </databaseChangeLog>

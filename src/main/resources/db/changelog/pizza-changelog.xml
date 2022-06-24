@@ -32,5 +32,9 @@
             <column name="name" value="Chicken"/>
             <column name="price" value="30"/>
         </insert>
+        <insert tableName="pizza">
+            <column name="name" value="Cheese"/>
+            <column name="price" value="25"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
