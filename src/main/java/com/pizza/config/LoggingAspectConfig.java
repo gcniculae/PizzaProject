@@ -6,17 +6,19 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 @Aspect
 @Component
-public class LoggingAspect {
-    private static final Logger LOGGER = LogManager.getLogger(LoggingAspect.class);
+@ConditionalOnProperty(value = "logging.level.org.springframework.aop", havingValue = "ERROR")
+public class LoggingAspectConfig {
+    private static final Logger LOGGER = LogManager.getLogger(LoggingAspectConfig.class);
 
     //AOP expression for which methods shall be intercepted
     @Around("execution(* com.pizza.service..*(..)))")
-    public Object profileAllMethods(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object profileAllMethods(ProceedingJoinPoint proceedingJoinPoint) {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
 
         //Get intercepted method details
@@ -27,7 +29,12 @@ public class LoggingAspect {
 
         //Measure method execution time
         stopWatch.start();
-        Object result = proceedingJoinPoint.proceed();
+        Object result;
+        try {
+            result = proceedingJoinPoint.proceed();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        }
         stopWatch.stop();
 
         //Log method execution time
