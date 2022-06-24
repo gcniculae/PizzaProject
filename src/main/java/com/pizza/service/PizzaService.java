@@ -28,6 +28,17 @@ public class PizzaService {
         return pizzaRepository.findAll();
     }
 
+    public List<Pizza> findPizzasByIds(List<Long> pizzasIds) {
+        return pizzasIds.stream()
+                .map(this::findPizzaById).toList();
+    }
+
+    public List<Long> findIdsByPizza(List<Pizza> pizzas) {
+        return pizzas.stream()
+                .map(Pizza::getId)
+                .toList();
+    }
+
     public Pizza findPizzaById(Long id) {
         Optional<Pizza> optionalPizza = pizzaRepository.findById(id);
 

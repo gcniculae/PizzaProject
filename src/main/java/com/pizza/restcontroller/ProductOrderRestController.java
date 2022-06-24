@@ -49,15 +49,17 @@ public class ProductOrderRestController {
     @PostMapping
     public ResponseEntity<ProductOrderDto> addProductOrder(@Valid @RequestBody ProductOrderDto productOrderDto) {
         ProductOrder productOrder = productOrderConverter.convertFromDtoToEntity(productOrderDto);
-        ProductOrder savedProductOwner = productOrderService.saveProductOrder(productOrder, productOrderDto.getClientId());
+        ProductOrder savedProductOrder = productOrderService.saveProductOrder(productOrder, productOrderDto);
+        ProductOrderDto savedProductOrderDto = productOrderConverter.convertFromEntityToDto(savedProductOrder);
+        productOrderService.addPizzasIdsToDto(savedProductOrderDto, savedProductOrder);
 
-        return ResponseEntity.ok(productOrderConverter.convertFromEntityToDto(savedProductOwner));
+        return ResponseEntity.ok(savedProductOrderDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<ProductOrderDto> updateProductOrder(@PathVariable(name = "id") Long id, @Valid @RequestBody ProductOrderDto productOrderDto) {
         ProductOrder productOrder = productOrderConverter.convertFromDtoToEntity(productOrderDto);
-        ProductOrder updatedProductOwner = productOrderService.updateProductOrder(id, productOrder, productOrderDto.getClientId());
+        ProductOrder updatedProductOwner = productOrderService.updateProductOrder(id, productOrder, productOrderDto);
 
         return ResponseEntity.ok(productOrderConverter.convertFromEntityToDto(updatedProductOwner));
     }

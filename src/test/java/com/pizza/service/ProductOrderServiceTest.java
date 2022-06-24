@@ -1,6 +1,8 @@
 package com.pizza.service;
 
+import com.pizza.dto.ProductOrderDto;
 import com.pizza.entity.Client;
+import com.pizza.entity.Pizza;
 import com.pizza.entity.ProductOrder;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.ProductOrderRepository;
@@ -31,19 +33,32 @@ public class ProductOrderServiceTest {
     @Mock
     private ClientService clientService;
 
+    @Mock
+    private PaymentClientService paymentClientService;
+
+    @Mock
+    private PizzaService pizzaService;
+
     private ProductOrder productOrder1;
     private ProductOrder productOrder2;
     private ProductOrder productOrder3;
     private Client client1;
     private Client client2;
 
+    private Pizza pizza1;
+    private Pizza pizza2;
+
     @BeforeEach
     public void init() {
         productOrderRepository = mock(ProductOrderRepository.class);
         clientService = mock(ClientService.class);
-        productOrderService = new ProductOrderService(productOrderRepository, clientService);
+        paymentClientService = mock(PaymentClientService.class);
+        pizzaService = mock(PizzaService.class);
+        productOrderService = new ProductOrderService(productOrderRepository, clientService, paymentClientService, pizzaService);
 
         initializeClients();
+
+        initializePizzas();
 
         initializeProductOrders();
     }
@@ -60,6 +75,16 @@ public class ProductOrderServiceTest {
         productOrder3 = new ProductOrder();
         productOrder3.setId(3L);
         productOrder3.setClient(client1);
+    }
+
+    private void initializePizzas() {
+        pizza1 = new Pizza();
+        pizza1.setName("Chicken");
+        pizza1.setPrice(30.0);
+
+        pizza2 = new Pizza();
+        pizza2.setName("Cheese");
+        pizza2.setPrice(25.0);
     }
 
     private void initializeClients() {
@@ -84,10 +109,20 @@ public class ProductOrderServiceTest {
 
     @Test
     public void saveProductOrderTest() {
-        when(productOrderRepository.save(eq(productOrder1))).thenReturn(productOrder1);
-        when(clientService.findClientById(eq(client1.getId()))).thenReturn(client1);
+        List<Pizza> pizzas = Arrays.asList(pizza1, pizza2);
+        List<Long> pizzasIds = Arrays.asList(pizza1.getId(), pizza2.getId());
 
-        ProductOrder savedProductOrder = productOrderService.saveProductOrder(productOrder1, client1.getId());
+        ProductOrderDto productOrderDto = new ProductOrderDto();
+        productOrderDto.setClientId(client1.getId());
+        productOrderDto.setPizzasIds(pizzasIds);
+
+        when(clientService.findClientById(eq(client1.getId()))).thenReturn(client1);
+        when(pizzaService.findPizzasByIds(eq(pizzasIds))).thenReturn(pizzas);
+        productOrder1.setClient(client1);
+        productOrder1.setPizzas(pizzas);
+        when(productOrderRepository.save(eq(productOrder1))).thenReturn(productOrder1);
+
+        ProductOrder savedProductOrder = productOrderService.saveProductOrder(productOrder1, productOrderDto);
 
         assertEquals(productOrder1.getId(), savedProductOrder.getId());
 
@@ -140,12 +175,18 @@ public class ProductOrderServiceTest {
 
     @Test
     public void updateProductOrderTest() {
-        when(productOrderRepository.findById(eq(productOrder1.getId()))).thenReturn(Optional.of(productOrder1));
+        List<Long> pizzasIds = Arrays.asList(pizza1.getId(), pizza2.getId());
+
+        ProductOrderDto productOrderDto = new ProductOrderDto();
+        productOrderDto.setClientId(client2.getId());
+        productOrderDto.setPizzasIds(pizzasIds);
+
         when(clientService.findClientById(eq(client2.getId()))).thenReturn(client2);
         productOrder1.setClient(client2);
         when(productOrderRepository.save(eq(productOrder1))).thenReturn(productOrder1);
+        when(productOrderRepository.findById(eq(productOrder1.getId()))).thenReturn(Optional.of(productOrder1));
 
-        ProductOrder updatedProductOrder = productOrderService.updateProductOrder(productOrder1.getId(), productOrder1, client2.getId());
+        ProductOrder updatedProductOrder = productOrderService.updateProductOrder(productOrder1.getId(), productOrder1, productOrderDto);
 
         assertEquals(productOrder1.getId(), updatedProductOrder.getId());
         assertEquals(productOrder1.getClient(), updatedProductOrder.getClient());
