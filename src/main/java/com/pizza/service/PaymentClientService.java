@@ -1,10 +1,13 @@
 package com.pizza.service;
 
+import com.pizza.config.PaymentServiceConfig;
 import com.pizza.dto.PaymentDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,10 +15,12 @@ import org.springframework.web.client.RestTemplate;
 public class PaymentClientService {
 
     private final RestTemplate restTemplate;
+    private final PaymentServiceConfig paymentServiceConfig;
 
     @Autowired
-    public PaymentClientService(RestTemplate restTemplate) {
+    public PaymentClientService(RestTemplate restTemplate, PaymentServiceConfig paymentServiceConfig) {
         this.restTemplate = restTemplate;
+        this.paymentServiceConfig = paymentServiceConfig;
     }
 
     public void savePayment(long clientId, Double amount) {
@@ -23,10 +28,8 @@ public class PaymentClientService {
         paymentDto.setClientId(clientId);
         paymentDto.setAmount(amount);
 
-        String resourceUrl = "http://localhost:8081/api/payments";
-
         HttpEntity<PaymentDto> request = new HttpEntity<>(paymentDto);
 
-        restTemplate.exchange(resourceUrl, HttpMethod.POST, request, String.class);
+        restTemplate.exchange(paymentServiceConfig.getAddPaymentUrl(), HttpMethod.POST, request, String.class);
     }
 }
