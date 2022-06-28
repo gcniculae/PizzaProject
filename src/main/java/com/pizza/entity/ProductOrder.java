@@ -22,4 +22,6 @@ public class ProductOrder extends BaseEntity {
 
     @ManyToMany
     private List<Pizza> pizzas;
+
+    private Long paymentId;
 }
