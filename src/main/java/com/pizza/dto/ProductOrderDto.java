@@ -19,4 +19,6 @@ public class ProductOrderDto extends BaseEntityDto {
 
     @NotNull
     private List<Long> pizzasIds;
+
+    private Long paymentId;
 }
