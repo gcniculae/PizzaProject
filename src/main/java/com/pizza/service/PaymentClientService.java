@@ -53,8 +53,8 @@ public class PaymentClientService {
         return response.getBody();
     }
 
-    public String findPaymentById(Long productOrderId) {
-        String resourceUrl = paymentServiceConfig.getBaseUrl() + "/" + productOrderId;
+    public String findPaymentById(Long id) {
+        String resourceUrl = paymentServiceConfig.getBaseUrl() + "/" + id;
 
 //        ResponseEntity<String> response = restTemplate.getForEntity(resourceUrl, String.class);
 //
