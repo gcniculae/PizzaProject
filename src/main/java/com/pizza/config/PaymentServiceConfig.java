@@ -12,6 +12,5 @@ import org.springframework.context.annotation.Configuration;
 public class PaymentServiceConfig {
 
     private String baseUrl;
-    private String addPaymentUrl;
     private String updatePaymentUrl;
 }
