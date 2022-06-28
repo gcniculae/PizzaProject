@@ -1,5 +1,6 @@
 package com.pizza.service;
 
+import com.pizza.dto.IngredientStockDto;
 import com.pizza.entity.IngredientStock;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.IngredientStockRepository;
@@ -73,5 +74,15 @@ public class IngredientStockService {
 
     public void deleteIngredientStockById(Long id) {
         ingredientStockRepository.deleteById(id);
+    }
+
+    public void addLocationIdToDto(IngredientStock ingredientStock, IngredientStockDto ingredientStockDto) {
+        ingredientStockDto.setLocationId(ingredientStock.getLocation().getId());
+    }
+
+    public void addLocationIdToDtoList(List<IngredientStock> allIngredientStocks, List<IngredientStockDto> ingredientStockDtoList) {
+        for (int index = 0; index < ingredientStockDtoList.size(); index++) {
+            ingredientStockDtoList.get(index).setLocationId(allIngredientStocks.get(index).getLocation().getId());
+        }
     }
 }

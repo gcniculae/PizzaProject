@@ -1,6 +1,7 @@
 package com.pizza.service;
 
 import com.pizza.dto.EmployeeDto;
+import com.pizza.entity.Location;
 import com.pizza.repository.SpecificationOperation;
 import com.pizza.entity.Employee;
 import com.pizza.entity.Position;
@@ -126,5 +127,15 @@ public class EmployeeService {
 
     public void deleteEmployeeById(Long id) {
         employeeRepository.deleteById(id);
+    }
+
+    public void addLocationIdToDto(Location location, EmployeeDto employeeDto) {
+        employeeDto.setLocationId(location.getId());
+    }
+
+    public void addLocationIdToDtoList(List<Employee> allEmployeesList, List<EmployeeDto> employeeDtoList) {
+        for (int index = 0; index < employeeDtoList.size(); index++) {
+            employeeDtoList.get(index).setLocationId(allEmployeesList.get(index).getLocation().getId());
+        }
     }
 }

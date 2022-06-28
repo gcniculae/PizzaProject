@@ -1,5 +1,6 @@
 package com.pizza.service;
 
+import com.pizza.dto.MenuDto;
 import com.pizza.entity.Menu;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.MenuRepository;
@@ -60,5 +61,15 @@ public class MenuService {
         Menu menuById = findMenuById(id);
 
         menuRepository.deleteById(menuById.getId());
+    }
+
+    public void addPizzeriaIdToDto(Menu menu, MenuDto menuDto) {
+        menuDto.setPizzeriaId(menu.getPizzeria().getId());
+    }
+
+    public void addPizzeriaIdToDtoList(List<Menu> allMenus, List<MenuDto> menuDtoList) {
+        for (int index = 0; index < menuDtoList.size(); index++) {
+            menuDtoList.get(index).setPizzeriaId(allMenus.get(index).getPizzeria().getId());
+        }
     }
 }

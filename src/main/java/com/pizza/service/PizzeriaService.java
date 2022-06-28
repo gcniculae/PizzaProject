@@ -1,5 +1,6 @@
 package com.pizza.service;
 
+import com.pizza.dto.PizzeriaDto;
 import com.pizza.entity.Pizzeria;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.PizzeriaRepository;
@@ -58,5 +59,9 @@ public class PizzeriaService {
         Pizzeria pizzeriaById = findPizzeriaById(id);
 
         pizzeriaRepository.deleteById(pizzeriaById.getId());
+    }
+
+    public void addOwnerIdToDto(Pizzeria pizzeria, PizzeriaDto pizzeriaDto) {
+        pizzeriaDto.setOwnerId(pizzeria.getOwner().getId());
     }
 }

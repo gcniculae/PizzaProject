@@ -79,4 +79,24 @@ public class ReservationService {
 
         reservationRepository.deleteById(reservationById.getId());
     }
+
+    public void addClientIdToDto(Reservation reservation, ReservationDto reservationDto) {
+        reservationDto.setClientId(reservation.getClient().getId());
+    }
+
+    public void addLocationIdToDto(Reservation reservation, ReservationDto reservationDto) {
+        reservationDto.setLocationId(reservation.getLocation().getId());
+    }
+
+    public void addClientIdToDtoList(List<Reservation> allReservationsList, List<ReservationDto> reservationDtoList) {
+        for (int index = 0; index < reservationDtoList.size(); index++) {
+            reservationDtoList.get(index).setClientId(allReservationsList.get(index).getClient().getId());
+        }
+    }
+
+    public void addLocationIdToDtoList(List<Reservation> allReservationsList, List<ReservationDto> reservationDtoList) {
+        for (int index = 0; index < reservationDtoList.size(); index++) {
+            reservationDtoList.get(index).setLocationId(allReservationsList.get(index).getLocation().getId());
+        }
+    }
 }

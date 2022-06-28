@@ -1,5 +1,6 @@
 package com.pizza.service;
 
+import com.pizza.dto.LocationDto;
 import com.pizza.entity.Location;
 import com.pizza.exception.NotFoundException;
 import com.pizza.repository.LocationRepository;
@@ -66,5 +67,15 @@ public class LocationService {
         Location locationById = findLocationById(id);
 
         locationRepository.deleteById(locationById.getId());
+    }
+
+    public void addPizzeriaIdToDto(Location location, LocationDto locationDto) {
+        locationDto.setPizzeriaId(location.getPizzeria().getId());
+    }
+
+    public void addPizzeriaIdToDtoList(List<Location> allLocationsList, List<LocationDto> locationDtoList) {
+        for (int index = 0; index < locationDtoList.size(); index++) {
+            locationDtoList.get(index).setPizzeriaId(allLocationsList.get(index).getPizzeria().getId());
+        }
     }
 }
