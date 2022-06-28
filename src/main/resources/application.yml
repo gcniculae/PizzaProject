@@ -21,6 +21,16 @@ spring:
     password: admin
     username: root
     url: jdbc:mysql://localhost:3306/pizza_project
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+pizza-project:
+  rabbitmq:
+    exchange: pizza-project.exchange
+    queue: pizza-project.queue
+    routingKey: pizza-project.routingKey
 payment-service:
   baseUrl: http://localhost:8081/api/payments
 logging:
