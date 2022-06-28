@@ -5,7 +5,6 @@ import com.pizza.dto.PaymentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -43,14 +42,6 @@ public class PaymentClientService {
         HttpEntity<PaymentDto> request = new HttpEntity<>(paymentDto);
 
         return restTemplate.exchange(updateUrl, HttpMethod.PUT, request, String.class).getBody();
-    }
-
-    public String findAllPayments() {
-        String resourceUrl = paymentServiceConfig.getBaseUrl() + "?all=true";
-
-        ResponseEntity<String> response = restTemplate.getForEntity(resourceUrl, String.class);
-
-        return response.getBody();
     }
 
     public String findPaymentById(Long id) {
