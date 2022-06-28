@@ -1,26 +1,35 @@
-server.port=8080
-
-spring.application.name=PizzaProject
-spring.jpa.hibernate.ddl-auto=none
-spring.datasource.url=jdbc:mysql://localhost:3306/pizza_project
-spring.datasource.username=root
-spring.datasource.password=admin
-
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-spring.jpa.properties.hibernate.use_sql_comments=true
-
-spring.mvc.format.date=yyyy-MM-dd
-spring.mvc.format.date-time=yyyy-MM-dd HH:mm:ss
-spring.mvc.format.time=HH:mm:ss
-
-server.servlet.context-path=/api
-
-spring.liquibase.enabled=true
-spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.xml
-
-#logging.level.org.springframework=DEBUG
-logging.level.org.springframework.aop=DEBUG
-logging.level.org.hibernate=ERROR
-
-payment-service.baseUrl=http://localhost:8081/api/payments
+spring:
+  mvc:
+    format:
+      time: HH:mm:ss
+      date: yyyy-MM-dd
+      date-time: yyyy-MM-dd HH:mm:ss
+  application:
+    name: PizzaProject
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: 'true'
+  jpa:
+    properties:
+      hibernate:
+        use_sql_comments: 'true'
+        format_sql: 'true'
+    hibernate:
+      ddl-auto: none
+    show-sql: 'true'
+  datasource:
+    password: admin
+    username: root
+    url: jdbc:mysql://localhost:3306/pizza_project
+payment-service:
+  baseUrl: http://localhost:8081/api/payments
+logging:
+  level:
+    org:
+      hibernate: ERROR
+      springframework:
+        aop: DEBUG
+server:
+  servlet:
+    context-path: /api
+  port: '8080'
