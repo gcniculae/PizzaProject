@@ -29,27 +29,30 @@ public class IngredientStockRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<IngredientStockDto>> findAllIngredientStocks(@RequestParam(name = "allIngredientStocks", required = false, defaultValue = "false") Boolean allIngredientStocks,
+    public ResponseEntity<List<IngredientStockDto>> findAllIngredientStocks(@RequestParam(name = "all", required = false, defaultValue = "false") Boolean all,
                                                                             @RequestParam(name = "quantity", required = false) Long quantity,
-                                                                            @RequestParam(name = "lowQuantity", required = false) Boolean lowQuantity,
+                                                                            @RequestParam(name = "lowQuantity", required = false, defaultValue = "false") Boolean lowQuantity,
                                                                             @RequestParam(name = "expirationDate", required = false)
                                                                             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate expirationDate) {
         List<IngredientStock> allIngredientStocksList = new ArrayList<>();
 
-        if (allIngredientStocks != null && allIngredientStocks) {
+        if (all) {
             allIngredientStocksList = ingredientStockService.findAllIngredientStocks();
         } else if (quantity != null) {
             allIngredientStocksList = ingredientStockService.findIngredientStocksByQuantity(quantity);
-        } else if (lowQuantity != null && lowQuantity) {
+        } else if (lowQuantity) {
             allIngredientStocksList = ingredientStockService.findIngredientStocksByLowQuantity();
         } else if (expirationDate != null) {
             allIngredientStocksList = ingredientStockService.findIngredientStocksByExpirationDate(expirationDate);
         }
 
-        return ResponseEntity.ok(ingredientStockConverter.convertFromEntityListToDtoList(allIngredientStocksList));
+        List<IngredientStockDto> ingredientStockDtoList = ingredientStockConverter.convertFromEntityListToDtoList(allIngredientStocksList);
+        ingredientStockService.addLocationIdToDtoList(allIngredientStocksList, ingredientStockDtoList);
+
+        return ResponseEntity.ok(ingredientStockDtoList);
     }
 
-    @GetMapping(path = "/ingredientStock")
+    @GetMapping(path = "/single")
     public ResponseEntity<IngredientStockDto> findIngredientStock(@RequestParam(name = "id", required = false) Long id,
                                                                   @RequestParam(name = "name", required = false) String name) {
         IngredientStock ingredientStock = new IngredientStock();
@@ -60,23 +63,30 @@ public class IngredientStockRestController {
             ingredientStock = ingredientStockService.findIngredientStockByName(name);
         }
 
-        return ResponseEntity.ok(ingredientStockConverter.convertFromEntityToDto(ingredientStock));
+        IngredientStockDto ingredientStockDto = ingredientStockConverter.convertFromEntityToDto(ingredientStock);
+        ingredientStockService.addLocationIdToDto(ingredientStock, ingredientStockDto);
+
+        return ResponseEntity.ok(ingredientStockDto);
     }
 
     @PostMapping
     public ResponseEntity<IngredientStockDto> addIngredientStocks(@Valid @RequestBody IngredientStockDto ingredientStockDto) {
         IngredientStock ingredientStock = ingredientStockConverter.convertFromDtoToEntity(ingredientStockDto);
         IngredientStock savedIngredientStock = ingredientStockService.saveIngredientStock(ingredientStock, ingredientStockDto.getLocationId());
+        IngredientStockDto savedIngredientStockDto = ingredientStockConverter.convertFromEntityToDto(savedIngredientStock);
+        ingredientStockService.addLocationIdToDto(savedIngredientStock, savedIngredientStockDto);
 
-        return ResponseEntity.ok(ingredientStockConverter.convertFromEntityToDto(savedIngredientStock));
+        return ResponseEntity.ok(savedIngredientStockDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<IngredientStockDto> updateIngredientStocks(@PathVariable Long id, @Valid @RequestBody IngredientStockDto ingredientStockDto) {
         IngredientStock ingredientStock = ingredientStockConverter.convertFromDtoToEntity(ingredientStockDto);
         IngredientStock updatedIngredientStock = ingredientStockService.updateIngredientStock(id, ingredientStock, ingredientStockDto.getLocationId());
+        IngredientStockDto updateIngredientStockDto = ingredientStockConverter.convertFromEntityToDto(updatedIngredientStock);
+        ingredientStockService.addLocationIdToDto(updatedIngredientStock, updateIngredientStockDto);
 
-        return ResponseEntity.ok(ingredientStockConverter.convertFromEntityToDto(updatedIngredientStock));
+        return ResponseEntity.ok(updateIngredientStockDto);
     }
 
     @DeleteMapping(path = "/{id}")

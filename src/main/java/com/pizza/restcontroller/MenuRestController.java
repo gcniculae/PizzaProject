@@ -27,10 +27,14 @@ public class MenuRestController {
 
     @GetMapping
     public ResponseEntity<List<MenuDto>> getAllMenus() {
-        return ResponseEntity.ok(menuConverter.convertFromEntityListToDtoList(menuService.findAllMenus()));
+        List<Menu> allMenus = menuService.findAllMenus();
+        List<MenuDto> menuDtoList = menuConverter.convertFromEntityListToDtoList(allMenus);
+        menuService.addPizzeriaIdToDtoList(allMenus, menuDtoList);
+
+        return ResponseEntity.ok(menuDtoList);
     }
 
-    @GetMapping(path = "/menu")
+    @GetMapping(path = "/single")
     public ResponseEntity<MenuDto> getMenuById(@RequestParam(name = "id", required = false) Long id,
                                                @RequestParam(name = "name", required = false) String name) {
         Menu menu = new Menu();
@@ -41,17 +45,28 @@ public class MenuRestController {
             menu = menuService.findMenuByName(name);
         }
 
-        return ResponseEntity.ok(menuConverter.convertFromEntityToDto(menu));
+        MenuDto menuDto = menuConverter.convertFromEntityToDto(menu);
+        menuService.addPizzeriaIdToDto(menu, menuDto);
+
+        return ResponseEntity.ok(menuDto);
     }
 
     @PostMapping
     public ResponseEntity<MenuDto> addMenu(@Valid @RequestBody MenuDto menuDto) {
-        return ResponseEntity.ok(menuConverter.convertFromEntityToDto(menuService.saveMenu(menuConverter.convertFromDtoToEntity(menuDto), menuDto.getPizzeriaId())));
+        Menu savedMenu = menuService.saveMenu(menuConverter.convertFromDtoToEntity(menuDto), menuDto.getPizzeriaId());
+        MenuDto savedMenuDto = menuConverter.convertFromEntityToDto(savedMenu);
+        menuService.addPizzeriaIdToDto(savedMenu, savedMenuDto);
+
+        return ResponseEntity.ok(savedMenuDto);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<MenuDto> updateMenu(@Valid @PathVariable Long id, @RequestBody MenuDto menuDto) {
-        return ResponseEntity.ok(menuConverter.convertFromEntityToDto(menuService.updateMenu(id, menuConverter.convertFromDtoToEntity(menuDto), menuDto.getPizzeriaId())));
+        Menu updatedMenu = menuService.updateMenu(id, menuConverter.convertFromDtoToEntity(menuDto), menuDto.getPizzeriaId());
+        MenuDto updatedMenuDto = menuConverter.convertFromEntityToDto(updatedMenu);
+        menuService.addPizzeriaIdToDto(updatedMenu, updatedMenuDto);
+
+        return ResponseEntity.ok(updatedMenuDto);
     }
 
     @DeleteMapping(path = "/{id}")

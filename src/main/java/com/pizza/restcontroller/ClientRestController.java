@@ -30,7 +30,7 @@ public class ClientRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClientDto>> getAllClients(@RequestParam(name = "allClients", required = false, defaultValue = "false") Boolean allClients,
+    public ResponseEntity<List<ClientDto>> getAllClients(@RequestParam(name = "all", required = false, defaultValue = "false") Boolean all,
                                                          @RequestParam(name = "firstName", required = false) String firstName,
                                                          @RequestParam(name = "lastName", required = false) String lastName,
                                                          @RequestParam(name = "address", required = false) String address,
@@ -40,7 +40,7 @@ public class ClientRestController {
                                                          @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         List<Client> allClientsList = new ArrayList<>();
 
-        if (allClients) {
+        if (all) {
             allClientsList = clientService.findAllClients();
         } else if (firstName != null) {
             allClientsList = clientService.findClientsByFirstName(firstName);

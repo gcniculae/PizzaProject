@@ -27,20 +27,23 @@ public class LocationRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<LocationDto>> findAllLocations(@RequestParam(name = "allLocations", required = false, defaultValue = "false") Boolean allLocations,
+    public ResponseEntity<List<LocationDto>> findAllLocations(@RequestParam(name = "all", required = false, defaultValue = "false") Boolean all,
                                                               @RequestParam(name = "address", required = false) String address) {
         List<Location> allLocationsList = new ArrayList<>();
 
-        if (allLocations != null && allLocations) {
+        if (all) {
             allLocationsList = locationService.findAllLocations();
         } else if (address != null) {
             allLocationsList = locationService.findLocationsByAddress(address);
         }
 
-        return ResponseEntity.ok(locationConverter.convertFromEntityListToDtoList(allLocationsList));
+        List<LocationDto> locationDtoList = locationConverter.convertFromEntityListToDtoList(allLocationsList);
+        locationService.addPizzeriaIdToDtoList(allLocationsList, locationDtoList);
+
+        return ResponseEntity.ok(locationDtoList);
     }
 
-    @GetMapping(path = "/location")
+    @GetMapping(path = "/single")
     public ResponseEntity<LocationDto> findLocation(@RequestParam(name = "id", required = false) Long id,
                                                     @RequestParam(name = "name", required = false) String name) {
         Location location = new Location();
@@ -51,23 +54,30 @@ public class LocationRestController {
             location = locationService.findLocationByName(name);
         }
 
-        return ResponseEntity.ok(locationConverter.convertFromEntityToDto(location));
+        LocationDto locationDto = locationConverter.convertFromEntityToDto(location);
+        locationService.addPizzeriaIdToDto(location, locationDto);
+
+        return ResponseEntity.ok(locationDto);
     }
 
     @PostMapping
     public ResponseEntity<LocationDto> addLocation(@Valid @RequestBody LocationDto locationDto) {
         Location location = locationConverter.convertFromDtoToEntity(locationDto);
         Location savedLocation = locationService.saveLocation(location, locationDto.getPizzeriaId());
+        LocationDto savedLocationDto = locationConverter.convertFromEntityToDto(savedLocation);
+        locationService.addPizzeriaIdToDto(savedLocation, savedLocationDto);
 
-        return ResponseEntity.ok(locationConverter.convertFromEntityToDto(savedLocation));
+        return ResponseEntity.ok(savedLocationDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<LocationDto> updateLocation(@PathVariable Long id, @Valid @RequestBody LocationDto locationDto) {
         Location location = locationConverter.convertFromDtoToEntity(locationDto);
         Location updatedLocation = locationService.updateLocation(id, location, locationDto.getPizzeriaId());
+        LocationDto updatedLocationDto = locationConverter.convertFromEntityToDto(updatedLocation);
+        locationService.addPizzeriaIdToDto(updatedLocation, updatedLocationDto);
 
-        return ResponseEntity.ok(locationConverter.convertFromEntityToDto(updatedLocation));
+        return ResponseEntity.ok(updatedLocationDto);
     }
 
     @DeleteMapping(path = "/{id}")

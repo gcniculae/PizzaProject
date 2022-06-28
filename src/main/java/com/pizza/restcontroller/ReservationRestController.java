@@ -25,12 +25,12 @@ public class ReservationRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ReservationDto>> findAllReservations(@RequestParam(name = "allReservations", required = false, defaultValue = "false") Boolean allReservations,
+    public ResponseEntity<List<ReservationDto>> findAllReservations(@RequestParam(name = "all", required = false, defaultValue = "false") Boolean all,
                                                                     @RequestParam(name = "clientId", required = false) Long clientId,
                                                                     @RequestParam(name = "locationId", required = false) Long locationId) {
         List<Reservation> allReservationsList = new ArrayList<>();
 
-        if (allReservations != null && allReservations) {
+        if (all) {
             allReservationsList = reservationService.findAllReservations();
         } else if (clientId != null) {
             allReservationsList = reservationService.findReservationsByClientId(clientId);
@@ -40,10 +40,14 @@ public class ReservationRestController {
             allReservationsList = reservationService.findReservationsByClientIdAndLocationId(clientId, locationId);
         }
 
-        return ResponseEntity.ok(reservationConverter.convertFromEntityListToDtoList(allReservationsList));
+        List<ReservationDto> reservationDtoList = reservationConverter.convertFromEntityListToDtoList(allReservationsList);
+        reservationService.addClientIdToDtoList(allReservationsList, reservationDtoList);
+        reservationService.addLocationIdToDtoList(allReservationsList, reservationDtoList);
+
+        return ResponseEntity.ok(reservationDtoList);
     }
 
-    @GetMapping(value = "/reservation")
+    @GetMapping(value = "/single")
     public ResponseEntity<ReservationDto> findReservation(@RequestParam(name = "id", required = false) Long id,
                                                           @RequestParam(name = "name", required = false) String name) {
         Reservation reservation = new Reservation();
@@ -54,23 +58,33 @@ public class ReservationRestController {
             reservation = reservationService.findReservationByName(name);
         }
 
-        return ResponseEntity.ok(reservationConverter.convertFromEntityToDto(reservation));
+        ReservationDto reservationDto = reservationConverter.convertFromEntityToDto(reservation);
+        reservationService.addClientIdToDto(reservation, reservationDto);
+        reservationService.addLocationIdToDto(reservation, reservationDto);
+
+        return ResponseEntity.ok(reservationDto);
     }
 
     @PostMapping
     public ResponseEntity<ReservationDto> addReservation(@Valid @RequestBody ReservationDto reservationDto) {
         Reservation reservation = reservationConverter.convertFromDtoToEntity(reservationDto);
         Reservation savedReservation = reservationService.saveReservation(reservation, reservationDto);
+        ReservationDto savedReservationDto = reservationConverter.convertFromEntityToDto(savedReservation);
+        reservationService.addClientIdToDto(savedReservation, savedReservationDto);
+        reservationService.addLocationIdToDto(savedReservation, savedReservationDto);
 
-        return ResponseEntity.ok(reservationConverter.convertFromEntityToDto(savedReservation));
+        return ResponseEntity.ok(savedReservationDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<ReservationDto> updateReservation(@PathVariable Long id, @Valid @RequestBody ReservationDto reservationDto) {
         Reservation reservation = reservationConverter.convertFromDtoToEntity(reservationDto);
         Reservation updatedReservation = reservationService.updateReservation(id, reservation, reservationDto);
+        ReservationDto updatedReservationDto = reservationConverter.convertFromEntityToDto(updatedReservation);
+        reservationService.addClientIdToDto(updatedReservation, updatedReservationDto);
+        reservationService.addLocationIdToDto(updatedReservation, updatedReservationDto);
 
-        return ResponseEntity.ok(reservationConverter.convertFromEntityToDto(updatedReservation));
+        return ResponseEntity.ok(updatedReservationDto);
     }
 
     @DeleteMapping(path = "/{id}")

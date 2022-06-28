@@ -35,23 +35,30 @@ public class PizzeriaRestController {
             pizzeria = pizzeriaService.findPizzeriaByName(name);
         }
 
-        return ResponseEntity.ok(pizzeriaConverter.convertFromEntityToDto(pizzeria));
+        PizzeriaDto pizzeriaDto = pizzeriaConverter.convertFromEntityToDto(pizzeria);
+        pizzeriaService.addOwnerIdToDto(pizzeria, pizzeriaDto);
+
+        return ResponseEntity.ok(pizzeriaDto);
     }
 
     @PostMapping
     public ResponseEntity<PizzeriaDto> addPizzeria(@Valid @RequestBody PizzeriaDto pizzeriaDto) {
         Pizzeria pizzeria = pizzeriaConverter.convertFromDtoToEntity(pizzeriaDto);
         Pizzeria savedPizzeria = pizzeriaService.savePizzeria(pizzeria, pizzeriaDto.getOwnerId());
+        PizzeriaDto savedPizzeriaDto = pizzeriaConverter.convertFromEntityToDto(savedPizzeria);
+        pizzeriaService.addOwnerIdToDto(savedPizzeria, savedPizzeriaDto);
 
-        return ResponseEntity.ok(pizzeriaConverter.convertFromEntityToDto(savedPizzeria));
+        return ResponseEntity.ok(savedPizzeriaDto);
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<PizzeriaDto> addPizzeria(@PathVariable(name = "id") Long id, @Valid @RequestBody PizzeriaDto pizzeriaDto) {
         Pizzeria pizzeria = pizzeriaConverter.convertFromDtoToEntity(pizzeriaDto);
         Pizzeria updatedPizzeria = pizzeriaService.updatePizzeria(id, pizzeria, pizzeriaDto.getOwnerId());
+        PizzeriaDto updatedPizzeriaDto = pizzeriaConverter.convertFromEntityToDto(updatedPizzeria);
+        pizzeriaService.addOwnerIdToDto(updatedPizzeria, updatedPizzeriaDto);
 
-        return ResponseEntity.ok(pizzeriaConverter.convertFromEntityToDto(updatedPizzeria));
+        return ResponseEntity.ok(updatedPizzeriaDto);
     }
 
     @DeleteMapping(path = "/{id}")

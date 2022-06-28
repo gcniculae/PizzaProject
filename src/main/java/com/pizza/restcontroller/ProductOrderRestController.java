@@ -2,6 +2,7 @@ package com.pizza.restcontroller;
 
 import com.pizza.converter.ProductOrderConverter;
 import com.pizza.dto.ProductOrderDto;
+import com.pizza.entity.Pizza;
 import com.pizza.entity.ProductOrder;
 import com.pizza.service.ProductOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,23 +28,32 @@ public class ProductOrderRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductOrderDto>> findAllProductOrders(@RequestParam(name = "allProductOrders", required = false, defaultValue = "false") Boolean allProductOrders,
+    public ResponseEntity<List<ProductOrderDto>> findAllProductOrders(@RequestParam(name = "all", required = false, defaultValue = "false") Boolean all,
                                                                       @RequestParam(name = "clientId", required = false) Long clientId) {
 
         List<ProductOrder> allProductOrdersList = new ArrayList<>();
 
-        if (allProductOrders != null && allProductOrders) {
+        if (all) {
             allProductOrdersList = productOrderService.findAllProductOrders();
         } else if (clientId != null) {
             allProductOrdersList = productOrderService.findProductOrdersByClientId(clientId);
         }
 
-        return ResponseEntity.ok(productOrderConverter.convertFromEntityListToDtoList(allProductOrdersList));
+        List<ProductOrderDto> productOrdersDto = productOrderConverter.convertFromEntityListToDtoList(allProductOrdersList);
+        productOrderService.addPizzasIdsToDtoList(allProductOrdersList, productOrdersDto);
+        productOrderService.addClientIdToDtoList(allProductOrdersList, productOrdersDto);
+
+        return ResponseEntity.ok(productOrdersDto);
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ProductOrderDto> findProductOrder(@PathVariable Long id) {
-        return ResponseEntity.ok(productOrderConverter.convertFromEntityToDto(productOrderService.findProductOrderById(id)));
+    public ResponseEntity<ProductOrderDto> findProductOrderById(@PathVariable Long id) {
+        ProductOrder productOrderById = productOrderService.findProductOrderById(id);
+        ProductOrderDto productOrderDto = productOrderConverter.convertFromEntityToDto(productOrderById);
+        productOrderService.addPizzasIdsToDto(productOrderDto, productOrderById);
+        productOrderService.addClientId(productOrderDto, productOrderById.getClient());
+
+        return ResponseEntity.ok(productOrderDto);
     }
 
     @PostMapping
@@ -52,6 +62,7 @@ public class ProductOrderRestController {
         ProductOrder savedProductOrder = productOrderService.saveProductOrder(productOrder, productOrderDto);
         ProductOrderDto savedProductOrderDto = productOrderConverter.convertFromEntityToDto(savedProductOrder);
         productOrderService.addPizzasIdsToDto(savedProductOrderDto, savedProductOrder);
+        productOrderService.addClientId(savedProductOrderDto, savedProductOrder.getClient());
 
         return ResponseEntity.ok(savedProductOrderDto);
     }
@@ -60,8 +71,11 @@ public class ProductOrderRestController {
     public ResponseEntity<ProductOrderDto> updateProductOrder(@PathVariable(name = "id") Long id, @Valid @RequestBody ProductOrderDto productOrderDto) {
         ProductOrder productOrder = productOrderConverter.convertFromDtoToEntity(productOrderDto);
         ProductOrder updatedProductOwner = productOrderService.updateProductOrder(id, productOrder, productOrderDto);
+        ProductOrderDto updatedProductOrderDto = productOrderConverter.convertFromEntityToDto(updatedProductOwner);
+        productOrderService.addPizzasIdsToDto(updatedProductOrderDto, updatedProductOwner);
+        productOrderService.addClientId(updatedProductOrderDto, updatedProductOwner.getClient());
 
-        return ResponseEntity.ok(productOrderConverter.convertFromEntityToDto(updatedProductOwner));
+        return ResponseEntity.ok(updatedProductOrderDto);
     }
 
     @DeleteMapping(path = "/{id}")

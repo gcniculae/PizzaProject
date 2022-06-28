@@ -27,11 +27,11 @@ public class PizzaRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PizzaDto>> findAllPizzas(@RequestParam(name = "allPizzas", required = false, defaultValue = "false") Boolean allPizzas,
+    public ResponseEntity<List<PizzaDto>> findAllPizzas(@RequestParam(name = "all", required = false, defaultValue = "false") Boolean all,
                                                         @RequestParam(name = "price", required = false) Double price) {
         List<Pizza> allPizzasList = new ArrayList<>();
 
-        if (allPizzas != null && allPizzas) {
+        if (all) {
             allPizzasList = pizzaService.findAllPizza();
         } else if (price != null) {
             allPizzasList = pizzaService.findPizzasByPrice(price);
@@ -40,7 +40,7 @@ public class PizzaRestController {
         return ResponseEntity.ok(pizzaConverter.convertFromEntityListToDtoList(allPizzasList));
     }
 
-    @GetMapping(path = "/pizza")
+    @GetMapping(path = "/single")
     public ResponseEntity<PizzaDto> findPizza(@RequestParam(name = "id", required = false) Long id,
                                               @RequestParam(name = "name", required = false) String name) {
         Pizza pizza = new Pizza();

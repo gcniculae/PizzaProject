@@ -30,7 +30,7 @@ public class EmployeeRestController {
     }
 
     @GetMapping
-    public ResponseEntity<List<EmployeeDto>> findAllEmployees(@RequestParam(name = "allEmployees", required = false, defaultValue = "false") Boolean allEmployees,
+    public ResponseEntity<List<EmployeeDto>> findAllEmployees(@RequestParam(name = "all", required = false, defaultValue = "false") Boolean all,
                                                               @RequestParam(name = "employeeIds", required = false) List<Long> employeeIds,
                                                               @RequestParam(name = "firstName", required = false) String firstName,
                                                               @RequestParam(name = "lastName", required = false) String lastName,
@@ -43,7 +43,7 @@ public class EmployeeRestController {
                                                               @RequestParam(name = "endDate", required = false)
                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         List<Employee> allEmployeesList = new ArrayList<>();
-        if (allEmployees) {
+        if (all) {
             allEmployeesList = employeeService.findAllEmployees();
         } else if (!employeeIds.isEmpty()) {
             allEmployeesList = employeeService.findEmployeesById(employeeIds);
@@ -61,14 +61,20 @@ public class EmployeeRestController {
             allEmployeesList = employeeService.findEmployeesBornInTimeframe(startDate, endDate);
         }
 
-        return ResponseEntity.ok(employeeConverter.convertFromEntityListToDtoList(allEmployeesList));
+        List<EmployeeDto> employeeDtoList = employeeConverter.convertFromEntityListToDtoList(allEmployeesList);
+        employeeService.addLocationIdToDtoList(allEmployeesList, employeeDtoList);
+
+        return ResponseEntity.ok(employeeDtoList);
     }
 
     @GetMapping(path = "/s")
     public ResponseEntity<List<EmployeeDto>> findEmployeesByFirstNameUsingSpecification(EmployeeDto employeeDto) {
         List<Employee> employeesByFirstNameUsingSpecification = employeeService.findEmployeesUsingSpecification(employeeDto);
 
-        return ResponseEntity.ok(employeeConverter.convertFromEntityListToDtoList(employeesByFirstNameUsingSpecification));
+        List<EmployeeDto> employeeDtoList = employeeConverter.convertFromEntityListToDtoList(employeesByFirstNameUsingSpecification);
+        employeeService.addLocationIdToDtoList(employeesByFirstNameUsingSpecification, employeeDtoList);
+
+        return ResponseEntity.ok(employeeDtoList);
     }
 
 //    @GetMapping(path = "/all-employees")
@@ -84,6 +90,7 @@ public class EmployeeRestController {
     public ResponseEntity<EmployeeDto> findEmployeeById(@PathVariable("id") Long id) {
         Employee employee = employeeService.findEmployeeById(id);
         EmployeeDto employeeDto = employeeConverter.convertFromEntityToDto(employee);
+        employeeService.addLocationIdToDto(employee.getLocation(), employeeDto);
 
         return ResponseEntity.ok(employeeDto);
     }
@@ -129,6 +136,7 @@ public class EmployeeRestController {
         Employee employee = employeeConverter.convertFromDtoToEntity(employeeDto);
         Employee savedEmployee = employeeService.saveEmployee(employee, employeeDto.getLocationId());
         EmployeeDto savedEmployeeDto = employeeConverter.convertFromEntityToDto(savedEmployee);
+        employeeService.addLocationIdToDto(savedEmployee.getLocation(), savedEmployeeDto);
 
         return ResponseEntity.ok(savedEmployeeDto);
     }
@@ -138,6 +146,7 @@ public class EmployeeRestController {
         Employee employee = employeeConverter.convertFromDtoToEntity(employeeDto);
         Employee updatedEmployee = employeeService.updateEmployee(id, employee, employeeDto.getLocationId());
         EmployeeDto updatedEmployeeDto = employeeConverter.convertFromEntityToDto(updatedEmployee);
+        employeeService.addLocationIdToDto(updatedEmployee.getLocation(), updatedEmployeeDto);
 
         return ResponseEntity.ok(updatedEmployeeDto);
     }
