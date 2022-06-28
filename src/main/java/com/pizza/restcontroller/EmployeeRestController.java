@@ -37,7 +37,7 @@ public class EmployeeRestController {
                                                               @RequestParam(name = "dateOfBirth", required = false)
                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateOfBirth,
                                                               @RequestParam(name = "position", required = false) Position position,
-                                                              @RequestParam(name = "under35", required = false) Boolean under35,
+                                                              @RequestParam(name = "under35", required = false, defaultValue = "false") Boolean under35,
                                                               @RequestParam(name = "startDate", required = false)
                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                                               @RequestParam(name = "endDate", required = false)
@@ -45,7 +45,7 @@ public class EmployeeRestController {
         List<Employee> allEmployeesList = new ArrayList<>();
         if (all) {
             allEmployeesList = employeeService.findAllEmployees();
-        } else if (!employeeIds.isEmpty()) {
+        } else if (employeeIds != null) {
             allEmployeesList = employeeService.findEmployeesById(employeeIds);
         } else if (firstName != null) {
             allEmployeesList = employeeService.findEmployeesByFirstName(firstName);
@@ -55,7 +55,7 @@ public class EmployeeRestController {
             allEmployeesList = employeeService.findEmployeesByDateOfBirth(dateOfBirth);
         } else if (position != null) {
             allEmployeesList = employeeService.findEmployeesByPosition(position);
-        } else if (under35 != null && under35) {
+        } else if (under35) {
             allEmployeesList = employeeService.findCooksWithAgeUnder35();
         } else if (startDate != null && endDate != null) {
             allEmployeesList = employeeService.findEmployeesBornInTimeframe(startDate, endDate);
