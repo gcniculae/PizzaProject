@@ -46,5 +46,13 @@
 <!--            <column name="product_order_id" value="1"/>-->
 <!--            <column name="pizzas_id" value="1"/>-->
 <!--        </insert>-->
+<!--        <insert tableName="product_order_pizzas">-->
+<!--            <column name="product_order_id" value="1"/>-->
+<!--            <column name="pizzas_id" value="2"/>-->
+<!--        </insert>-->
+<!--        <insert tableName="product_order_pizzas">-->
+<!--            <column name="product_order_id" value="2"/>-->
+<!--            <column name="pizzas_id" value="2"/>-->
+<!--        </insert>-->
 <!--    </changeSet>-->
 </databaseChangeLog>

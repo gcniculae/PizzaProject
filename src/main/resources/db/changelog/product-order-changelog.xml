@@ -17,6 +17,9 @@
             <column name="client_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="payment_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
         <addForeignKeyConstraint baseColumnNames="client_id"
@@ -26,18 +29,18 @@
                                  referencedTableName="client"/>
     </changeSet>
 
-    <changeSet id="product-order-2" author="George Niculae">
-        <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">
-                SELECT COUNT(*)
-                FROM product_order;
-            </sqlCheck>
-        </preConditions>
-        <insert tableName="product_order">
-            <column name="client_id" value="1"/>
-        </insert>
-        <insert tableName="product_order">
-            <column name="client_id" value="4"/>
-        </insert>
-    </changeSet>
+    <!--    <changeSet id="product-order-2" author="George Niculae">-->
+    <!--        <preConditions onFail="MARK_RAN">-->
+    <!--            <sqlCheck expectedResult="0">-->
+    <!--                SELECT COUNT(*)-->
+    <!--                FROM product_order;-->
+    <!--            </sqlCheck>-->
+    <!--        </preConditions>-->
+    <!--        <insert tableName="product_order">-->
+    <!--            <column name="client_id" value="1"/>-->
+    <!--        </insert>-->
+    <!--        <insert tableName="product_order">-->
+    <!--            <column name="client_id" value="4"/>-->
+    <!--        </insert>-->
+    <!--    </changeSet>-->
 </databaseChangeLog>
