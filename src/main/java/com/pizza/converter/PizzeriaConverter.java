@@ -11,8 +11,7 @@ public class PizzeriaConverter extends BaseConverter<PizzeriaDto, Pizzeria> {
     @Override
     public PizzeriaDto convertFromEntityToDto(Pizzeria pizzeria) {
         PizzeriaDto pizzeriaDto = new PizzeriaDto();
-        BeanUtils.copyProperties(pizzeria, pizzeriaDto, "owner");
-        pizzeriaDto.setOwnerId(pizzeria.getOwner().getId());
+        BeanUtils.copyProperties(pizzeria, pizzeriaDto);
 
         return pizzeriaDto;
     }
@@ -20,7 +19,7 @@ public class PizzeriaConverter extends BaseConverter<PizzeriaDto, Pizzeria> {
     @Override
     public Pizzeria convertFromDtoToEntity(PizzeriaDto pizzeriaDto) {
         Pizzeria pizzeria = new Pizzeria();
-        BeanUtils.copyProperties(pizzeriaDto, pizzeria, "ownerId");
+        BeanUtils.copyProperties(pizzeriaDto, pizzeria);
 
         return pizzeria;
     }

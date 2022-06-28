@@ -13,7 +13,6 @@ public class ProductOrderConverter extends BaseConverter<ProductOrderDto, Produc
     public ProductOrderDto convertFromEntityToDto(ProductOrder productOrder) {
         ProductOrderDto productOrderDto = new ProductOrderDto();
         BeanUtils.copyProperties(productOrder, productOrderDto);
-        productOrderDto.setClientId(productOrder.getClient().getId());
 
         return productOrderDto;
     }

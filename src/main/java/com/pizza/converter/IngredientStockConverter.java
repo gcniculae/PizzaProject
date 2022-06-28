@@ -11,8 +11,7 @@ public class IngredientStockConverter extends BaseConverter<IngredientStockDto, 
     @Override
     public IngredientStockDto convertFromEntityToDto(IngredientStock ingredientStock) {
         IngredientStockDto ingredientStockDto = new IngredientStockDto();
-        BeanUtils.copyProperties(ingredientStock, ingredientStockDto, "location");
-        ingredientStockDto.setLocationId(ingredientStock.getLocation().getId());
+        BeanUtils.copyProperties(ingredientStock, ingredientStockDto);
 
         return ingredientStockDto;
     }
@@ -20,7 +19,7 @@ public class IngredientStockConverter extends BaseConverter<IngredientStockDto, 
     @Override
     public IngredientStock convertFromDtoToEntity(IngredientStockDto ingredientStockDto) {
         IngredientStock ingredientStock = new IngredientStock();
-        BeanUtils.copyProperties(ingredientStockDto, ingredientStock, "locationDtoId");
+        BeanUtils.copyProperties(ingredientStockDto, ingredientStock);
 
         return ingredientStock;
     }
