@@ -17,9 +17,7 @@
             <column name="client_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="payment_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
+            <column name="payment_id" type="bigint"/>
         </createTable>
 
         <addForeignKeyConstraint baseColumnNames="client_id"
