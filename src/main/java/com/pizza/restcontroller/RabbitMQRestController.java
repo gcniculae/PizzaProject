@@ -31,7 +31,7 @@ public class RabbitMQRestController {
         productOrderDto.setPizzasIds(pizzasIds);
         rabbitMQSenderService.send(productOrderDto);
 
-        return "Message sent to the RabbitMQ successfully";
+        return "Message sent to the RabbitMQ successfully.";
     }
 
     private String randomCode() {
