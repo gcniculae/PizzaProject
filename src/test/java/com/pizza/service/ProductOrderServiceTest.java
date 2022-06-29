@@ -39,6 +39,9 @@ public class ProductOrderServiceTest {
     @Mock
     private PizzaService pizzaService;
 
+    @Mock
+    private RabbitMQSenderService rabbitMQSenderService;
+
     private ProductOrder productOrder1;
     private ProductOrder productOrder2;
     private ProductOrder productOrder3;
@@ -54,7 +57,8 @@ public class ProductOrderServiceTest {
         clientService = mock(ClientService.class);
         paymentClientService = mock(PaymentClientService.class);
         pizzaService = mock(PizzaService.class);
-        productOrderService = new ProductOrderService(productOrderRepository, clientService, paymentClientService, pizzaService);
+        rabbitMQSenderService = mock(RabbitMQSenderService.class);
+        productOrderService = new ProductOrderService(productOrderRepository, clientService, paymentClientService, pizzaService, rabbitMQSenderService);
 
         initializeClients();
 
@@ -111,6 +115,8 @@ public class ProductOrderServiceTest {
     public void saveProductOrderTest() {
         List<Pizza> pizzas = Arrays.asList(pizza1, pizza2);
         List<Long> pizzasIds = Arrays.asList(pizza1.getId(), pizza2.getId());
+        Double pizzaTotalPrice = pizza1.getPrice() + pizza2.getPrice();
+        String savePayment = "{\"id\":1,\"clientId\":1,\"amount\":55.0}";
 
         ProductOrderDto productOrderDto = new ProductOrderDto();
         productOrderDto.setClientId(client1.getId());
@@ -121,8 +127,9 @@ public class ProductOrderServiceTest {
         productOrder1.setClient(client1);
         productOrder1.setPizzas(pizzas);
         when(productOrderRepository.save(eq(productOrder1))).thenReturn(productOrder1);
+        when(paymentClientService.savePayment(eq(client1.getId()), eq(pizzaTotalPrice))).thenReturn(savePayment);
 
-        ProductOrder savedProductOrder = productOrderService.saveProductOrder(productOrder1, productOrderDto);
+        ProductOrder savedProductOrder = productOrderService.saveProductOrder(productOrder1, productOrderDto, false);
 
         assertEquals(productOrder1.getId(), savedProductOrder.getId());
 
@@ -155,7 +162,7 @@ public class ProductOrderServiceTest {
     public void findExistentProductOrderByIdTest() {
         when(productOrderRepository.findById(eq(productOrder1.getId()))).thenReturn(Optional.of(productOrder1));
 
-        ProductOrder productOrderById = productOrderService.findProductOrderById(productOrder1.getId());
+        ProductOrder productOrderById = productOrderService.findProductOrderById(productOrder1.getId(), true);
 
         assertEquals(productOrder1.getId(), productOrderById.getId());
 
@@ -186,7 +193,7 @@ public class ProductOrderServiceTest {
         when(productOrderRepository.save(eq(productOrder1))).thenReturn(productOrder1);
         when(productOrderRepository.findById(eq(productOrder1.getId()))).thenReturn(Optional.of(productOrder1));
 
-        ProductOrder updatedProductOrder = productOrderService.updateProductOrder(productOrder1.getId(), productOrder1, productOrderDto);
+        ProductOrder updatedProductOrder = productOrderService.updateProductOrder(productOrder1.getId(), productOrder1, productOrderDto, true);
 
         assertEquals(productOrder1.getId(), updatedProductOrder.getId());
         assertEquals(productOrder1.getClient(), updatedProductOrder.getClient());
@@ -197,7 +204,7 @@ public class ProductOrderServiceTest {
         when(productOrderRepository.findById(eq(productOrder1.getId()))).thenReturn(Optional.of(productOrder1));
         doNothing().when(productOrderRepository).deleteById(productOrder1.getId());
 
-        productOrderService.deleteProductOrderServiceById(productOrder1.getId());
+        productOrderService.deleteProductOrderServiceById(productOrder1.getId(), false);
 
         verify(productOrderRepository, times(1)).deleteById(productOrder1.getId());
     }

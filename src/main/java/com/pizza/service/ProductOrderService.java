@@ -23,23 +23,28 @@ public class ProductOrderService {
 
     private final PizzaService pizzaService;
 
+    private final RabbitMQSenderService rabbitMQSenderService;
+
     @Autowired
-    public ProductOrderService(ProductOrderRepository productOrderRepository, ClientService clientService, PaymentClientService paymentClientService, PizzaService pizzaService) {
+    public ProductOrderService(ProductOrderRepository productOrderRepository, ClientService clientService, PaymentClientService paymentClientService, PizzaService pizzaService, RabbitMQSenderService rabbitMQSenderService) {
         this.productOrderRepository = productOrderRepository;
         this.clientService = clientService;
         this.paymentClientService = paymentClientService;
         this.pizzaService = pizzaService;
+        this.rabbitMQSenderService = rabbitMQSenderService;
     }
 
-    public ProductOrder saveProductOrder(ProductOrder productOrder, ProductOrderDto productOrderDto) {
+    public ProductOrder saveProductOrder(ProductOrder productOrder, ProductOrderDto productOrderDto, Boolean useMessageQueue) {
         productOrder.setClient(clientService.findClientById(productOrderDto.getClientId()));
         productOrder.setPizzas(pizzaService.findPizzasByIds(productOrderDto.getPizzasIds()));
 
         Double pizzaTotalPrice = getPizzaTotalPrice(productOrder);
 
-        if (productOrder.getPaymentId() == null) {
+        if (productOrder.getPaymentId() == null && !useMessageQueue) {
             String savePayment = paymentClientService.savePayment(productOrder.getClient().getId(), pizzaTotalPrice);
             productOrder.setPaymentId(extractPaymentId(savePayment));
+        } else if (useMessageQueue) {
+            rabbitMQSenderService.send(productOrderDto);
         }
 
         return productOrderRepository.save(productOrder);
@@ -62,14 +67,16 @@ public class ProductOrderService {
         return productOrderRepository.findByClientId(clientId);
     }
 
-    public ProductOrder findProductOrderById(Long id) {
+    public ProductOrder findProductOrderById(Long id, Boolean useMessageQueue) {
         Optional<ProductOrder> optionalProductOrder = productOrderRepository.findById(id);
 
         if (optionalProductOrder.isPresent()) {
-            String paymentByIdResponse = paymentClientService.findPaymentById(id);
-
             ProductOrder productOrder = optionalProductOrder.get();
-            productOrder.setPaymentId(extractPaymentId(paymentByIdResponse));
+
+            if (!useMessageQueue) {
+                String paymentByIdResponse = paymentClientService.findPaymentById(id);
+                productOrder.setPaymentId(extractPaymentId(paymentByIdResponse));
+            }
 
             return productOrder;
         } else {
@@ -77,21 +84,23 @@ public class ProductOrderService {
         }
     }
 
-    public ProductOrder updateProductOrder(Long id, ProductOrder productOrder, ProductOrderDto productOrderDto) {
-        ProductOrder productOrderById = findProductOrderById(id);
+    public ProductOrder updateProductOrder(Long id, ProductOrder productOrder, ProductOrderDto productOrderDto, Boolean useMessageQueue) {
+        ProductOrder productOrderById = findProductOrderById(id, useMessageQueue);
         productOrder.setId(productOrderById.getId());
 
         productOrder.setClient(clientService.findClientById(productOrderDto.getClientId()));
         productOrder.setPizzas(pizzaService.findPizzasByIds(productOrderDto.getPizzasIds()));
 
-        String updatePayment = paymentClientService.updatePayment(productOrderById.getPaymentId(), productOrder.getClient().getId(), getPizzaTotalPrice(productOrder));
-        productOrder.setPaymentId(extractPaymentId(updatePayment));
+        if (!useMessageQueue) {
+            String updatePayment = paymentClientService.updatePayment(productOrderById.getPaymentId(), productOrder.getClient().getId(), getPizzaTotalPrice(productOrder));
+            productOrder.setPaymentId(extractPaymentId(updatePayment));
+        }
 
-        return saveProductOrder(productOrder, productOrderDto);
+        return saveProductOrder(productOrder, productOrderDto, useMessageQueue);
     }
 
-    public void deleteProductOrderServiceById(Long id) {
-        ProductOrder productOrderById = findProductOrderById(id);
+    public void deleteProductOrderServiceById(Long id, Boolean useMessageQueue) {
+        ProductOrder productOrderById = findProductOrderById(id, useMessageQueue);
 
         productOrderRepository.deleteById(productOrderById.getId());
     }

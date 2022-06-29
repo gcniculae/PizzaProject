@@ -47,8 +47,9 @@ public class ProductOrderRestController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ProductOrderDto> findProductOrderById(@PathVariable Long id) {
-        ProductOrder productOrderById = productOrderService.findProductOrderById(id);
+    public ResponseEntity<ProductOrderDto> findProductOrderById(@PathVariable Long id,
+                                                                @RequestParam(name = "useMessageQueue", required = false, defaultValue = "false") Boolean useMessageQueue) {
+        ProductOrder productOrderById = productOrderService.findProductOrderById(id, useMessageQueue);
         ProductOrderDto productOrderDto = productOrderConverter.convertFromEntityToDto(productOrderById);
         productOrderService.addPizzasIdsToDto(productOrderDto, productOrderById);
         productOrderService.addClientId(productOrderDto, productOrderById.getClient());
@@ -57,9 +58,10 @@ public class ProductOrderRestController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductOrderDto> addProductOrder(@Valid @RequestBody ProductOrderDto productOrderDto) {
+    public ResponseEntity<ProductOrderDto> addProductOrder(@Valid @RequestBody ProductOrderDto productOrderDto,
+                                                           @RequestParam(value = "useMessageQueue", required = false, defaultValue = "false") Boolean useMessageQueue) {
         ProductOrder productOrder = productOrderConverter.convertFromDtoToEntity(productOrderDto);
-        ProductOrder savedProductOrder = productOrderService.saveProductOrder(productOrder, productOrderDto);
+        ProductOrder savedProductOrder = productOrderService.saveProductOrder(productOrder, productOrderDto, useMessageQueue);
         ProductOrderDto savedProductOrderDto = productOrderConverter.convertFromEntityToDto(savedProductOrder);
         productOrderService.addPizzasIdsToDto(savedProductOrderDto, savedProductOrder);
         productOrderService.addClientId(savedProductOrderDto, savedProductOrder.getClient());
@@ -68,9 +70,10 @@ public class ProductOrderRestController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ProductOrderDto> updateProductOrder(@PathVariable(name = "id") Long id, @Valid @RequestBody ProductOrderDto productOrderDto) {
+    public ResponseEntity<ProductOrderDto> updateProductOrder(@PathVariable(name = "id") Long id, @Valid @RequestBody ProductOrderDto productOrderDto,
+                                                              @RequestParam(value = "useMessageQueue", required = false, defaultValue = "false") Boolean useMessageQueue) {
         ProductOrder productOrder = productOrderConverter.convertFromDtoToEntity(productOrderDto);
-        ProductOrder updatedProductOwner = productOrderService.updateProductOrder(id, productOrder, productOrderDto);
+        ProductOrder updatedProductOwner = productOrderService.updateProductOrder(id, productOrder, productOrderDto, useMessageQueue);
         ProductOrderDto updatedProductOrderDto = productOrderConverter.convertFromEntityToDto(updatedProductOwner);
         productOrderService.addPizzasIdsToDto(updatedProductOrderDto, updatedProductOwner);
         productOrderService.addClientId(updatedProductOrderDto, updatedProductOwner.getClient());
@@ -79,8 +82,9 @@ public class ProductOrderRestController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<ProductOrderDto> deleteProductOrderById(@PathVariable Long id) {
-        productOrderService.deleteProductOrderServiceById(id);
+    public ResponseEntity<ProductOrderDto> deleteProductOrderById(@PathVariable Long id,
+                                                                  @RequestParam(value = "useMessageQueue", required = false, defaultValue = "false") Boolean useMessageQueue) {
+        productOrderService.deleteProductOrderServiceById(id, useMessageQueue);
 
         return ResponseEntity.noContent().build();
     }
