@@ -2,6 +2,7 @@ package com.pizza.restcontroller;
 
 import com.pizza.dto.ClientDto;
 import com.pizza.entity.Client;
+import org.json.HTTP;
 import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -18,6 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ClientRestControllerIntegrationTest {
@@ -28,7 +31,7 @@ public class ClientRestControllerIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private final HttpHeaders headers = new HttpHeaders();
+    private HttpHeaders headers = new HttpHeaders();
 
     @Test
     public void saveClient() {
@@ -138,6 +141,49 @@ public class ClientRestControllerIntegrationTest {
 
         try {
             JSONAssert.assertEquals(expected, response.getBody(), false);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void findClientsUsingSpecificationTest() {
+        HttpEntity<Client> entity = new HttpEntity<>(null, headers);
+
+        ResponseEntity<String> responseEntity = restTemplate.exchange(createUrlWithPort("/clients/s?lastName=nescu"), HttpMethod.GET, entity, String.class);
+
+        String expected = "[\n" +
+                "    {\n" +
+                "        \"id\": 2,\n" +
+                "        \"firstName\": \"Marin\",\n" +
+                "        \"lastName\": \"Stefanescu\",\n" +
+                "        \"phoneNumber\": \"0720000050\",\n" +
+                "        \"dateOfBirth\": \"1994-02-04\",\n" +
+                "        \"address\": \"Ploiesti\",\n" +
+                "        \"clientCode\": \"CDEF7437BFA1911ECA91900059A3C7A00\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"id\": 4,\n" +
+                "        \"firstName\": \"Ion\",\n" +
+                "        \"lastName\": \"Constantinescu\",\n" +
+                "        \"phoneNumber\": \"0723001004\",\n" +
+                "        \"dateOfBirth\": \"1979-09-22\",\n" +
+                "        \"address\": \"Ploiesti\",\n" +
+                "        \"clientCode\": \"CDEF75475FA1911ECA91900059A3C7A00\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "        \"id\": 5,\n" +
+                "        \"firstName\": \"Marius\",\n" +
+                "        \"lastName\": \"Stefanescu\",\n" +
+                "        \"phoneNumber\": \"0724456097\",\n" +
+                "        \"dateOfBirth\": \"1975-07-19\",\n" +
+                "        \"address\": \"Ploiesti\",\n" +
+                "        \"clientCode\": \"CDEF755C5FA1911ECA91900059A3C7A00\"\n" +
+                "    }\n" +
+                "]";
+
+        try {
+            JSONAssert.assertEquals(expected, responseEntity.getBody(), false);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }

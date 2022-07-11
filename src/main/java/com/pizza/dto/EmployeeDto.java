@@ -34,7 +34,7 @@ public class EmployeeDto extends PersonDto {
             return this;
         }
 
-        public EmployeeDtoBuilder setOwnerDto(Long locationId) {
+        public EmployeeDtoBuilder setLocationId(Long locationId) {
             this.locationId = locationId;
             return this;
         }
