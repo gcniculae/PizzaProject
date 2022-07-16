@@ -17,6 +17,4 @@ public class ClientRestControllerMockTest {
 
     @MockBean
     private ClientRepository clientRepository;
-
-
 }
