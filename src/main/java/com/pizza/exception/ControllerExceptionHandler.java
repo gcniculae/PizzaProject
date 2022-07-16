@@ -19,25 +19,25 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler({NotFoundException.class})
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public ErrorDto handleNotFound(HttpServletRequest request, Exception exception) {
+    public ErrorDto handleNotFound(Exception exception) {
         return handleBaseException(exception, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({BadRequestException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ErrorDto handleBadRequest(HttpServletRequest request, Exception exception) {
+    public ErrorDto handleBadRequest(Exception exception) {
         return handleBaseException(exception, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({MethodNotSupportedException.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorDto handleMethodNotSupported(HttpServletRequest request, Exception exception) {
+    public ErrorDto handleMethodNotSupported(Exception exception) {
         return handleBaseException(exception, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public ErrorDto handleBadRequestValidation(HttpServletRequest request, Exception exception) {
+    public ErrorDto handleBadRequestValidation(Exception exception) {
         MethodArgumentNotValidException notValidException = (MethodArgumentNotValidException) exception;
         List<ObjectError> allErrors = notValidException.getBindingResult().getAllErrors();
         StringBuilder message = new StringBuilder();
@@ -52,7 +52,7 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorDto handleException(HttpServletRequest request, Exception exception) {
+    public ErrorDto handleException(Exception exception) {
         logger.error("An error occurred", exception);
 
         return new ErrorDto("internal.server.error", "An error occurred.",
